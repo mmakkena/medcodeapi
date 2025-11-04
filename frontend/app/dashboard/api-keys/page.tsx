@@ -117,7 +117,7 @@ export default function APIKeysPage() {
         {newKey && (
           <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-md">
             <p className="text-sm font-medium text-green-800 mb-2">
-              New API Key Created! Copy it now - you won't see it again.
+              New API Key Created! Copy it now - you won&apos;t see it again.
             </p>
             <div className="flex items-center gap-2">
               <code className="flex-1 p-2 bg-white border rounded text-sm font-mono">
