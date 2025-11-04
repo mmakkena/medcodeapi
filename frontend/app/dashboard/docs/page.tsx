@@ -1,0 +1,292 @@
+'use client';
+
+import { useState } from 'react';
+import { Copy, Check } from 'lucide-react';
+
+export default function DocsPage() {
+  const [copiedEndpoint, setCopiedEndpoint] = useState<string | null>(null);
+
+  const copyToClipboard = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedEndpoint(id);
+    setTimeout(() => setCopiedEndpoint(null), 2000);
+  };
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900">API Documentation</h1>
+        <p className="mt-2 text-gray-600">
+          Complete reference for the Nuvii API endpoints and authentication.
+        </p>
+      </div>
+
+      {/* Authentication */}
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-2xl font-semibold mb-4">Authentication</h2>
+        <p className="text-gray-600 mb-4">
+          All API requests must include your API key in the Authorization header:
+        </p>
+        <div className="bg-gray-900 text-gray-100 p-4 rounded-md font-mono text-sm relative">
+          <code>Authorization: Bearer YOUR_API_KEY</code>
+          <button
+            onClick={() => copyToClipboard('Authorization: Bearer YOUR_API_KEY', 'auth')}
+            className="absolute top-2 right-2 p-2 hover:bg-gray-800 rounded"
+          >
+            {copiedEndpoint === 'auth' ? (
+              <Check className="w-4 h-4 text-green-400" />
+            ) : (
+              <Copy className="w-4 h-4" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Base URL */}
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-2xl font-semibold mb-4">Base URL</h2>
+        <div className="bg-gray-900 text-gray-100 p-4 rounded-md font-mono text-sm relative">
+          <code>{apiUrl}</code>
+          <button
+            onClick={() => copyToClipboard(apiUrl, 'base-url')}
+            className="absolute top-2 right-2 p-2 hover:bg-gray-800 rounded"
+          >
+            {copiedEndpoint === 'base-url' ? (
+              <Check className="w-4 h-4 text-green-400" />
+            ) : (
+              <Copy className="w-4 h-4" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Endpoints */}
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-2xl font-semibold mb-6">Endpoints</h2>
+
+        {/* ICD-10 Search */}
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
+            <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+            Search ICD-10 Codes
+          </h3>
+          <p className="text-gray-600 mb-3">Search for ICD-10 codes by code or description.</p>
+
+          <div className="mb-3">
+            <div className="text-sm font-semibold text-gray-700 mb-2">Endpoint:</div>
+            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm relative">
+              <code>GET /api/v1/icd10/search?query=diabetes&amp;limit=10</code>
+              <button
+                onClick={() => copyToClipboard('GET /api/v1/icd10/search?query=diabetes&limit=10', 'icd10')}
+                className="absolute top-2 right-2 p-2 hover:bg-gray-800 rounded"
+              >
+                {copiedEndpoint === 'icd10' ? (
+                  <Check className="w-4 h-4 text-green-400" />
+                ) : (
+                  <Copy className="w-4 h-4" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          <div className="mb-3">
+            <div className="text-sm font-semibold text-gray-700 mb-2">Example Request:</div>
+            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm overflow-x-auto">
+              <pre>{`curl -X GET "${apiUrl}/api/v1/icd10/search?query=diabetes" \\
+  -H "Authorization: Bearer YOUR_API_KEY"`}</pre>
+            </div>
+          </div>
+
+          <div>
+            <div className="text-sm font-semibold text-gray-700 mb-2">Response:</div>
+            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm overflow-x-auto">
+              <pre>{`{
+  "codes": [
+    {
+      "code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications",
+      "category": "Endocrine"
+    }
+  ],
+  "count": 1
+}`}</pre>
+            </div>
+          </div>
+        </div>
+
+        {/* CPT Search */}
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
+            <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+            Search CPT Codes
+          </h3>
+          <p className="text-gray-600 mb-3">Search for CPT codes by code or description.</p>
+
+          <div className="mb-3">
+            <div className="text-sm font-semibold text-gray-700 mb-2">Endpoint:</div>
+            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm relative">
+              <code>GET /api/v1/cpt/search?query=office visit&amp;limit=10</code>
+              <button
+                onClick={() => copyToClipboard('GET /api/v1/cpt/search?query=office visit&limit=10', 'cpt')}
+                className="absolute top-2 right-2 p-2 hover:bg-gray-800 rounded"
+              >
+                {copiedEndpoint === 'cpt' ? (
+                  <Check className="w-4 h-4 text-green-400" />
+                ) : (
+                  <Copy className="w-4 h-4" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          <div className="mb-3">
+            <div className="text-sm font-semibold text-gray-700 mb-2">Example Request:</div>
+            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm overflow-x-auto">
+              <pre>{`curl -X GET "${apiUrl}/api/v1/cpt/search?query=office visit" \\
+  -H "Authorization: Bearer YOUR_API_KEY"`}</pre>
+            </div>
+          </div>
+
+          <div>
+            <div className="text-sm font-semibold text-gray-700 mb-2">Response:</div>
+            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm overflow-x-auto">
+              <pre>{`{
+  "codes": [
+    {
+      "code": "99213",
+      "description": "Office or other outpatient visit, established patient, 20-29 minutes",
+      "category": "Evaluation & Management"
+    }
+  ],
+  "count": 1
+}`}</pre>
+            </div>
+          </div>
+        </div>
+
+        {/* Code Suggestions */}
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
+            <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded">POST</span>
+            Get Code Suggestions
+          </h3>
+          <p className="text-gray-600 mb-3">Get intelligent code suggestions from clinical text.</p>
+
+          <div className="mb-3">
+            <div className="text-sm font-semibold text-gray-700 mb-2">Endpoint:</div>
+            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm relative">
+              <code>POST /api/v1/suggest</code>
+              <button
+                onClick={() => copyToClipboard('POST /api/v1/suggest', 'suggest')}
+                className="absolute top-2 right-2 p-2 hover:bg-gray-800 rounded"
+              >
+                {copiedEndpoint === 'suggest' ? (
+                  <Check className="w-4 h-4 text-green-400" />
+                ) : (
+                  <Copy className="w-4 h-4" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          <div className="mb-3">
+            <div className="text-sm font-semibold text-gray-700 mb-2">Example Request:</div>
+            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm overflow-x-auto">
+              <pre>{`curl -X POST "${apiUrl}/api/v1/suggest" \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "text": "Patient presents with chronic hypertension and type 2 diabetes",
+    "max_results": 5
+  }'`}</pre>
+            </div>
+          </div>
+
+          <div>
+            <div className="text-sm font-semibold text-gray-700 mb-2">Response:</div>
+            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm overflow-x-auto">
+              <pre>{`{
+  "suggestions": [
+    {
+      "code": "I10",
+      "description": "Essential (primary) hypertension",
+      "category": "Cardiovascular",
+      "type": "ICD10",
+      "confidence": 0.95
+    },
+    {
+      "code": "E11.9",
+      "description": "Type 2 diabetes mellitus without complications",
+      "category": "Endocrine",
+      "type": "ICD10",
+      "confidence": 0.92
+    }
+  ],
+  "count": 2
+}`}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Rate Limits */}
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-2xl font-semibold mb-4">Rate Limits</h2>
+        <div className="space-y-3 text-gray-600">
+          <p>
+            <strong>Per Minute:</strong> 60 requests (Free), 300 requests (Developer), 1000 requests (Growth)
+          </p>
+          <p>
+            <strong>Per Day:</strong> 10,000 requests (adjusts based on your plan)
+          </p>
+          <p className="text-sm text-gray-500">
+            Rate limit headers are included in all responses: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+          </p>
+        </div>
+      </div>
+
+      {/* Error Codes */}
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-2xl font-semibold mb-4">Error Codes</h2>
+        <div className="space-y-2">
+          <div className="flex items-start gap-3">
+            <code className="px-2 py-1 bg-gray-100 text-gray-800 text-sm font-mono rounded">400</code>
+            <span className="text-gray-600">Bad Request - Invalid parameters</span>
+          </div>
+          <div className="flex items-start gap-3">
+            <code className="px-2 py-1 bg-gray-100 text-gray-800 text-sm font-mono rounded">401</code>
+            <span className="text-gray-600">Unauthorized - Invalid or missing API key</span>
+          </div>
+          <div className="flex items-start gap-3">
+            <code className="px-2 py-1 bg-gray-100 text-gray-800 text-sm font-mono rounded">429</code>
+            <span className="text-gray-600">Too Many Requests - Rate limit exceeded</span>
+          </div>
+          <div className="flex items-start gap-3">
+            <code className="px-2 py-1 bg-gray-100 text-gray-800 text-sm font-mono rounded">500</code>
+            <span className="text-gray-600">Internal Server Error - Something went wrong</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Interactive Docs */}
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-blue-900 mb-2">
+          Interactive API Documentation
+        </h3>
+        <p className="text-blue-800 mb-4">
+          Try out the API endpoints interactively with Swagger UI:
+        </p>
+        <a
+          href={`${apiUrl}/docs`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+        >
+          Open Swagger Docs →
+        </a>
+      </div>
+    </div>
+  );
+}
