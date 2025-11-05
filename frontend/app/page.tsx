@@ -56,10 +56,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              The fastest self-serve API for<br />ICD-10 & CPT coding
+              The fastest, simplest way to add AI-powered medical coding to your app
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 mb-4">
-              Get accurate diagnosis & procedure codes. No contracts. Ready in 5 minutes.
+              AI-powered ICD-10 & CPT APIs that convert clinical notes into codes. No contracts. Ready in 5 minutes.
             </p>
             <div className="flex flex-wrap justify-center gap-6 mb-8 text-gray-700">
               <div className="flex items-center gap-2">
