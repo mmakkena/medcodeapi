@@ -302,133 +302,129 @@ export default function Home() {
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Free Tier */}
-            <div className="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow bg-white">
-              <h3 className="text-xl font-semibold mb-2">Free</h3>
-              <div className="text-4xl font-bold mb-4">$0<span className="text-lg text-gray-600 font-normal">/mo</span></div>
-              <p className="text-sm text-gray-500 mb-6">Perfect for testing and small projects</p>
-              <ul className="space-y-3 mb-6 text-gray-700">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>100 requests/month</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>60 req/min rate limit</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>Community support</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>Full API documentation</span>
-                </li>
-              </ul>
-              <Link
-                href="/signup?plan=free"
-                className="block w-full text-center px-4 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 font-semibold"
-              >
-                Start with Free Tier
-              </Link>
-            </div>
+            <Link href="/signup?plan=free" className="block">
+              <div className="border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-gray-300 transition-all bg-white cursor-pointer h-full">
+                <h3 className="text-xl font-semibold mb-2">Free</h3>
+                <div className="text-4xl font-bold mb-4">$0<span className="text-lg text-gray-600 font-normal">/mo</span></div>
+                <p className="text-sm text-gray-500 mb-6">Perfect for testing and small projects</p>
+                <ul className="space-y-3 mb-6 text-gray-700">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>100 requests/month</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>60 req/min rate limit</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>Community support</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>Full API documentation</span>
+                  </li>
+                </ul>
+                <div className="w-full text-center px-4 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 font-semibold">
+                  Start with Free Tier
+                </div>
+              </div>
+            </Link>
 
             {/* Developer Tier */}
-            <div className="border-2 border-nuvii-blue rounded-lg p-6 hover:shadow-lg transition-shadow relative bg-white">
-              <div className="absolute top-0 right-0 bg-nuvii-blue text-white px-3 py-1 text-sm rounded-bl-lg rounded-tr-lg font-semibold">
-                Popular
+            <Link href="/signup?plan=developer" className="block">
+              <div className="border-2 border-nuvii-blue rounded-lg p-6 hover:shadow-lg hover:border-blue-600 transition-all relative bg-white cursor-pointer h-full">
+                <div className="absolute top-0 right-0 bg-nuvii-blue text-white px-3 py-1 text-sm rounded-bl-lg rounded-tr-lg font-semibold">
+                  Popular
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Developer</h3>
+                <div className="text-4xl font-bold mb-4">$49<span className="text-lg text-gray-600 font-normal">/mo</span></div>
+                <p className="text-sm text-gray-500 mb-6">For individual developers</p>
+                <ul className="space-y-3 mb-6 text-gray-700">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>10,000 requests/month</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>300 req/min rate limit</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>Email support</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>Usage analytics</span>
+                  </li>
+                </ul>
+                <div className="btn-primary block w-full text-center">
+                  Get Started
+                </div>
+                <p className="text-xs text-gray-500 text-center mt-3">$5 per 1,000 additional requests</p>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Developer</h3>
-              <div className="text-4xl font-bold mb-4">$49<span className="text-lg text-gray-600 font-normal">/mo</span></div>
-              <p className="text-sm text-gray-500 mb-6">For individual developers</p>
-              <ul className="space-y-3 mb-6 text-gray-700">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>10,000 requests/month</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>300 req/min rate limit</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>Email support</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>Usage analytics</span>
-                </li>
-              </ul>
-              <Link
-                href="/signup?plan=developer"
-                className="btn-primary block w-full text-center"
-              >
-                Get Started
-              </Link>
-              <p className="text-xs text-gray-500 text-center mt-3">$5 per 1,000 additional requests</p>
-            </div>
+            </Link>
 
             {/* Growth Tier */}
-            <div className="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow bg-white">
-              <h3 className="text-xl font-semibold mb-2">Growth</h3>
-              <div className="text-4xl font-bold mb-4">$299<span className="text-lg text-gray-600 font-normal">/mo</span></div>
-              <p className="text-sm text-gray-500 mb-6">For growing startups</p>
-              <ul className="space-y-3 mb-6 text-gray-700">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>100,000 requests/month</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>1,000 req/min rate limit</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>Priority support</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>99.9% SLA</span>
-                </li>
-              </ul>
-              <Link
-                href="/signup?plan=growth"
-                className="btn-secondary block w-full text-center"
-              >
-                Get Started
-              </Link>
-              <p className="text-xs text-gray-500 text-center mt-3">$2.50 per 1,000 additional requests</p>
-            </div>
+            <Link href="/signup?plan=growth" className="block">
+              <div className="border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-gray-300 transition-all bg-white cursor-pointer h-full">
+                <h3 className="text-xl font-semibold mb-2">Growth</h3>
+                <div className="text-4xl font-bold mb-4">$299<span className="text-lg text-gray-600 font-normal">/mo</span></div>
+                <p className="text-sm text-gray-500 mb-6">For growing startups</p>
+                <ul className="space-y-3 mb-6 text-gray-700">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>100,000 requests/month</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>1,000 req/min rate limit</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>Priority support</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>99.9% SLA</span>
+                  </li>
+                </ul>
+                <div className="btn-secondary block w-full text-center">
+                  Get Started
+                </div>
+                <p className="text-xs text-gray-500 text-center mt-3">$2.50 per 1,000 additional requests</p>
+              </div>
+            </Link>
 
             {/* Enterprise Tier */}
-            <div className="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow bg-white">
-              <h3 className="text-xl font-semibold mb-2">Enterprise</h3>
-              <div className="text-4xl font-bold mb-4">Custom</div>
-              <p className="text-sm text-gray-500 mb-6">For large organizations</p>
-              <ul className="space-y-3 mb-6 text-gray-700">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>1M+ requests/month</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>Custom rate limits</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>Dedicated support</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
-                  <span>99.99% SLA</span>
-                </li>
-              </ul>
-              <Link
-                href="mailto:support@nuvii.ai"
-                className="block w-full text-center px-4 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 font-semibold"
-              >
-                Contact Sales
-              </Link>
-            </div>
+            <Link href="mailto:support@nuvii.ai" className="block">
+              <div className="border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-gray-300 transition-all bg-white cursor-pointer h-full">
+                <h3 className="text-xl font-semibold mb-2">Enterprise</h3>
+                <div className="text-4xl font-bold mb-4">Custom</div>
+                <p className="text-sm text-gray-500 mb-6">For large organizations</p>
+                <ul className="space-y-3 mb-6 text-gray-700">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>1M+ requests/month</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>Custom rate limits</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>Dedicated support</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
+                    <span>99.99% SLA</span>
+                  </li>
+                </ul>
+                <div className="w-full text-center px-4 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 font-semibold">
+                  Contact Sales
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </section>
