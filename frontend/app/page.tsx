@@ -325,7 +325,7 @@ export default function Home() {
                 </li>
               </ul>
               <Link
-                href="/signup"
+                href="/signup?plan=free"
                 className="block w-full text-center px-4 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 font-semibold"
               >
                 Start with Free Tier
@@ -359,7 +359,7 @@ export default function Home() {
                 </li>
               </ul>
               <Link
-                href="/signup"
+                href="/signup?plan=developer"
                 className="btn-primary block w-full text-center"
               >
                 Get Started
@@ -391,7 +391,7 @@ export default function Home() {
                 </li>
               </ul>
               <Link
-                href="/signup"
+                href="/signup?plan=growth"
                 className="btn-secondary block w-full text-center"
               >
                 Get Started
