@@ -48,6 +48,7 @@ export const usageAPI = {
 // Billing API
 export const billingAPI = {
   getPortal: () => api.get('/api/v1/billing/portal'),
+  createCheckout: (planName: string) => api.post(`/api/v1/billing/checkout?plan_name=${planName}`),
 };
 
 // Code Search API (requires API key)

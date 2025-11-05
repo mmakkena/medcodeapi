@@ -10,11 +10,58 @@ from app.models.plan import Plan
 from app.middleware.auth import get_current_user
 from app.services.stripe_service import (
     create_billing_portal_session,
+    create_checkout_session,
     verify_webhook_signature
 )
 from app.config import settings
 
 router = APIRouter()
+
+
+@router.post("/checkout")
+async def create_checkout(
+    plan_name: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Create a Stripe Checkout session for subscribing to a plan.
+    """
+    # Find the plan
+    plan = db.query(Plan).filter(Plan.name == plan_name).first()
+
+    if not plan:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Plan '{plan_name}' not found"
+        )
+
+    if not plan.stripe_price_id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Plan '{plan_name}' does not have a Stripe price configured"
+        )
+
+    # Check if user already has a subscription
+    existing_subscription = db.query(StripeSubscription).filter(
+        StripeSubscription.user_id == current_user.id
+    ).first()
+
+    # Configure URLs
+    frontend_url = settings.CORS_ORIGINS.split(',')[0]
+    success_url = f"{frontend_url}/dashboard/billing?success=true"
+    cancel_url = f"{frontend_url}/dashboard/billing?canceled=true"
+
+    # Create checkout session
+    checkout_session = await create_checkout_session(
+        customer_email=current_user.email,
+        price_id=plan.stripe_price_id,
+        success_url=success_url,
+        cancel_url=cancel_url,
+        customer_id=existing_subscription.stripe_customer_id if existing_subscription else None
+    )
+
+    return {"url": checkout_session.url}
 
 
 @router.get("/portal")
@@ -34,11 +81,10 @@ async def get_billing_portal(
     if not subscription:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="No active subscription found"
+            detail="No active subscription found. Please subscribe to a plan first."
         )
 
     # Create billing portal session
-    # TODO: Configure return_url based on frontend URL
     return_url = f"{settings.CORS_ORIGINS.split(',')[0]}/dashboard/billing"
 
     portal_session = await create_billing_portal_session(

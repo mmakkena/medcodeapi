@@ -33,6 +33,33 @@ async def cancel_subscription(subscription_id: str) -> stripe.Subscription:
     return subscription
 
 
+async def create_checkout_session(
+    customer_email: str,
+    price_id: str,
+    success_url: str,
+    cancel_url: str,
+    customer_id: str | None = None
+) -> stripe.checkout.Session:
+    """Create a Stripe Checkout session for subscription"""
+    session_params = {
+        "mode": "subscription",
+        "line_items": [{
+            "price": price_id,
+            "quantity": 1,
+        }],
+        "success_url": success_url,
+        "cancel_url": cancel_url,
+    }
+
+    if customer_id:
+        session_params["customer"] = customer_id
+    else:
+        session_params["customer_email"] = customer_email
+
+    session = stripe.checkout.Session.create(**session_params)
+    return session
+
+
 async def create_billing_portal_session(customer_id: str, return_url: str) -> stripe.billing_portal.Session:
     """Create a Stripe billing portal session"""
     session = stripe.billing_portal.Session.create(

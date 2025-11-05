@@ -8,6 +8,21 @@ export default function BillingPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const handleUpgrade = async (planName: string) => {
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await billingAPI.createCheckout(planName);
+      // Redirect to Stripe Checkout
+      window.location.href = response.data.url;
+    } catch (err: any) {
+      setError(err.response?.data?.detail || 'Failed to create checkout session');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleManageBilling = async () => {
     setLoading(true);
     setError('');
@@ -67,7 +82,7 @@ export default function BillingPage() {
               <li>✓ Email support</li>
             </ul>
             <button
-              onClick={handleManageBilling}
+              onClick={() => handleUpgrade('Developer')}
               disabled={loading}
               className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
             >
@@ -89,7 +104,7 @@ export default function BillingPage() {
               <li>✓ 99.9% SLA</li>
             </ul>
             <button
-              onClick={handleManageBilling}
+              onClick={() => handleUpgrade('Growth')}
               disabled={loading}
               className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
             >
