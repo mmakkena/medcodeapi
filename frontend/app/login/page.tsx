@@ -34,9 +34,9 @@ export default function LoginPage() {
           <Image
             src="/nuvii_logo.png"
             alt="Nuvii AI"
-            width={450}
-            height={120}
-            className="h-30 w-auto mb-4"
+            width={360}
+            height={96}
+            className="h-24 w-auto mb-4"
           />
           <h2 className="text-3xl font-bold text-center">Sign in to your account</h2>
         </div>

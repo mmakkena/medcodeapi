@@ -36,9 +36,9 @@ export default function SignupPage() {
           <Image
             src="/nuvii_logo.png"
             alt="Nuvii AI"
-            width={450}
-            height={120}
-            className="h-30 w-auto mb-4"
+            width={360}
+            height={96}
+            className="h-24 w-auto mb-4"
           />
           <h2 className="text-3xl font-bold text-center">Create your account</h2>
           <p className="mt-2 text-center text-gray-600">
