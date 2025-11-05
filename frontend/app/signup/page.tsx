@@ -34,7 +34,7 @@ export default function SignupPage() {
       <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
         <div className="flex flex-col items-center">
           <Image
-            src="/nuvii_ai_logo_horizontal_light.svg"
+            src="/nuvii_logo.png"
             alt="Nuvii AI"
             width={150}
             height={40}

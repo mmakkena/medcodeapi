@@ -32,7 +32,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="px-4 py-4 flex justify-between items-center">
           <Link href="/dashboard">
             <Image
-              src="/nuvii_ai_logo_horizontal_light.svg"
+              src="/nuvii_logo.png"
               alt="Nuvii AI"
               width={120}
               height={32}

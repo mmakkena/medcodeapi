@@ -19,8 +19,47 @@ npm run dev
 ## Environment Variables
 
 Create `.env.local`:
-```
+```bash
+# Backend API URL
 NEXT_PUBLIC_API_URL=http://localhost:8000
+
+# NextAuth Configuration
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-random-secret-key-here
+
+# Google OAuth
+GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+# Microsoft Azure AD OAuth
+AZURE_AD_CLIENT_ID=your-azure-client-id
+AZURE_AD_CLIENT_SECRET=your-azure-client-secret
+AZURE_AD_TENANT_ID=common
+```
+
+### Setting up OAuth Providers
+
+#### Google OAuth Setup:
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing one
+3. Navigate to "APIs & Services" > "Credentials"
+4. Click "Create Credentials" > "OAuth client ID"
+5. Choose "Web application"
+6. Add authorized redirect URI: `http://localhost:3000/api/auth/callback/google`
+7. Copy Client ID and Client Secret to `.env.local`
+
+#### Microsoft Azure AD Setup:
+1. Go to [Azure Portal](https://portal.azure.com/)
+2. Navigate to "Azure Active Directory" > "App registrations"
+3. Click "New registration"
+4. Set name and supported account types
+5. Add redirect URI: `http://localhost:3000/api/auth/callback/azure-ad`
+6. Go to "Certificates & secrets" > Create new client secret
+7. Copy Application (client) ID and client secret to `.env.local`
+
+#### Generate NEXTAUTH_SECRET:
+```bash
+openssl rand -base64 32
 ```
 
 ## Project Structure
@@ -51,17 +90,19 @@ frontend/
 ## Features
 
 - Landing page with features & pricing
-- User authentication (signup/login)
+- User authentication (email/password, Google SSO, Microsoft SSO)
 - Dashboard with usage stats
 - API key management (create, list, revoke)
 - API documentation viewer
 - Billing management (Stripe portal)
+- Single Sign-On (SSO) with Google and Microsoft
 
 ## Technologies
 
 - Next.js 14 (App Router)
 - TypeScript
 - Tailwind CSS
+- NextAuth.js for authentication and SSO
 - Axios for API calls
 - React Hook Form for forms
 - Lucide React for icons

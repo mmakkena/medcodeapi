@@ -10,7 +10,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/">
             <Image
-              src="/nuvii_ai_logo_horizontal_light.svg"
+              src="/nuvii_logo.png"
               alt="Nuvii AI"
               width={120}
               height={32}
