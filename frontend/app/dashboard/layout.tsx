@@ -34,9 +34,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <Image
               src="/nuvii_logo.png"
               alt="Nuvii AI"
-              width={120}
-              height={32}
-              className="h-8 w-auto"
+              width={360}
+              height={96}
+              className="h-24 w-auto"
             />
           </Link>
           <div className="flex items-center gap-4">

@@ -12,9 +12,9 @@ export default function Home() {
             <Image
               src="/nuvii_logo.png"
               alt="Nuvii AI"
-              width={120}
-              height={32}
-              className="h-8 w-auto"
+              width={360}
+              height={96}
+              className="h-24 w-auto"
             />
           </Link>
           <nav className="hidden md:flex gap-6 items-center">
