@@ -1,8 +1,21 @@
 """FastAPI application entry point"""
 
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
+from app.middleware.rate_limit import init_redis, close_redis
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Manage application lifespan events"""
+    # Startup
+    await init_redis()
+    yield
+    # Shutdown
+    await close_redis()
+
 
 # Create FastAPI app
 app = FastAPI(
@@ -10,7 +23,8 @@ app = FastAPI(
     description="Medical coding lookup API for ICD-10 and CPT codes",
     version="0.1.0",
     docs_url="/docs",
-    redoc_url="/redoc"
+    redoc_url="/redoc",
+    lifespan=lifespan
 )
 
 # Configure CORS
@@ -37,10 +51,18 @@ async def root():
 @app.get("/health")
 async def health():
     """Detailed health check"""
+    from app.middleware.rate_limit import redis_client
+
+    redis_status = "disabled"
+    if settings.use_redis:
+        redis_status = "connected" if redis_client else "disconnected"
+    else:
+        redis_status = "in-memory"
+
     return {
         "status": "healthy",
         "database": "connected",
-        "redis": "connected" if settings.use_redis else "in-memory"
+        "redis": redis_status
     }
 
 

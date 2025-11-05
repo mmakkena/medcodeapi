@@ -4,6 +4,7 @@ import { useAuth } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { LayoutDashboard, Key, FileText, CreditCard, LogOut } from 'lucide-react';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -29,7 +30,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Top Nav */}
       <header className="bg-white border-b">
         <div className="px-4 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold text-blue-600">Nuvii API</div>
+          <Link href="/dashboard">
+            <Image
+              src="/nuvii_ai_logo_horizontal_light.svg"
+              alt="Nuvii AI"
+              width={120}
+              height={32}
+              className="h-8 w-auto"
+            />
+          </Link>
           <div className="flex items-center gap-4">
             <span className="text-sm text-gray-600">{user.email}</span>
             <button onClick={logout} className="text-sm text-red-600 hover:underline flex items-center gap-1">
@@ -72,7 +81,7 @@ function NavLink({ href, icon, children }: { href: string; icon: React.ReactNode
   return (
     <Link
       href={href}
-      className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-gray-100 text-gray-700 hover:text-blue-600"
+      className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-gray-100 text-gray-700 hover:text-nuvii-blue"
     >
       {icon}
       <span>{children}</span>

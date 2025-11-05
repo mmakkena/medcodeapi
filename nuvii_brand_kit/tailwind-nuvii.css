@@ -1,0 +1,24 @@
+
+/* nuvii.ai Tailwind tokens */
+:root{
+  --nuvii-text-900:#1F2A36;
+  --nuvii-bg:#FFFFFF;
+  --nuvii-blue:#1A73E8;
+  --nuvii-teal:#10B981;
+}
+.bg-nuvii-gradient{ 
+  background-image: linear-gradient(135deg, var(--nuvii-blue), var(--nuvii-teal));
+}
+.text-nuvii{ color: var(--nuvii-text-900); }
+/* Buttons */
+.btn-primary{ 
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius:12px; padding:12px 20px; font-weight:600; color:white;
+  background-image: linear-gradient(135deg, #1A73E8, #10B981);
+}
+.btn-primary:hover{ filter:brightness(1.05); }
+.btn-secondary{
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius:12px; padding:12px 20px; font-weight:600;
+  color: var(--nuvii-text-900); background:#F3F7FB;
+}

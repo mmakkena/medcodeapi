@@ -38,11 +38,20 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        nuvii: {
+          blue: '#1A73E8',
+          teal: '#10B981',
+          text: '#1F2A36',
+          'dark-bg': '#0b1220',
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      backgroundImage: {
+        'nuvii-gradient': 'linear-gradient(135deg, #1A73E8, #10B981)',
       },
     },
   },

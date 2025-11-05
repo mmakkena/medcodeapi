@@ -3,18 +3,56 @@
 from typing import Optional
 from datetime import datetime, timedelta
 from fastapi import HTTPException, status
+import redis.asyncio as redis
 from app.config import settings
 from app.models.api_key import APIKey
 from app.models.user import User
+import logging
 
-# Redis client (if configured)
-# TODO: Properly implement async Redis client initialization
-# For now, using in-memory rate limiting to avoid blocking issues
-redis_client: Optional[any] = None
-print("INFO: Using in-memory rate limiting (Redis disabled temporarily)")
+logger = logging.getLogger(__name__)
+
+# Redis client (will be initialized in lifespan event)
+redis_client: Optional[redis.Redis] = None
 
 # In-memory fallback for rate limiting
 _in_memory_store: dict[str, list[datetime]] = {}
+
+
+async def init_redis():
+    """Initialize Redis connection"""
+    global redis_client
+
+    if settings.use_redis:
+        try:
+            logger.info(f"Initializing Redis connection to {settings.REDIS_URL}")
+            redis_client = await redis.from_url(
+                settings.REDIS_URL,
+                encoding="utf-8",
+                decode_responses=True,
+                max_connections=10
+            )
+            # Test connection
+            await redis_client.ping()
+            logger.info("Redis connection successful")
+        except Exception as e:
+            logger.error(f"Failed to connect to Redis: {e}")
+            logger.info("Falling back to in-memory rate limiting")
+            redis_client = None
+    else:
+        logger.info("Redis disabled, using in-memory rate limiting")
+
+
+async def close_redis():
+    """Close Redis connection"""
+    global redis_client
+
+    if redis_client:
+        try:
+            logger.info("Closing Redis connection")
+            await redis_client.close()
+            redis_client = None
+        except Exception as e:
+            logger.error(f"Error closing Redis connection: {e}")
 
 
 def _get_rate_limit_key(user_id: str, window: str) -> str:

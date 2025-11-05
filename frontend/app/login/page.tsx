@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useAuth } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -29,8 +30,15 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
-        <div>
-          <h2 className="text-3xl font-bold text-center">Sign in to Nuvii API</h2>
+        <div className="flex flex-col items-center">
+          <Image
+            src="/nuvii_ai_logo_horizontal_light.svg"
+            alt="Nuvii AI"
+            width={150}
+            height={40}
+            className="h-10 w-auto mb-4"
+          />
+          <h2 className="text-3xl font-bold text-center">Sign in to your account</h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
@@ -68,14 +76,14 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+            className="btn-primary w-full"
           >
             {loading ? 'Signing in...' : 'Sign in'}
           </button>
 
           <p className="text-center text-sm">
             Don&apos;t have an account?{' '}
-            <Link href="/signup" className="text-blue-600 hover:underline">
+            <Link href="/signup" className="text-nuvii-blue hover:underline">
               Sign up
             </Link>
           </p>

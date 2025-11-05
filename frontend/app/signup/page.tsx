@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useAuth } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function SignupPage() {
   const [email, setEmail] = useState('');
@@ -31,7 +32,14 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
-        <div>
+        <div className="flex flex-col items-center">
+          <Image
+            src="/nuvii_ai_logo_horizontal_light.svg"
+            alt="Nuvii AI"
+            width={150}
+            height={40}
+            className="h-10 w-auto mb-4"
+          />
           <h2 className="text-3xl font-bold text-center">Create your account</h2>
           <p className="mt-2 text-center text-gray-600">
             Start using the Nuvii API
@@ -82,14 +90,14 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+            className="btn-primary w-full"
           >
             {loading ? 'Creating account...' : 'Sign up'}
           </button>
 
           <p className="text-center text-sm">
             Already have an account?{' '}
-            <Link href="/login" className="text-blue-600 hover:underline">
+            <Link href="/login" className="text-nuvii-blue hover:underline">
               Sign in
             </Link>
           </p>

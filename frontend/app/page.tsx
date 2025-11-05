@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Search, Zap, Shield, BarChart, Code, Clock, CheckCircle2, Copy } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -7,7 +8,15 @@ export default function Home() {
       {/* Header */}
       <header className="border-b sticky top-0 bg-white z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div className="text-2xl font-bold" style={{ color: '#1A73E8' }}>Nuvii API</div>
+          <Link href="/">
+            <Image
+              src="/nuvii_ai_logo_horizontal_light.svg"
+              alt="Nuvii AI"
+              width={120}
+              height={32}
+              className="h-8 w-auto"
+            />
+          </Link>
           <nav className="hidden md:flex gap-6 items-center">
             <Link href="#features" className="text-gray-700 hover:text-gray-900">
               Features
@@ -34,8 +43,7 @@ export default function Home() {
             </Link>
             <Link
               href="/signup"
-              className="px-6 py-2 text-white rounded-md hover:opacity-90"
-              style={{ backgroundColor: '#1A73E8' }}
+              className="btn-primary"
             >
               Get Started
             </Link>
@@ -55,34 +63,33 @@ export default function Home() {
             </p>
             <div className="flex flex-wrap justify-center gap-6 mb-8 text-gray-700">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5" style={{ color: '#10B981' }} />
+                <CheckCircle2 className="w-5 h-5 text-nuvii-teal" />
                 <span>Free tier to start</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5" style={{ color: '#10B981' }} />
+                <CheckCircle2 className="w-5 h-5 text-nuvii-teal" />
                 <span>Instant API key & full docs</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5" style={{ color: '#10B981' }} />
+                <CheckCircle2 className="w-5 h-5 text-nuvii-teal" />
                 <span>Pay-as-you-go pricing</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5" style={{ color: '#10B981' }} />
+                <CheckCircle2 className="w-5 h-5 text-nuvii-teal" />
                 <span>Developer SDKs + examples</span>
               </div>
             </div>
             <div className="flex gap-4 justify-center">
               <Link
                 href="/signup"
-                className="px-8 py-3 text-white rounded-md text-lg font-semibold hover:opacity-90"
-                style={{ backgroundColor: '#1A73E8' }}
+                className="btn-primary text-lg px-8 py-3"
               >
                 Start with Free Tier
               </Link>
               <Link
                 href="https://api.nuvii.ai/docs"
                 target="_blank"
-                className="px-8 py-3 border border-gray-300 text-gray-700 rounded-md text-lg font-semibold hover:bg-gray-50"
+                className="btn-secondary text-lg px-8 py-3"
               >
                 View Documentation
               </Link>
@@ -115,7 +122,7 @@ export default function Home() {
           </p>
           <div className="grid md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4" style={{ backgroundColor: '#1A73E8' }}>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 bg-nuvii-blue">
                 1
               </div>
               <h3 className="text-xl font-semibold mb-2">Sign up & get API key</h3>
@@ -124,7 +131,7 @@ export default function Home() {
               </p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4" style={{ backgroundColor: '#1A73E8' }}>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 bg-nuvii-blue">
                 2
               </div>
               <h3 className="text-xl font-semibold mb-2">Integrate in minutes</h3>
@@ -133,7 +140,7 @@ export default function Home() {
               </p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4" style={{ backgroundColor: '#1A73E8' }}>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 bg-nuvii-blue">
                 3
               </div>
               <h3 className="text-xl font-semibold mb-2">Query codes</h3>
@@ -142,7 +149,7 @@ export default function Home() {
               </p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4" style={{ backgroundColor: '#1A73E8' }}>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 bg-nuvii-blue">
                 4
               </div>
               <h3 className="text-xl font-semibold mb-2">Scale with usage</h3>
@@ -165,7 +172,7 @@ export default function Home() {
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
-              <Search className="w-12 h-12 mb-4" style={{ color: '#1A73E8' }} />
+              <Search className="w-12 h-12 mb-4 text-nuvii-blue" />
               <h3 className="text-xl font-semibold mb-2">Fast Code Search</h3>
               <p className="text-gray-600">
                 Search ICD-10 and CPT codes by code or description with fuzzy matching and full-text search.
@@ -173,7 +180,7 @@ export default function Home() {
             </div>
 
             <div className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
-              <Zap className="w-12 h-12 mb-4" style={{ color: '#1A73E8' }} />
+              <Zap className="w-12 h-12 mb-4 text-nuvii-blue" />
               <h3 className="text-xl font-semibold mb-2">AI-Powered Suggestions</h3>
               <p className="text-gray-600">
                 Get intelligent code suggestions from clinical text using advanced keyword extraction and matching.
@@ -181,7 +188,7 @@ export default function Home() {
             </div>
 
             <div className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
-              <Shield className="w-12 h-12 mb-4" style={{ color: '#1A73E8' }} />
+              <Shield className="w-12 h-12 mb-4 text-nuvii-blue" />
               <h3 className="text-xl font-semibold mb-2">Secure & Compliant</h3>
               <p className="text-gray-600">
                 All API calls encrypted. No PHI stored. HIPAA-ready infrastructure with secure authentication.
@@ -189,7 +196,7 @@ export default function Home() {
             </div>
 
             <div className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
-              <BarChart className="w-12 h-12 mb-4" style={{ color: '#1A73E8' }} />
+              <BarChart className="w-12 h-12 mb-4 text-nuvii-blue" />
               <h3 className="text-xl font-semibold mb-2">Usage Analytics</h3>
               <p className="text-gray-600">
                 Track API usage with detailed logs, real-time statistics, and insights for your application.
@@ -197,7 +204,7 @@ export default function Home() {
             </div>
 
             <div className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
-              <Code className="w-12 h-12 mb-4" style={{ color: '#1A73E8' }} />
+              <Code className="w-12 h-12 mb-4 text-nuvii-blue" />
               <h3 className="text-xl font-semibold mb-2">Simple REST API</h3>
               <p className="text-gray-600">
                 Clean, well-documented RESTful API with interactive Swagger docs and ready-to-use code examples.
@@ -205,7 +212,7 @@ export default function Home() {
             </div>
 
             <div className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
-              <Clock className="w-12 h-12 mb-4" style={{ color: '#1A73E8' }} />
+              <Clock className="w-12 h-12 mb-4 text-nuvii-blue" />
               <h3 className="text-xl font-semibold mb-2">99.9% Uptime SLA</h3>
               <p className="text-gray-600">
                 Production-ready infrastructure with rate limiting, auto-scaling, and 24/7 monitoring.
@@ -258,23 +265,23 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-600">
             <div className="flex items-center gap-2">
-              <Shield className="w-5 h-5" style={{ color: '#10B981' }} />
+              <Shield className="w-5 h-5 text-nuvii-teal" />
               <span className="font-semibold">All API calls encrypted</span>
             </div>
             <div className="flex items-center gap-2">
-              <Shield className="w-5 h-5" style={{ color: '#10B981' }} />
+              <Shield className="w-5 h-5 text-nuvii-teal" />
               <span className="font-semibold">No PHI stored</span>
             </div>
             <div className="flex items-center gap-2">
-              <Shield className="w-5 h-5" style={{ color: '#10B981' }} />
+              <Shield className="w-5 h-5 text-nuvii-teal" />
               <span className="font-semibold">GDPR/HIPAA-ready</span>
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5" style={{ color: '#10B981' }} />
+              <CheckCircle2 className="w-5 h-5 text-nuvii-teal" />
               <span className="font-semibold">99.9% uptime guarantee</span>
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5" style={{ color: '#10B981' }} />
+              <CheckCircle2 className="w-5 h-5 text-nuvii-teal" />
               <span className="font-semibold">No contract required</span>
             </div>
           </div>
@@ -301,19 +308,19 @@ export default function Home() {
               <p className="text-sm text-gray-500 mb-6">Perfect for testing and small projects</p>
               <ul className="space-y-3 mb-6 text-gray-700">
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>100 requests/month</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>60 req/min rate limit</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>Community support</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>Full API documentation</span>
                 </li>
               </ul>
@@ -326,8 +333,8 @@ export default function Home() {
             </div>
 
             {/* Developer Tier */}
-            <div className="border-2 rounded-lg p-6 hover:shadow-lg transition-shadow relative bg-white" style={{ borderColor: '#1A73E8' }}>
-              <div className="absolute top-0 right-0 text-white px-3 py-1 text-sm rounded-bl-lg rounded-tr-lg font-semibold" style={{ backgroundColor: '#1A73E8' }}>
+            <div className="border-2 border-nuvii-blue rounded-lg p-6 hover:shadow-lg transition-shadow relative bg-white">
+              <div className="absolute top-0 right-0 bg-nuvii-blue text-white px-3 py-1 text-sm rounded-bl-lg rounded-tr-lg font-semibold">
                 Popular
               </div>
               <h3 className="text-xl font-semibold mb-2">Developer</h3>
@@ -335,26 +342,25 @@ export default function Home() {
               <p className="text-sm text-gray-500 mb-6">For individual developers</p>
               <ul className="space-y-3 mb-6 text-gray-700">
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>10,000 requests/month</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>300 req/min rate limit</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>Email support</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>Usage analytics</span>
                 </li>
               </ul>
               <Link
                 href="/signup"
-                className="block w-full text-center px-4 py-3 text-white rounded-md hover:opacity-90 font-semibold"
-                style={{ backgroundColor: '#1A73E8' }}
+                className="btn-primary block w-full text-center"
               >
                 Get Started
               </Link>
@@ -368,25 +374,25 @@ export default function Home() {
               <p className="text-sm text-gray-500 mb-6">For growing startups</p>
               <ul className="space-y-3 mb-6 text-gray-700">
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>100,000 requests/month</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>1,000 req/min rate limit</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>Priority support</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>99.9% SLA</span>
                 </li>
               </ul>
               <Link
                 href="/signup"
-                className="block w-full text-center px-4 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 font-semibold"
+                className="btn-secondary block w-full text-center"
               >
                 Get Started
               </Link>
@@ -400,19 +406,19 @@ export default function Home() {
               <p className="text-sm text-gray-500 mb-6">For large organizations</p>
               <ul className="space-y-3 mb-6 text-gray-700">
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>1M+ requests/month</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>Custom rate limits</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>Dedicated support</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: '#10B981' }} />
+                  <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-nuvii-teal" />
                   <span>99.99% SLA</span>
                 </li>
               </ul>
@@ -428,7 +434,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#1A73E8' }}>
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-nuvii-gradient">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-white mb-4">
             Ready to get started?
@@ -438,8 +444,7 @@ export default function Home() {
           </p>
           <Link
             href="/signup"
-            className="inline-block px-8 py-3 bg-white rounded-md text-lg font-semibold hover:bg-gray-100"
-            style={{ color: '#1A73E8' }}
+            className="inline-block px-8 py-3 bg-white rounded-md text-lg font-semibold hover:bg-gray-100 text-nuvii-blue"
           >
             Sign up for free
           </Link>
