@@ -651,6 +651,93 @@ Same as before, but with updated API URL:
 4. **Update Route53:**
    - Create A record for `@` pointing to Vercel
    - Or use Vercel nameservers
+         Step 1: Set Up Route53 Hosted Zone (If Not Done)
+
+         In AWS Console:
+
+         1. Go to Route53 → Hosted zones
+         2. Click Create hosted zone
+         3. Enter:
+         Domain name: nuvii.ai
+         Type: Public hosted zone
+         4. Click Create
+
+         Important: Route53 will give you 4 nameservers like:
+         ns-1234.awsdns-56.org
+         ns-789.awsdns-12.co.uk
+         ns-345.awsdns-67.com
+         ns-890.awsdns-34.net
+
+         Copy these nameservers - you'll need them for GoDaddy.
+
+         ---
+         Step 2: Update Nameservers in GoDaddy
+
+         In GoDaddy Dashboard:
+
+         1. Go to My Domains
+         2. Click on nuvii.ai
+         3. Scroll to Nameservers section
+         4. Click Change or Manage
+         5. Select "Use my own nameservers" or "Custom"
+         6. Enter all 4 AWS Route53 nameservers:
+         ns-1234.awsdns-56.org
+         ns-789.awsdns-12.co.uk
+         ns-345.awsdns-67.com
+         ns-890.awsdns-34.net
+         7. Click Save
+
+         Note: DNS changes can take 24-48 hours to propagate (usually much faster,
+         like 1-2 hours).
+
+         ---
+         Step 3: Create DNS Records in Route53
+
+         Once GoDaddy is pointing to Route53, you manage ALL DNS in Route53:
+
+         For Backend (AWS ECS):
+
+         Record name: api
+         Record type: A (Alias)
+         Value: Your ALB (Application Load Balancer)
+
+         For Frontend (Vercel):
+
+         Option A - A Record (if Vercel gives you an IP):
+         Record name: [empty] (@)
+         Record type: A
+         Value: 76.76.21.21 (Vercel's IP)
+
+         Option B - CNAME (more common):
+         Record name: [empty] (@)
+         Record type: A (Alias)
+         Value: cname.vercel-dns.com
+
+         Plus:
+         Record name: www
+         Record type: CNAME
+         Value: cname.vercel-dns.com
+
+         ---
+         Quick Summary:
+
+         GoDaddy (Domain Registrar)
+               ↓ Nameservers point to →
+         Route53 (DNS Management)
+               ↓ DNS Records point to →
+               ├── api.nuvii.ai → AWS ALB (Backend)
+               └── nuvii.ai → Vercel (Frontend)
+
+         ---
+         Verify Nameserver Update:
+
+         After changing in GoDaddy, check if it's working:
+
+         # Check nameservers
+         dig nuvii.ai NS +short
+
+  # Should show AWS nameservers (after propagation)
+
 
 ---
 
@@ -665,10 +752,10 @@ cd /Users/murali.local/nuviiapi/backend
 DATABASE_URL="postgresql://postgres:PASSWORD@nuvii-db.xxx.rds.amazonaws.com:5432/nuviiapi"
 
 # Run migrations
-alembic upgrade head
+docker-compose exec alembic upgrade head
 
 # Seed data
-python scripts/seed_codes.py
+docker-compose exec python scripts/seed_codes.py
 ```
 
 ### Option B: From ECS Task (Better)

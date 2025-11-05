@@ -14,7 +14,9 @@ from app.middleware.rate_limit import check_rate_limit
 from app.services.usage_service import log_api_request
 import time
 import re
+import logging
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
@@ -56,15 +58,21 @@ async def suggest_codes(
 
     Note: This can be enhanced with LLM integration for premium tier.
     """
+    logger.info(f"[SUGGEST] Starting suggest_codes endpoint - text length: {len(request.text)}")
     api_key, user = api_key_data
+    logger.info(f"[SUGGEST] Got API key and user - user_id: {user.id}")
     start_time = time.time()
 
     # Check rate limit
+    logger.info(f"[SUGGEST] Checking rate limit for user: {user.id}")
     await check_rate_limit(api_key, user)
+    logger.info(f"[SUGGEST] Rate limit check passed")
 
     try:
         # Extract keywords from input text
+        logger.info(f"[SUGGEST] Extracting keywords from text: {request.text[:50]}...")
         keywords = extract_keywords(request.text)
+        logger.info(f"[SUGGEST] Extracted {len(keywords)} keywords: {keywords}")
 
         if not keywords:
             return CodeSuggestionResponse(suggestions=[], query=request.text)
@@ -72,10 +80,13 @@ async def suggest_codes(
         suggestions = []
 
         # Search ICD-10 codes
+        logger.info(f"[SUGGEST] Starting ICD-10 code search")
         for keyword in keywords[:5]:  # Limit to top 5 keywords
+            logger.info(f"[SUGGEST] Querying ICD-10 for keyword: {keyword}")
             icd10_results = db.query(ICD10Code).filter(
                 ICD10Code.description.ilike(f"%{keyword}%")
             ).limit(3).all()
+            logger.info(f"[SUGGEST] Found {len(icd10_results)} ICD-10 results for '{keyword}'")
 
             for code in icd10_results:
                 score = calculate_relevance_score(keywords, code.description)
@@ -87,10 +98,13 @@ async def suggest_codes(
                 ))
 
         # Search CPT codes
+        logger.info(f"[SUGGEST] Starting CPT code search")
         for keyword in keywords[:5]:
+            logger.info(f"[SUGGEST] Querying CPT for keyword: {keyword}")
             cpt_results = db.query(CPTCode).filter(
                 CPTCode.description.ilike(f"%{keyword}%")
             ).limit(3).all()
+            logger.info(f"[SUGGEST] Found {len(cpt_results)} CPT results for '{keyword}'")
 
             for code in cpt_results:
                 score = calculate_relevance_score(keywords, code.description)
@@ -102,6 +116,7 @@ async def suggest_codes(
                 ))
 
         # Sort by relevance score and deduplicate
+        logger.info(f"[SUGGEST] Sorting and deduplicating {len(suggestions)} suggestions")
         seen_codes = set()
         unique_suggestions = []
         for suggestion in sorted(suggestions, key=lambda x: x.score, reverse=True):
@@ -111,8 +126,10 @@ async def suggest_codes(
 
         # Limit to max_results
         final_suggestions = unique_suggestions[:request.max_results]
+        logger.info(f"[SUGGEST] Returning {len(final_suggestions)} final suggestions")
 
         # Log the request
+        logger.info(f"[SUGGEST] Logging API request")
         response_time_ms = int((time.time() - start_time) * 1000)
         await log_api_request(
             db=db,
@@ -126,6 +143,7 @@ async def suggest_codes(
             ip_address=None
         )
 
+        logger.info(f"[SUGGEST] Successfully completed request in {response_time_ms}ms")
         return CodeSuggestionResponse(
             suggestions=final_suggestions,
             query=request.text
@@ -133,6 +151,7 @@ async def suggest_codes(
 
     except Exception as e:
         # Log error
+        logger.error(f"[SUGGEST] Error occurred: {str(e)}", exc_info=True)
         response_time_ms = int((time.time() - start_time) * 1000)
         await log_api_request(
             db=db,

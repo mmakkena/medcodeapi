@@ -3,20 +3,15 @@
 from typing import Optional
 from datetime import datetime, timedelta
 from fastapi import HTTPException, status
-import redis
 from app.config import settings
 from app.models.api_key import APIKey
 from app.models.user import User
 
 # Redis client (if configured)
-redis_client: Optional[redis.Redis] = None
-
-if settings.use_redis:
-    try:
-        redis_client = redis.from_url(settings.REDIS_URL, decode_responses=True)
-    except Exception as e:
-        print(f"Warning: Could not connect to Redis: {e}")
-        print("Falling back to in-memory rate limiting")
+# TODO: Properly implement async Redis client initialization
+# For now, using in-memory rate limiting to avoid blocking issues
+redis_client: Optional[any] = None
+print("INFO: Using in-memory rate limiting (Redis disabled temporarily)")
 
 # In-memory fallback for rate limiting
 _in_memory_store: dict[str, list[datetime]] = {}
@@ -60,14 +55,14 @@ async def _check_rate_limit_redis(user_id: str, per_minute: int, per_day: int) -
     day_key = _get_rate_limit_key(user_id, "day")
 
     # Increment counters
-    minute_count = redis_client.incr(minute_key)
-    day_count = redis_client.incr(day_key)
+    minute_count = await redis_client.incr(minute_key)
+    day_count = await redis_client.incr(day_key)
 
     # Set expiry on first request
     if minute_count == 1:
-        redis_client.expire(minute_key, 60)
+        await redis_client.expire(minute_key, 60)
     if day_count == 1:
-        redis_client.expire(day_key, 86400)
+        await redis_client.expire(day_key, 86400)
 
     # Check limits
     if minute_count > per_minute:
