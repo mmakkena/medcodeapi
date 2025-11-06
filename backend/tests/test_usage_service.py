@@ -61,7 +61,6 @@ async def test_get_usage_stats_with_subscription(db_session):
         stripe_price_id="price_test",
         price_cents=4900,
         monthly_requests=10000,
-        rate_limit=300,
         features={}
     )
     db_session.add(plan)

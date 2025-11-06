@@ -60,7 +60,7 @@ def auth_headers(client, db_session):
     hashed_password = get_password_hash("testpassword123")
     user = User(
         email="test@example.com",
-        hashed_password=hashed_password,
+        password_hash=hashed_password,
         is_active=True
     )
     db_session.add(user)
