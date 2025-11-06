@@ -16,7 +16,7 @@ on:
 
 env:
   AWS_REGION: us-east-2
-  ECR_REPOSITORY: nuvii-backend
+  ECR_REPOSITORY: nuvii-api
   ECS_SERVICE: nuvii-api-service
   ECS_CLUSTER: nuvii-api-cluster
   ECS_TASK_DEFINITION: nuvii-backend-task
