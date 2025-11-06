@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { authAPI } from './api';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 interface User {
   id: string;
@@ -27,9 +28,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
-    // Load token from localStorage on mount
+    // Check NextAuth session first (for OAuth)
+    if (status === 'loading') {
+      return;
+    }
+
+    if (status === 'authenticated' && session?.accessToken) {
+      // User is authenticated via NextAuth (Google/OAuth)
+      setToken(session.accessToken as string);
+      setUser({
+        id: session.user.id as string,
+        email: session.user.email as string,
+        is_active: true,
+        created_at: new Date().toISOString(),
+      });
+      setLoading(false);
+      return;
+    }
+
+    // Fall back to localStorage token (for email/password auth)
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       setToken(storedToken);
@@ -37,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [session, status]);
 
   const fetchUser = async (authToken: string) => {
     try {
@@ -66,10 +86,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await login(email, password);
   };
 
-  const logout = () => {
+  const logout = async () => {
     localStorage.removeItem('token');
     setToken(null);
     setUser(null);
+    // If using NextAuth, sign out from there too
+    if (session) {
+      const { signOut } = await import('next-auth/react');
+      await signOut({ redirect: false });
+    }
     router.push('/login');
   };
 

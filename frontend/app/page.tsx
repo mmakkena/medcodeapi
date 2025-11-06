@@ -499,7 +499,7 @@ export default function Home() {
             <div>
               <h3 className="font-semibold text-gray-900 mb-4">Legal</h3>
               <ul className="space-y-2">
-                <li><Link href="#" className="text-gray-600 hover:text-gray-900">Privacy Policy</Link></li>
+                <li><Link href="/privacy" className="text-gray-600 hover:text-gray-900">Privacy Policy</Link></li>
                 <li><Link href="#" className="text-gray-600 hover:text-gray-900">Terms of Service</Link></li>
                 <li><Link href="#" className="text-gray-600 hover:text-gray-900">Security</Link></li>
               </ul>
