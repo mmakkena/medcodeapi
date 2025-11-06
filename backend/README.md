@@ -118,33 +118,42 @@ backend/
 
 ## API Endpoints
 
-### Authentication (JWT)
+For complete API documentation with detailed request/response formats, authentication details, and code examples, see:
 
+**[Complete API Reference](../docs/API_REFERENCE.md)**
+
+### Quick Reference
+
+#### Authentication (JWT)
 - `POST /api/v1/auth/signup` - Register new user
 - `POST /api/v1/auth/login` - Login and get JWT token
-- `GET /api/v1/auth/me` - Get current user info
+- `POST /api/v1/auth/oauth/signin` - OAuth sign-in (Google/Microsoft)
+- `GET /api/v1/auth/me` - Get current user profile
 
-### Code Search (API Key Required)
+#### Code Search (API Key Required)
+- `GET /api/v1/icd10/search` - Search ICD-10 diagnosis codes
+- `GET /api/v1/cpt/search` - Search CPT procedure codes
+- `POST /api/v1/suggest` - AI-powered code suggestions from clinical text
 
-- `GET /api/v1/icd10/search?query=hypertension` - Search ICD-10 codes
-- `GET /api/v1/cpt/search?query=office visit` - Search CPT codes
-- `POST /api/v1/suggest` - Suggest codes from clinical text
-
-### API Key Management (JWT Required)
-
+#### API Key Management (JWT Required)
 - `GET /api/v1/api-keys` - List user's API keys
 - `POST /api/v1/api-keys` - Create new API key
 - `DELETE /api/v1/api-keys/{id}` - Revoke API key
 
-### Usage Tracking (JWT Required)
+#### Usage Tracking (JWT Required)
+- `GET /api/v1/usage/logs` - Get usage logs with request details
+- `GET /api/v1/usage/stats` - Get usage statistics and quota info
 
-- `GET /api/v1/usage/logs` - Get usage logs
-- `GET /api/v1/usage/stats` - Get usage statistics
-
-### Billing (JWT Required + Stripe Webhook)
-
+#### Billing (JWT Required)
+- `GET /api/v1/billing/subscription` - Get current subscription details
+- `POST /api/v1/billing/checkout` - Create Stripe checkout session
 - `GET /api/v1/billing/portal` - Get Stripe billing portal URL
-- `POST /api/v1/billing/webhook` - Stripe webhook endpoint
+- `POST /api/v1/billing/webhook` - Stripe webhook endpoint (internal)
+
+### Interactive Documentation
+- **Swagger UI**: http://localhost:8000/docs (when running locally)
+- **ReDoc**: http://localhost:8000/redoc (when running locally)
+- **Production**: https://api.nuvii.ai/docs
 
 ## Example Usage
 
