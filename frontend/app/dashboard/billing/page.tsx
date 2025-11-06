@@ -36,20 +36,10 @@ export default function BillingPage() {
 
   const fetchSubscription = async () => {
     try {
-      console.log('[BILLING] Fetching subscription...');
-      console.log('[BILLING] API URL:', process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000');
       const response = await billingAPI.getSubscription();
-      console.log('[BILLING] Subscription response:', response.data);
       setSubscription(response.data);
     } catch (err: any) {
-      console.error('[BILLING] Failed to fetch subscription:', err);
-      console.error('[BILLING] Error details:', {
-        message: err.message,
-        response: err.response?.data,
-        status: err.response?.status,
-        url: err.config?.url,
-        baseURL: err.config?.baseURL
-      });
+      console.error('Failed to fetch subscription:', err);
       // Default to Free if fetch fails
       setSubscription({
         plan_name: 'Free',
@@ -136,7 +126,16 @@ export default function BillingPage() {
         <h2 className="text-xl font-semibold mb-4">Upgrade Your Plan</h2>
         <div className="grid md:grid-cols-3 gap-4">
           {/* Developer Plan */}
-          <div className="border border-gray-200 rounded-lg p-4">
+          <div className={`rounded-lg p-4 relative ${
+            subscription?.plan_name === 'Developer'
+              ? 'border-2 border-green-600 bg-green-50'
+              : 'border border-gray-200'
+          }`}>
+            {subscription?.plan_name === 'Developer' && (
+              <div className="absolute top-0 right-0 bg-green-600 text-white px-2 py-1 text-xs rounded-bl rounded-tr">
+                Current Plan
+              </div>
+            )}
             <h3 className="font-semibold text-lg mb-2">Developer</h3>
             <div className="text-2xl font-bold mb-2">$49<span className="text-sm text-gray-600">/mo</span></div>
             <ul className="space-y-1 text-sm text-gray-600 mb-4">
@@ -144,20 +143,39 @@ export default function BillingPage() {
               <li>✓ 300 req/min rate limit</li>
               <li>✓ Email support</li>
             </ul>
-            <button
-              onClick={() => handleUpgrade('Developer')}
-              disabled={loading}
-              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
-            >
-              {loading ? 'Loading...' : 'Upgrade'}
-            </button>
+            {subscription?.plan_name === 'Developer' ? (
+              <button
+                disabled
+                className="w-full px-4 py-2 bg-gray-400 text-white rounded-md cursor-not-allowed"
+              >
+                Current Plan
+              </button>
+            ) : (
+              <button
+                onClick={() => handleUpgrade('Developer')}
+                disabled={loading}
+                className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+              >
+                {loading ? 'Loading...' : 'Upgrade'}
+              </button>
+            )}
           </div>
 
           {/* Growth Plan */}
-          <div className="border-2 border-blue-600 rounded-lg p-4 relative">
-            <div className="absolute top-0 right-0 bg-blue-600 text-white px-2 py-1 text-xs rounded-bl rounded-tr">
-              Popular
-            </div>
+          <div className={`rounded-lg p-4 relative ${
+            subscription?.plan_name === 'Growth'
+              ? 'border-2 border-green-600 bg-green-50'
+              : 'border-2 border-blue-600'
+          }`}>
+            {subscription?.plan_name === 'Growth' ? (
+              <div className="absolute top-0 right-0 bg-green-600 text-white px-2 py-1 text-xs rounded-bl rounded-tr">
+                Current Plan
+              </div>
+            ) : (
+              <div className="absolute top-0 right-0 bg-blue-600 text-white px-2 py-1 text-xs rounded-bl rounded-tr">
+                Popular
+              </div>
+            )}
             <h3 className="font-semibold text-lg mb-2">Growth</h3>
             <div className="text-2xl font-bold mb-2">$299<span className="text-sm text-gray-600">/mo</span></div>
             <ul className="space-y-1 text-sm text-gray-600 mb-4">
@@ -166,17 +184,35 @@ export default function BillingPage() {
               <li>✓ Priority support</li>
               <li>✓ 99.9% SLA</li>
             </ul>
-            <button
-              onClick={() => handleUpgrade('Growth')}
-              disabled={loading}
-              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
-            >
-              {loading ? 'Loading...' : 'Upgrade'}
-            </button>
+            {subscription?.plan_name === 'Growth' ? (
+              <button
+                disabled
+                className="w-full px-4 py-2 bg-gray-400 text-white rounded-md cursor-not-allowed"
+              >
+                Current Plan
+              </button>
+            ) : (
+              <button
+                onClick={() => handleUpgrade('Growth')}
+                disabled={loading}
+                className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+              >
+                {loading ? 'Loading...' : 'Upgrade'}
+              </button>
+            )}
           </div>
 
           {/* Enterprise Plan */}
-          <div className="border border-gray-200 rounded-lg p-4">
+          <div className={`rounded-lg p-4 relative ${
+            subscription?.plan_name === 'Enterprise'
+              ? 'border-2 border-green-600 bg-green-50'
+              : 'border border-gray-200'
+          }`}>
+            {subscription?.plan_name === 'Enterprise' && (
+              <div className="absolute top-0 right-0 bg-green-600 text-white px-2 py-1 text-xs rounded-bl rounded-tr">
+                Current Plan
+              </div>
+            )}
             <h3 className="font-semibold text-lg mb-2">Enterprise</h3>
             <div className="text-2xl font-bold mb-2">Custom</div>
             <ul className="space-y-1 text-sm text-gray-600 mb-4">
@@ -185,13 +221,22 @@ export default function BillingPage() {
               <li>✓ Dedicated support</li>
               <li>✓ 99.99% SLA</li>
             </ul>
-            <button
-              onClick={handleManageBilling}
-              disabled={loading}
-              className="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 disabled:opacity-50"
-            >
-              Contact Sales
-            </button>
+            {subscription?.plan_name === 'Enterprise' ? (
+              <button
+                disabled
+                className="w-full px-4 py-2 bg-gray-400 text-white rounded-md cursor-not-allowed"
+              >
+                Current Plan
+              </button>
+            ) : (
+              <button
+                onClick={handleManageBilling}
+                disabled={loading}
+                className="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 disabled:opacity-50"
+              >
+                Contact Sales
+              </button>
+            )}
           </div>
         </div>
       </div>

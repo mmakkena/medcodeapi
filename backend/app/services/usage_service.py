@@ -5,6 +5,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 from app.models.usage_log import UsageLog
 from app.models.api_key import APIKey
+from app.models.subscription import StripeSubscription
+from app.models.plan import Plan
 from uuid import UUID
 
 
@@ -62,9 +64,20 @@ async def get_user_usage_stats(db: Session, user_id: UUID) -> dict:
 
     most_used_endpoint = most_used[0] if most_used else None
 
-    # Get user's plan limit (default to free tier)
-    # TODO: Get actual plan from user's subscription
+    # Get user's plan limit from subscription
     monthly_limit = 100  # Default free tier
+
+    # Check if user has an active subscription
+    subscription = db.query(StripeSubscription).filter(
+        StripeSubscription.user_id == user_id,
+        StripeSubscription.status.in_(["active", "trialing", "past_due"])
+    ).first()
+
+    if subscription:
+        # Get plan details
+        plan = db.query(Plan).filter(Plan.id == subscription.plan_id).first()
+        if plan:
+            monthly_limit = plan.monthly_requests
 
     percentage_used = (requests_this_month / monthly_limit * 100) if monthly_limit > 0 else 0
 
