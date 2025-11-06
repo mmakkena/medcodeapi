@@ -38,7 +38,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     if (status === 'authenticated' && session?.accessToken) {
       // User is authenticated via NextAuth (Google/OAuth)
-      setToken(session.accessToken as string);
+      const oauthToken = session.accessToken as string;
+      setToken(oauthToken);
+      // Store token in localStorage so API calls can access it
+      localStorage.setItem('token', oauthToken);
       setUser({
         id: session.user.id as string,
         email: session.user.email as string,
