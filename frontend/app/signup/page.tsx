@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { billingAPI } from '@/lib/api';
 
 const planDetails: Record<string, { name: string; price: string; color: string }> = {
   free: { name: 'Free Plan', price: '$0/mo', color: 'text-gray-700' },
@@ -32,7 +33,15 @@ function SignupForm() {
 
     try {
       await signup(email, password);
-      router.push('/dashboard');
+
+      // If a paid plan was selected, redirect to checkout
+      if (plan && plan !== 'free') {
+        const planName = plan.charAt(0).toUpperCase() + plan.slice(1); // Capitalize first letter
+        const response = await billingAPI.createCheckout(planName);
+        window.location.href = response.data.url; // Redirect to Stripe Checkout
+      } else {
+        router.push('/dashboard');
+      }
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Signup failed');
     } finally {
@@ -149,7 +158,9 @@ function SignupForm() {
             disabled={loading}
             className="btn-primary w-full"
           >
-            {loading ? 'Creating account...' : 'Sign up'}
+            {loading
+              ? (plan && plan !== 'free' ? 'Creating account and redirecting to checkout...' : 'Creating account...')
+              : (plan && plan !== 'free' ? 'Sign up and continue to checkout' : 'Sign up')}
           </button>
 
           <p className="text-center text-sm">

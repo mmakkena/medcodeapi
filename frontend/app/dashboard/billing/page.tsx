@@ -229,42 +229,43 @@ export default function BillingPage() {
                 Current Plan
               </button>
             ) : (
-              <button
-                onClick={handleManageBilling}
-                disabled={loading}
-                className="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 disabled:opacity-50"
+              <a
+                href="mailto:sales@nuvii.ai?subject=Enterprise Plan Inquiry"
+                className="block w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 text-center"
               >
                 Contact Sales
-              </button>
+              </a>
             )}
           </div>
         </div>
       </div>
 
-      {/* Stripe Billing Portal */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <div className="flex items-start gap-4">
-          <CreditCard className="w-8 h-8 text-blue-600 flex-shrink-0" />
-          <div className="flex-1">
-            <h2 className="text-xl font-semibold mb-2">Manage Billing</h2>
-            <p className="text-gray-600 mb-4">
-              Access the Stripe billing portal to manage your payment methods, view invoices, and update your subscription.
-            </p>
-            <button
-              onClick={handleManageBilling}
-              disabled={loading}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
-            >
-              {loading ? 'Opening...' : (
-                <>
-                  Open Billing Portal
-                  <ExternalLink className="w-4 h-4" />
-                </>
-              )}
-            </button>
+      {/* Stripe Billing Portal - Only show for paid plans */}
+      {subscription && subscription.plan_name !== 'Free' && (
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <div className="flex items-start gap-4">
+            <CreditCard className="w-8 h-8 text-blue-600 flex-shrink-0" />
+            <div className="flex-1">
+              <h2 className="text-xl font-semibold mb-2">Manage Billing</h2>
+              <p className="text-gray-600 mb-4">
+                Access the Stripe billing portal to manage your payment methods, view invoices, and update your subscription.
+              </p>
+              <button
+                onClick={handleManageBilling}
+                disabled={loading}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+              >
+                {loading ? 'Opening...' : (
+                  <>
+                    Open Billing Portal
+                    <ExternalLink className="w-4 h-4" />
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Billing Information */}
       <div className="bg-gray-50 rounded-lg border border-gray-200 p-6">
