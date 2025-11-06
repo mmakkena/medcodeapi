@@ -3,6 +3,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from app.config import settings
 from app.middleware.rate_limit import init_redis, close_redis
 
@@ -20,11 +21,50 @@ async def lifespan(app: FastAPI):
 # Create FastAPI app
 app = FastAPI(
     title=settings.APP_NAME,
-    description="Medical coding lookup API for ICD-10 and CPT codes",
+    description="Medical coding lookup API for ICD-10 and CPT codes. Built for developers who need reliable, fast medical coding data.",
     version="0.1.0",
     docs_url="/docs",
     redoc_url="/redoc",
-    lifespan=lifespan
+    lifespan=lifespan,
+    openapi_tags=[
+        {
+            "name": "Authentication",
+            "description": "User authentication and account management"
+        },
+        {
+            "name": "ICD-10 Codes",
+            "description": "Search and lookup ICD-10 diagnosis codes"
+        },
+        {
+            "name": "CPT Codes",
+            "description": "Search and lookup CPT procedure codes"
+        },
+        {
+            "name": "Code Suggestions",
+            "description": "AI-powered code suggestions from clinical text"
+        },
+        {
+            "name": "API Keys",
+            "description": "Manage API keys for authentication"
+        },
+        {
+            "name": "Usage Tracking",
+            "description": "View API usage logs and statistics"
+        },
+        {
+            "name": "Billing",
+            "description": "Manage subscriptions and billing"
+        }
+    ],
+    contact={
+        "name": "Nuvii API Support",
+        "url": "https://nuvii.ai",
+        "email": "support@nuvii.ai"
+    },
+    license_info={
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+    }
 )
 
 # Configure CORS
@@ -66,6 +106,13 @@ async def health():
     }
 
 
+# Mount static files
+import os
+static_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static")
+if os.path.exists(static_dir):
+    app.mount("/static", StaticFiles(directory=static_dir), name="static")
+
+
 # Import and include routers
 from app.api.v1 import auth, icd10, cpt, suggest, api_keys, usage, billing
 
@@ -76,3 +123,23 @@ app.include_router(suggest.router, prefix="/api/v1", tags=["Code Suggestions"])
 app.include_router(api_keys.router, prefix="/api/v1/api-keys", tags=["API Keys"])
 app.include_router(usage.router, prefix="/api/v1/usage", tags=["Usage Tracking"])
 app.include_router(billing.router, prefix="/api/v1/billing", tags=["Billing"])
+
+
+# Custom Swagger UI with logo
+from fastapi.openapi.docs import get_swagger_ui_html
+from fastapi import Response
+
+@app.get("/docs", include_in_schema=False)
+async def custom_swagger_ui_html():
+    """Custom Swagger UI with Nuvii branding"""
+    return get_swagger_ui_html(
+        openapi_url=app.openapi_url,
+        title=f"{app.title} - API Documentation",
+        swagger_favicon_url="/static/nuvii_logo.png",
+        swagger_ui_parameters={
+            "defaultModelsExpandDepth": -1,
+            "docExpansion": "list",
+            "filter": True,
+            "persistAuthorization": True
+        }
+    )
