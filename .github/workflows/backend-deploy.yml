@@ -162,6 +162,13 @@ jobs:
             --task-definition ${{ env.ECS_TASK_DEFINITION }} \
             --query taskDefinition > task-definition.json
 
+      - name: Clean task definition
+        run: |
+          # Remove fields that are not allowed during task definition registration
+          jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy, .deregisteredAt, .enableFaultInjection)' \
+            task-definition.json > task-definition-clean.json
+          mv task-definition-clean.json task-definition.json
+
       - name: Update task definition with new image
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
