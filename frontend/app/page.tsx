@@ -1,6 +1,8 @@
 import Link from 'next/link';
-import { Search, Zap, Shield, BarChart, Code, Clock, CheckCircle2, Copy } from 'lucide-react';
+import { Search, Zap, Shield, BarChart, Code, Clock, CheckCircle2, Copy, Lock, Twitter, Linkedin, Github, Mail } from 'lucide-react';
 import Image from 'next/image';
+import InteractiveAPITester from './components/InteractiveAPITester';
+import HeroAnimation from './components/HeroAnimation';
 
 export default function Home() {
   return (
@@ -30,8 +32,11 @@ export default function Home() {
             <Link href="https://api.nuvii.ai/docs" target="_blank" className="text-gray-700 hover:text-gray-900">
               Docs
             </Link>
-            <Link href="/dashboard" className="text-gray-700 hover:text-gray-900">
-              Dashboard
+            <Link href="#about" className="text-gray-700 hover:text-gray-900">
+              About
+            </Link>
+            <Link href="mailto:support@nuvii.ai" className="text-gray-700 hover:text-gray-900">
+              Contact
             </Link>
           </nav>
           <div className="flex gap-3">
@@ -96,16 +101,36 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Code Example */}
+          {/* Hero Animation */}
+          <div className="mt-16 mb-8">
+            <HeroAnimation />
+          </div>
+
+          {/* Interactive API Tester */}
           <div className="max-w-3xl mx-auto mt-12">
-            <div className="bg-gray-900 rounded-lg p-6 text-sm font-mono text-gray-100 relative">
-              <div className="text-gray-400 mb-2"># Try it now - Search for hypertension codes</div>
-              <div className="text-green-400">curl</div>{' '}
-              <span className="text-blue-300">https://api.nuvii.ai/api/v1/icd10/search?query=hypertension</span>{' '}
-              <span className="text-yellow-300">\</span>
-              <br />
-              <span className="text-purple-300 ml-4">-H</span>{' '}
-              <span className="text-orange-300">&quot;Authorization: Bearer YOUR_API_KEY&quot;</span>
+            <h3 className="text-center text-xl font-semibold text-gray-900 mb-4">Try it now</h3>
+            <InteractiveAPITester />
+          </div>
+
+          {/* Compliance Badges */}
+          <div className="max-w-4xl mx-auto mt-12 bg-gray-50 rounded-lg p-8">
+            <div className="flex flex-wrap justify-center items-center gap-6">
+              <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 shadow-sm">
+                <Shield className="w-5 h-5 text-nuvii-blue" />
+                <span className="font-semibold text-gray-900">HIPAA Ready</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 shadow-sm">
+                <CheckCircle2 className="w-5 h-5 text-nuvii-blue" />
+                <span className="font-semibold text-gray-900">99.9% SLA</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 shadow-sm">
+                <Lock className="w-5 h-5 text-nuvii-blue" />
+                <span className="font-semibold text-gray-900">256-bit Encryption</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 shadow-sm">
+                <Shield className="w-5 h-5 text-nuvii-blue" />
+                <span className="font-semibold text-gray-900">SOC 2 Type II</span>
+              </div>
             </div>
           </div>
         </div>
@@ -297,9 +322,13 @@ export default function Home() {
           <p className="text-xl text-gray-600 text-center mb-2 max-w-2xl mx-auto">
             Start free. Scale as you grow. Cancel anytime.
           </p>
-          <p className="text-sm text-gray-500 text-center mb-12">
+          <p className="text-sm text-gray-500 text-center mb-2">
             No contracts • Pay-as-you-go • Upgrade or downgrade anytime
           </p>
+          <div className="flex items-center justify-center gap-2 text-nuvii-blue font-semibold mb-12">
+            <CheckCircle2 className="w-5 h-5" />
+            <span>All plans include full ICD-10 & CPT coverage</span>
+          </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Free Tier */}
             <Link href="/signup?plan=free" className="block">
@@ -463,7 +492,7 @@ export default function Home() {
             <div>
               <h3 className="font-semibold text-gray-900 mb-4">Company</h3>
               <ul className="space-y-2">
-                <li><Link href="#" className="text-gray-600 hover:text-gray-900">About</Link></li>
+                <li><Link href="#about" className="text-gray-600 hover:text-gray-900">About</Link></li>
                 <li><Link href="mailto:support@nuvii.ai" className="text-gray-600 hover:text-gray-900">Contact</Link></li>
               </ul>
             </div>
@@ -483,8 +512,27 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="border-t pt-8 text-center text-gray-600">
-            <p>&copy; 2025 Nuvii API. All rights reserved.</p>
+          <div className="border-t pt-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <p className="text-gray-600">&copy; 2025 Nuvii API. All rights reserved.</p>
+              <div className="flex items-center gap-4">
+                <span className="text-gray-600 text-sm">Follow us:</span>
+                <div className="flex gap-3">
+                  <a href="https://twitter.com/nuviiapi" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-nuvii-blue transition-colors">
+                    <Twitter className="w-5 h-5" />
+                  </a>
+                  <a href="https://linkedin.com/company/nuvii" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-nuvii-blue transition-colors">
+                    <Linkedin className="w-5 h-5" />
+                  </a>
+                  <a href="https://github.com/nuvii" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-nuvii-blue transition-colors">
+                    <Github className="w-5 h-5" />
+                  </a>
+                  <a href="mailto:support@nuvii.ai" className="text-gray-600 hover:text-nuvii-blue transition-colors">
+                    <Mail className="w-5 h-5" />
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
