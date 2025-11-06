@@ -198,7 +198,7 @@ async def test_get_usage_stats_multiple_endpoints(db_session):
 async def test_get_usage_stats_no_logs(db_session):
     """Test usage stats for a new user with no logs"""
     # Create user
-    user = User(email="new@example.com", hashed_password="test", is_active=True)
+    user = User(email="new@example.com", password_hash="test", is_active=True)
     db_session.add(user)
     db_session.commit()
     db_session.refresh(user)
