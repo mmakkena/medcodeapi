@@ -15,7 +15,7 @@ export default function HeroAnimation() {
             </div>
             <div className="text-sm text-gray-600 space-y-1">
               <p className="font-mono text-xs bg-gray-50 p-2 rounded">
-                "Patient presents with <span className="text-blue-600 font-semibold">type 2 diabetes</span> and <span className="text-blue-600 font-semibold">hypertension</span>..."
+                &ldquo;Patient presents with <span className="text-blue-600 font-semibold">type 2 diabetes</span> and <span className="text-blue-600 font-semibold">hypertension</span>...&rdquo;
               </p>
             </div>
           </div>
