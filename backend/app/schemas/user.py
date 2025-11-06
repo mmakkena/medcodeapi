@@ -23,6 +23,11 @@ class UserResponse(BaseModel):
     email: str
     is_active: bool
     created_at: datetime
+    full_name: str | None = None
+    company_name: str | None = None
+    role: str | None = None
+    auth_provider: str | None = None
+    last_login_at: datetime | None = None
 
     class Config:
         from_attributes = True
@@ -34,6 +39,8 @@ class OAuthSignIn(BaseModel):
     provider: str
     providerId: str
     name: str | None = None
+    company_name: str | None = None
+    role: str | None = None
 
 
 class Token(BaseModel):

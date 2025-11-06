@@ -20,6 +20,14 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
 
+    # Additional user information
+    full_name = Column(String(255), nullable=True)
+    company_name = Column(String(255), nullable=True)
+    role = Column(String(100), nullable=True)
+    auth_provider = Column(String(50), nullable=True)  # 'email', 'google', 'azure-ad'
+    oauth_provider_id = Column(String(255), nullable=True, index=True)
+    last_login_at = Column(DateTime, nullable=True)
+
     # Relationships
     api_keys = relationship("APIKey", back_populates="user", cascade="all, delete-orphan")
     subscriptions = relationship("StripeSubscription", back_populates="user", cascade="all, delete-orphan")
