@@ -3,9 +3,9 @@
 import uuid
 from datetime import datetime
 from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Index
-from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import relationship
 from app.database import Base
+from app.utils.db_types import GUID, JSONB
 
 
 class UsageLog(Base):
@@ -13,9 +13,9 @@ class UsageLog(Base):
 
     __tablename__ = "usage_logs"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    api_key_id = Column(UUID(as_uuid=True), ForeignKey("api_keys.id", ondelete="CASCADE"), nullable=False, index=True)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    id = Column(GUID, primary_key=True, default=uuid.uuid4)
+    api_key_id = Column(GUID, ForeignKey("api_keys.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id = Column(GUID, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     endpoint = Column(String(255), nullable=False)
     method = Column(String(10), nullable=False)
     query_params = Column(JSONB, nullable=True)

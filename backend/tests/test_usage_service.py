@@ -15,7 +15,7 @@ from app.models.plan import Plan
 async def test_get_usage_stats_free_tier(db_session):
     """Test usage stats for a user on free tier (no subscription)"""
     # Create user
-    user = User(email="free@example.com", hashed_password="test", is_active=True)
+    user = User(email="free@example.com", password_hash="test", is_active=True)
     db_session.add(user)
     db_session.commit()
     db_session.refresh(user)
@@ -50,7 +50,7 @@ async def test_get_usage_stats_free_tier(db_session):
 async def test_get_usage_stats_with_subscription(db_session):
     """Test usage stats for a user with active subscription"""
     # Create user
-    user = User(email="paid@example.com", hashed_password="test", is_active=True)
+    user = User(email="paid@example.com", password_hash="test", is_active=True)
     db_session.add(user)
     db_session.commit()
     db_session.refresh(user)
@@ -111,7 +111,7 @@ async def test_get_usage_stats_with_subscription(db_session):
 async def test_get_usage_stats_old_logs_not_counted(db_session):
     """Test that logs from previous months are not counted in current month usage"""
     # Create user
-    user = User(email="test@example.com", hashed_password="test", is_active=True)
+    user = User(email="test@example.com", password_hash="test", is_active=True)
     db_session.add(user)
     db_session.commit()
     db_session.refresh(user)
@@ -160,7 +160,7 @@ async def test_get_usage_stats_old_logs_not_counted(db_session):
 async def test_get_usage_stats_multiple_endpoints(db_session):
     """Test most used endpoint with multiple endpoints"""
     # Create user
-    user = User(email="test@example.com", hashed_password="test", is_active=True)
+    user = User(email="test@example.com", password_hash="test", is_active=True)
     db_session.add(user)
     db_session.commit()
     db_session.refresh(user)

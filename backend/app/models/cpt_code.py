@@ -2,8 +2,8 @@
 
 import uuid
 from sqlalchemy import Column, String, Text, Index
-from sqlalchemy.dialects.postgresql import UUID, TSVECTOR
 from app.database import Base
+from app.utils.db_types import GUID, TSVECTOR
 
 
 class CPTCode(Base):
@@ -11,7 +11,7 @@ class CPTCode(Base):
 
     __tablename__ = "cpt_codes"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(GUID, primary_key=True, default=uuid.uuid4)
     code = Column(String(10), unique=True, nullable=False, index=True)
     description = Column(Text, nullable=False)
     category = Column(String(100), nullable=True)

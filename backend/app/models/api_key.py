@@ -3,9 +3,9 @@
 import uuid
 from datetime import datetime
 from sqlalchemy import Column, String, Boolean, DateTime, ForeignKey
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from app.database import Base
+from app.utils.db_types import GUID
 
 
 class APIKey(Base):
@@ -13,8 +13,8 @@ class APIKey(Base):
 
     __tablename__ = "api_keys"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    id = Column(GUID, primary_key=True, default=uuid.uuid4)
+    user_id = Column(GUID, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     key_hash = Column(String(255), nullable=False, unique=True)  # SHA-256 hash
     key_prefix = Column(String(10), nullable=False)  # First 8 chars for display (e.g., "mk_abc123")
     name = Column(String(100), nullable=True)  # User-defined label

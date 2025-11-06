@@ -3,9 +3,9 @@
 import uuid
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime, ForeignKey
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from app.database import Base
+from app.utils.db_types import GUID
 
 
 class StripeSubscription(Base):
@@ -13,9 +13,9 @@ class StripeSubscription(Base):
 
     __tablename__ = "stripe_subscriptions"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
-    plan_id = Column(UUID(as_uuid=True), ForeignKey("plans.id"), nullable=False)
+    id = Column(GUID, primary_key=True, default=uuid.uuid4)
+    user_id = Column(GUID, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    plan_id = Column(GUID, ForeignKey("plans.id"), nullable=False)
     stripe_subscription_id = Column(String(100), unique=True, nullable=False)
     stripe_customer_id = Column(String(100), nullable=False, index=True)
     status = Column(String(50), nullable=False)  # active, canceled, past_due, etc.
