@@ -19,8 +19,8 @@ env:
   ECR_REPOSITORY: nuvii-api
   ECS_SERVICE: nuvii-api-service
   ECS_CLUSTER: nuvii-api-cluster
-  ECS_TASK_DEFINITION: nuvii-backend-task
-  CONTAINER_NAME: nuvii-backend
+  ECS_TASK_DEFINITION: nuvii-api-task
+  CONTAINER_NAME: nuvii-api
 
 jobs:
   test:
