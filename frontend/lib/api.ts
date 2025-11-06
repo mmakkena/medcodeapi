@@ -47,6 +47,7 @@ export const usageAPI = {
 
 // Billing API
 export const billingAPI = {
+  getSubscription: () => api.get('/api/v1/billing/subscription'),
   getPortal: () => api.get('/api/v1/billing/portal'),
   createCheckout: (planName: string) => api.post(`/api/v1/billing/checkout?plan_name=${planName}`),
 };

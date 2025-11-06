@@ -1,0 +1,25 @@
+# AWS Configuration
+aws_region   = "us-east-1"
+project_name = "nuvii"
+environment  = "production"
+
+# Database Configuration
+db_name           = "nuvii_db"
+db_username       = "nuvii_admin"
+db_password       = "CHANGE_ME_STRONG_PASSWORD"
+db_instance_class = "db.t3.micro"
+
+# Redis Configuration
+redis_node_type = "cache.t3.micro"
+
+# ECS Configuration
+ecs_service_desired_count = 2
+ecs_task_cpu              = "512"
+ecs_task_memory           = "1024"
+
+# Secrets (use AWS Secrets Manager or environment variables)
+secret_key        = "CHANGE_ME_RANDOM_SECRET_KEY"
+stripe_secret_key = "sk_test_CHANGE_ME"
+
+# SSL Certificate ARN (create in ACM first)
+ssl_certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"

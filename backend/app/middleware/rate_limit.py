@@ -29,7 +29,9 @@ async def init_redis():
                 settings.REDIS_URL,
                 encoding="utf-8",
                 decode_responses=True,
-                max_connections=10
+                max_connections=10,
+                socket_connect_timeout=5,
+                socket_timeout=5
             )
             # Test connection
             await redis_client.ping()

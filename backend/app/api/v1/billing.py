@@ -18,6 +18,141 @@ from app.config import settings
 router = APIRouter()
 
 
+@router.get("/subscription")
+async def get_subscription(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Get current user's subscription information
+    """
+    import logging
+    logger = logging.getLogger(__name__)
+
+    print(f"[SUBSCRIPTION] GET /api/v1/billing/subscription called for user {current_user.id}")
+
+    # Find user's subscription
+    subscription = db.query(StripeSubscription).filter(
+        StripeSubscription.user_id == current_user.id
+    ).first()
+
+    print(f"[SUBSCRIPTION] Query result: subscription={subscription}")
+
+    if not subscription:
+        # Return free plan if no subscription
+        free_plan = db.query(Plan).filter(Plan.name == "Free").first()
+        print(f"[SUBSCRIPTION] No subscription found for user {current_user.id}, returning Free plan")
+        logger.info(f"No subscription found for user {current_user.id}")
+        return {
+            "plan_name": "Free",
+            "monthly_requests": free_plan.monthly_requests if free_plan else 100,
+            "price_cents": 0,
+            "status": "active",
+            "features": free_plan.features if free_plan else {},
+            "debug": {
+                "user_id": str(current_user.id),
+                "subscription_found": False,
+                "reason": "No subscription record in database"
+            }
+        }
+
+    # Get plan details using plan_id from subscription
+    plan = db.query(Plan).filter(Plan.id == subscription.plan_id).first()
+
+    if not plan:
+        # Fallback: try to get plan from subscription metadata or default to Developer
+        plan = db.query(Plan).filter(Plan.name == "Developer").first()
+
+    print(f"[SUBSCRIPTION] Found subscription for user {current_user.id}: stripe_sub_id={subscription.stripe_subscription_id}, status={subscription.status}, plan={plan.name if plan else 'None'}")
+    logger.info(f"User {current_user.id} has subscription {subscription.stripe_subscription_id} with status {subscription.status}")
+
+    # Only return subscription if status is active, trialing, past_due, or incomplete
+    # Filter out incomplete_expired, canceled, and unpaid subscriptions
+    if subscription.status in ["incomplete_expired", "canceled", "unpaid"]:
+        # Return free plan if subscription is incomplete/canceled
+        free_plan = db.query(Plan).filter(Plan.name == "Free").first()
+        logger.info(f"Subscription {subscription.stripe_subscription_id} has invalid status: {subscription.status}")
+        return {
+            "plan_name": "Free",
+            "monthly_requests": free_plan.monthly_requests if free_plan else 100,
+            "price_cents": 0,
+            "status": "active",
+            "features": free_plan.features if free_plan else {},
+            "debug": {
+                "user_id": str(current_user.id),
+                "subscription_found": True,
+                "stripe_subscription_id": subscription.stripe_subscription_id,
+                "stripe_customer_id": subscription.stripe_customer_id,
+                "actual_status": subscription.status,
+                "plan_id": subscription.plan_id,
+                "plan_name": plan.name if plan else None,
+                "reason": f"Subscription status '{subscription.status}' not in [active, trialing, past_due]"
+            }
+        }
+
+    return {
+        "plan_name": plan.name if plan else "Unknown",
+        "monthly_requests": plan.monthly_requests if plan else 10000,
+        "price_cents": plan.price_cents if plan else 4900,
+        "status": subscription.status,
+        "current_period_end": subscription.current_period_end,
+        "features": plan.features if plan else {},
+        "debug": {
+            "user_id": str(current_user.id),
+            "subscription_found": True,
+            "stripe_subscription_id": subscription.stripe_subscription_id,
+            "stripe_customer_id": subscription.stripe_customer_id,
+            "actual_status": subscription.status,
+            "plan_id": subscription.plan_id,
+            "plan_name": plan.name if plan else None,
+            "reason": "Active subscription"
+        }
+    }
+
+
+@router.get("/subscription/debug")
+async def debug_subscription(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Debug endpoint to see raw subscription data
+    """
+    import logging
+    logger = logging.getLogger(__name__)
+
+    # Find user's subscription
+    subscription = db.query(StripeSubscription).filter(
+        StripeSubscription.user_id == current_user.id
+    ).first()
+
+    if not subscription:
+        return {
+            "found": False,
+            "user_id": str(current_user.id),
+            "message": "No subscription found in database"
+        }
+
+    # Get plan details
+    plan = db.query(Plan).filter(Plan.id == subscription.plan_id).first()
+
+    logger.info(f"Debug: User {current_user.id} has subscription {subscription.stripe_subscription_id} with status {subscription.status}")
+
+    return {
+        "found": True,
+        "user_id": str(current_user.id),
+        "stripe_subscription_id": subscription.stripe_subscription_id,
+        "stripe_customer_id": subscription.stripe_customer_id,
+        "status": subscription.status,
+        "plan_id": subscription.plan_id,
+        "plan_name": plan.name if plan else None,
+        "current_period_start": subscription.current_period_start,
+        "current_period_end": subscription.current_period_end,
+        "created_at": subscription.created_at,
+        "updated_at": subscription.updated_at
+    }
+
+
 @router.post("/checkout")
 async def create_checkout(
     plan_name: str,
@@ -58,7 +193,8 @@ async def create_checkout(
         price_id=plan.stripe_price_id,
         success_url=success_url,
         cancel_url=cancel_url,
-        customer_id=existing_subscription.stripe_customer_id if existing_subscription else None
+        customer_id=existing_subscription.stripe_customer_id if existing_subscription else None,
+        user_id=str(current_user.id)
     )
 
     return {"url": checkout_session.url}
@@ -117,54 +253,248 @@ async def stripe_webhook(
     # Handle different event types
     event_type = event["type"]
 
-    if event_type == "customer.subscription.created":
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.info(f"Received Stripe webhook: {event_type}, event_id: {event.get('id', 'unknown')}")
+    print(f"[WEBHOOK] Received Stripe webhook: {event_type}, event_id: {event.get('id', 'unknown')}")
+
+    if event_type == "checkout.session.completed":
+        print(f"[WEBHOOK] Processing checkout.session.completed")
+        await handle_checkout_completed(event, db)
+    elif event_type == "customer.subscription.created":
+        print(f"[WEBHOOK] Processing customer.subscription.created")
         await handle_subscription_created(event, db)
     elif event_type == "customer.subscription.updated":
+        print(f"[WEBHOOK] Processing customer.subscription.updated")
         await handle_subscription_updated(event, db)
     elif event_type == "customer.subscription.deleted":
+        print(f"[WEBHOOK] Processing customer.subscription.deleted")
         await handle_subscription_deleted(event, db)
+    elif event_type == "invoice.payment_succeeded":
+        print(f"[WEBHOOK] Processing invoice.payment_succeeded")
+        await handle_payment_succeeded(event, db)
     elif event_type == "invoice.payment_failed":
+        print(f"[WEBHOOK] Processing invoice.payment_failed")
         await handle_payment_failed(event, db)
+    else:
+        logger.info(f"Unhandled webhook event type: {event_type}")
+        print(f"[WEBHOOK] Unhandled webhook event type: {event_type}")
 
     return {"status": "success"}
 
 
-async def handle_subscription_created(event: dict, db: Session):
-    """Handle subscription creation"""
-    subscription_data = event["data"]["object"]
+async def handle_checkout_completed(event: dict, db: Session):
+    """Handle checkout session completion"""
+    import logging
+    logger = logging.getLogger(__name__)
 
-    # Find user by Stripe customer ID
+    session_data = event["data"]["object"]
+    print(f"[CHECKOUT] Processing checkout.session.completed: {session_data.get('id')}")
+    logger.info(f"Processing checkout.session.completed: {session_data.get('id')}")
+
+    # Get subscription ID from checkout session
+    subscription_id = session_data.get("subscription")
+    customer_id = session_data.get("customer")
+    print(f"[CHECKOUT] subscription_id={subscription_id}, customer_id={customer_id}")
+
+    if not subscription_id:
+        print(f"[CHECKOUT] ERROR: No subscription ID in checkout session")
+        logger.warning("No subscription ID in checkout session")
+        return
+
+    # Get user_id from session metadata
+    user_id = session_data.get("metadata", {}).get("user_id")
+    print(f"[CHECKOUT] user_id from metadata: {user_id}")
+
+    if not user_id:
+        print(f"[CHECKOUT] ERROR: No user_id in checkout session metadata")
+        logger.error("No user_id in checkout session metadata")
+        return
+
+    # Check if subscription already exists
     existing_sub = db.query(StripeSubscription).filter(
-        StripeSubscription.stripe_customer_id == subscription_data["customer"]
+        StripeSubscription.stripe_subscription_id == subscription_id
     ).first()
 
     if existing_sub:
-        # Update existing subscription
-        existing_sub.stripe_subscription_id = subscription_data["id"]
-        existing_sub.status = subscription_data["status"]
-        existing_sub.current_period_start = datetime.fromtimestamp(subscription_data["current_period_start"])
-        existing_sub.current_period_end = datetime.fromtimestamp(subscription_data["current_period_end"])
+        print(f"[CHECKOUT] Subscription {subscription_id} already exists, skipping")
+        logger.info(f"Subscription {subscription_id} already exists, skipping")
+        return
+
+    # Get the subscription details from Stripe to find the price_id
+    import stripe
+    try:
+        print(f"[CHECKOUT] Retrieving subscription {subscription_id} from Stripe...")
+        subscription = stripe.Subscription.retrieve(subscription_id)
+        print(f"[CHECKOUT] Retrieved subscription, status={subscription.get('status')}")
+        logger.info(f"Retrieved subscription {subscription_id} from Stripe")
+
+        # Get price_id from subscription items
+        items_data = list(subscription["items"]["data"]) if "items" in subscription and "data" in subscription["items"] else []
+        print(f"[CHECKOUT] Found {len(items_data)} items in subscription")
+
+        if items_data:
+            price_id = items_data[0]["price"]["id"]
+            print(f"[CHECKOUT] price_id={price_id}")
+            logger.info(f"Found price_id: {price_id}")
+
+            # Find plan by stripe_price_id
+            plan = db.query(Plan).filter(Plan.stripe_price_id == price_id).first()
+            print(f"[CHECKOUT] Plan found: {plan.name if plan else 'None'}")
+
+            if plan:
+                # Create subscription record
+                print(f"[CHECKOUT] Creating subscription record for user {user_id}, plan {plan.name}")
+                new_subscription = StripeSubscription(
+                    user_id=user_id,
+                    plan_id=plan.id,
+                    stripe_subscription_id=subscription_id,
+                    stripe_customer_id=customer_id,
+                    status=subscription["status"],
+                    current_period_start=datetime.fromtimestamp(subscription["current_period_start"]),
+                    current_period_end=datetime.fromtimestamp(subscription["current_period_end"])
+                )
+                db.add(new_subscription)
+                db.commit()
+                print(f"[CHECKOUT] SUCCESS: Created subscription for user {user_id}, plan {plan.name}, status={subscription['status']}")
+                logger.info(f"Created subscription for user {user_id}, plan {plan.name}")
+            else:
+                print(f"[CHECKOUT] ERROR: Plan not found for price_id: {price_id}")
+                logger.error(f"Plan not found for price_id: {price_id}")
+        else:
+            print(f"[CHECKOUT] ERROR: No items in subscription")
+            logger.error("No items in subscription")
+    except Exception as e:
+        print(f"[CHECKOUT] EXCEPTION: Failed to retrieve subscription from Stripe: {e}")
+        logger.error(f"Failed to retrieve subscription from Stripe: {e}")
+        import traceback
+        print(f"[CHECKOUT] Traceback: {traceback.format_exc()}")
+        logger.error(traceback.format_exc())
+
+
+async def handle_subscription_created(event: dict, db: Session):
+    """Handle subscription creation"""
+    import logging
+    logger = logging.getLogger(__name__)
+
+    subscription_data = event["data"]["object"]
+    subscription_id = subscription_data["id"]
+
+    # Log the event for debugging
+    logger.info(f"Processing subscription.created event: {subscription_id}")
+
+    # First, check if subscription already exists by stripe_subscription_id
+    # (it may have been created by checkout.session.completed)
+    existing_sub_by_id = db.query(StripeSubscription).filter(
+        StripeSubscription.stripe_subscription_id == subscription_id
+    ).first()
+
+    if existing_sub_by_id:
+        # Subscription already exists (created by checkout.session.completed)
+        # Just update the status and period fields
+        logger.info(f"Subscription {subscription_id} already exists, updating status")
+        existing_sub_by_id.status = subscription_data.get("status", existing_sub_by_id.status)
+        if "current_period_start" in subscription_data:
+            existing_sub_by_id.current_period_start = datetime.fromtimestamp(subscription_data["current_period_start"])
+        if "current_period_end" in subscription_data:
+            existing_sub_by_id.current_period_end = datetime.fromtimestamp(subscription_data["current_period_end"])
+        db.commit()
+        return
+
+    # If not found by ID, check by customer_id
+    existing_sub = db.query(StripeSubscription).filter(
+        StripeSubscription.stripe_customer_id == subscription_data.get("customer")
+    ).first()
+
+    if existing_sub:
+        # Update existing subscription with the new subscription_id
+        logger.info(f"Updating existing customer subscription with new subscription_id: {subscription_id}")
+        existing_sub.stripe_subscription_id = subscription_id
+        existing_sub.status = subscription_data.get("status", "active")
+        if "current_period_start" in subscription_data:
+            existing_sub.current_period_start = datetime.fromtimestamp(subscription_data["current_period_start"])
+        if "current_period_end" in subscription_data:
+            existing_sub.current_period_end = datetime.fromtimestamp(subscription_data["current_period_end"])
     else:
-        # Create new subscription (if user exists)
-        # TODO: Link to user account
-        pass
+        # Create new subscription
+        # Get user_id from subscription metadata
+        user_id = subscription_data.get("metadata", {}).get("user_id")
+
+        if not user_id:
+            # Try to find user by customer email (fallback)
+            from app.models.user import User
+            import stripe
+            try:
+                customer = stripe.Customer.retrieve(subscription_data.get("customer"))
+                user = db.query(User).filter(User.email == customer.email).first()
+                if user:
+                    user_id = str(user.id)
+            except Exception as e:
+                logger.error(f"Failed to retrieve customer: {e}")
+
+        if user_id:
+            # Get price_id from subscription items
+            items = subscription_data.get("items", {}).get("data", [])
+            if not items:
+                logger.error("No items in subscription data")
+                return
+
+            price_id = items[0]["price"]["id"]
+
+            # Find plan by stripe_price_id
+            plan = db.query(Plan).filter(Plan.stripe_price_id == price_id).first()
+
+            if plan:
+                # Create new subscription record
+                new_subscription = StripeSubscription(
+                    user_id=user_id,
+                    plan_id=plan.id,
+                    stripe_subscription_id=subscription_data["id"],
+                    stripe_customer_id=subscription_data.get("customer"),
+                    status=subscription_data.get("status", "active"),
+                    current_period_start=datetime.fromtimestamp(
+                        subscription_data.get("current_period_start", int(datetime.utcnow().timestamp()))
+                    ),
+                    current_period_end=datetime.fromtimestamp(
+                        subscription_data.get("current_period_end", int(datetime.utcnow().timestamp()) + 2592000)  # +30 days
+                    )
+                )
+                db.add(new_subscription)
+                logger.info(f"Created subscription for user {user_id}, plan {plan.name}")
+            else:
+                logger.error(f"Plan not found for price_id: {price_id}")
+        else:
+            logger.error("Could not determine user_id for subscription")
 
     db.commit()
 
 
 async def handle_subscription_updated(event: dict, db: Session):
     """Handle subscription update"""
+    import logging
+    logger = logging.getLogger(__name__)
+
     subscription_data = event["data"]["object"]
+    subscription_id = subscription_data["id"]
+    new_status = subscription_data.get("status")
+
+    logger.info(f"Processing subscription.updated for {subscription_id}, new status: {new_status}")
 
     subscription = db.query(StripeSubscription).filter(
-        StripeSubscription.stripe_subscription_id == subscription_data["id"]
+        StripeSubscription.stripe_subscription_id == subscription_id
     ).first()
 
     if subscription:
-        subscription.status = subscription_data["status"]
-        subscription.current_period_start = datetime.fromtimestamp(subscription_data["current_period_start"])
-        subscription.current_period_end = datetime.fromtimestamp(subscription_data["current_period_end"])
+        old_status = subscription.status
+        subscription.status = new_status
+        if "current_period_start" in subscription_data:
+            subscription.current_period_start = datetime.fromtimestamp(subscription_data["current_period_start"])
+        if "current_period_end" in subscription_data:
+            subscription.current_period_end = datetime.fromtimestamp(subscription_data["current_period_end"])
         db.commit()
+        logger.info(f"Updated subscription {subscription_id}: status '{old_status}' → '{subscription.status}'")
+    else:
+        logger.warning(f"Subscription not found for update: {subscription_id}")
 
 
 async def handle_subscription_deleted(event: dict, db: Session):
@@ -178,6 +508,46 @@ async def handle_subscription_deleted(event: dict, db: Session):
     if subscription:
         subscription.status = "canceled"
         db.commit()
+
+
+async def handle_payment_succeeded(event: dict, db: Session):
+    """Handle successful payment - activate subscription"""
+    import logging
+    logger = logging.getLogger(__name__)
+
+    invoice_data = event["data"]["object"]
+
+    # Extract subscription ID from nested structure
+    # In invoice.payment_succeeded, the subscription ID is in parent.subscription_details.subscription
+    subscription_id = None
+    if "parent" in invoice_data and invoice_data["parent"]:
+        parent = invoice_data["parent"]
+        if "subscription_details" in parent and parent["subscription_details"]:
+            subscription_id = parent["subscription_details"].get("subscription")
+
+    # Fallback: try top-level subscription field (for older API versions)
+    if not subscription_id:
+        subscription_id = invoice_data.get("subscription")
+
+    if not subscription_id:
+        logger.warning("No subscription ID in invoice.payment_succeeded event")
+        return
+
+    logger.info(f"Processing payment success for subscription: {subscription_id}")
+
+    # Find subscription by stripe_subscription_id
+    subscription = db.query(StripeSubscription).filter(
+        StripeSubscription.stripe_subscription_id == subscription_id
+    ).first()
+
+    if subscription:
+        # Update status to active when payment succeeds
+        old_status = subscription.status
+        subscription.status = "active"
+        db.commit()
+        logger.info(f"Updated subscription {subscription_id} status from '{old_status}' to 'active'")
+    else:
+        logger.warning(f"Subscription not found for payment success: {subscription_id}")
 
 
 async def handle_payment_failed(event: dict, db: Session):

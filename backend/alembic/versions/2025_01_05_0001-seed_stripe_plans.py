@@ -101,7 +101,7 @@ def upgrade():
                     SET monthly_requests = :monthly_requests,
                         price_cents = :price_cents,
                         stripe_price_id = :stripe_price_id,
-                        features = :features::jsonb
+                        features = CAST(:features AS jsonb)
                     WHERE name = :name
                 """),
                 {
@@ -117,7 +117,7 @@ def upgrade():
             conn.execute(
                 sa.text("""
                     INSERT INTO plans (id, name, monthly_requests, price_cents, stripe_price_id, features)
-                    VALUES (:id::uuid, :name, :monthly_requests, :price_cents, :stripe_price_id, :features::jsonb)
+                    VALUES (CAST(:id AS uuid), :name, :monthly_requests, :price_cents, :stripe_price_id, CAST(:features AS jsonb))
                 """),
                 {
                     "id": plan['id'],

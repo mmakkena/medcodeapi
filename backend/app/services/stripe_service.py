@@ -38,7 +38,8 @@ async def create_checkout_session(
     price_id: str,
     success_url: str,
     cancel_url: str,
-    customer_id: str | None = None
+    customer_id: str | None = None,
+    user_id: str | None = None
 ) -> stripe.checkout.Session:
     """Create a Stripe Checkout session for subscription"""
     session_params = {
@@ -55,6 +56,13 @@ async def create_checkout_session(
         session_params["customer"] = customer_id
     else:
         session_params["customer_email"] = customer_email
+
+    # Add metadata to link customer to user
+    if user_id:
+        session_params["metadata"] = {"user_id": user_id}
+        session_params["subscription_data"] = {
+            "metadata": {"user_id": user_id}
+        }
 
     session = stripe.checkout.Session.create(**session_params)
     return session

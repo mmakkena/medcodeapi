@@ -1,12 +1,66 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { billingAPI } from '@/lib/api';
 import { CreditCard, ExternalLink } from 'lucide-react';
+
+interface Subscription {
+  plan_name: string;
+  monthly_requests: number;
+  price_cents: number;
+  status: string;
+  features?: any;
+}
 
 export default function BillingPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [subscription, setSubscription] = useState<Subscription | null>(null);
+  const [fetchingSubscription, setFetchingSubscription] = useState(true);
+
+  useEffect(() => {
+    fetchSubscription();
+
+    // Check if returning from successful checkout
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+      // Remove the success parameter from URL
+      window.history.replaceState({}, '', '/dashboard/billing');
+      // Show success message
+      setError('');
+      setTimeout(() => {
+        fetchSubscription(); // Refetch after a short delay to allow webhook to process
+      }, 2000);
+    }
+  }, []);
+
+  const fetchSubscription = async () => {
+    try {
+      console.log('[BILLING] Fetching subscription...');
+      console.log('[BILLING] API URL:', process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000');
+      const response = await billingAPI.getSubscription();
+      console.log('[BILLING] Subscription response:', response.data);
+      setSubscription(response.data);
+    } catch (err: any) {
+      console.error('[BILLING] Failed to fetch subscription:', err);
+      console.error('[BILLING] Error details:', {
+        message: err.message,
+        response: err.response?.data,
+        status: err.response?.status,
+        url: err.config?.url,
+        baseURL: err.config?.baseURL
+      });
+      // Default to Free if fetch fails
+      setSubscription({
+        plan_name: 'Free',
+        monthly_requests: 100,
+        price_cents: 0,
+        status: 'active'
+      });
+    } finally {
+      setFetchingSubscription(false);
+    }
+  };
 
   const handleUpgrade = async (planName: string) => {
     setLoading(true);
@@ -55,17 +109,26 @@ export default function BillingPage() {
 
       {/* Current Plan */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <div className="flex items-start justify-between">
-          <div>
-            <h2 className="text-xl font-semibold mb-2">Current Plan</h2>
-            <p className="text-3xl font-bold text-blue-600">Free Tier</p>
-            <p className="text-gray-600 mt-2">100 requests per month</p>
+        {fetchingSubscription ? (
+          <div className="text-center py-4">Loading subscription...</div>
+        ) : subscription ? (
+          <div className="flex items-start justify-between">
+            <div>
+              <h2 className="text-xl font-semibold mb-2">Current Plan</h2>
+              <p className="text-3xl font-bold text-blue-600">{subscription.plan_name}</p>
+              <p className="text-gray-600 mt-2">{subscription.monthly_requests.toLocaleString()} requests per month</p>
+              {subscription.status && subscription.status !== 'active' && (
+                <p className="text-sm text-orange-600 mt-1">Status: {subscription.status}</p>
+              )}
+            </div>
+            <div className="text-right">
+              <div className="text-sm text-gray-500">Monthly Cost</div>
+              <div className="text-2xl font-bold">${(subscription.price_cents / 100).toFixed(2)}</div>
+            </div>
           </div>
-          <div className="text-right">
-            <div className="text-sm text-gray-500">Monthly Cost</div>
-            <div className="text-2xl font-bold">$0</div>
-          </div>
-        </div>
+        ) : (
+          <div className="text-center py-4 text-gray-500">Unable to load subscription</div>
+        )}
       </div>
 
       {/* Upgrade Options */}
@@ -168,11 +231,19 @@ export default function BillingPage() {
           </div>
           <div className="flex justify-between">
             <span>Next Billing Date:</span>
-            <span className="font-medium text-gray-900">N/A (Free Plan)</span>
+            <span className="font-medium text-gray-900">
+              {subscription && subscription.plan_name !== 'Free'
+                ? 'View in Stripe Portal'
+                : 'N/A (Free Plan)'}
+            </span>
           </div>
           <div className="flex justify-between">
             <span>Payment Method:</span>
-            <span className="font-medium text-gray-900">None</span>
+            <span className="font-medium text-gray-900">
+              {subscription && subscription.plan_name !== 'Free'
+                ? 'Manage in Stripe Portal'
+                : 'None'}
+            </span>
           </div>
         </div>
       </div>
