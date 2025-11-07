@@ -335,13 +335,27 @@ async def handle_subscription_created(event: dict, db: Session):
 
     if existing_sub_by_id:
         # Subscription already exists (created by checkout.session.completed)
-        # Just update the status and period fields
-        logger.info(f"Subscription {subscription_id} already exists, updating status")
+        # Update the status, period fields, AND check if plan changed
+        logger.info(f"Subscription {subscription_id} already exists, updating status and checking plan")
+        old_plan_id = existing_sub_by_id.plan_id
         existing_sub_by_id.status = subscription_data.get("status", existing_sub_by_id.status)
         if "current_period_start" in subscription_data:
             existing_sub_by_id.current_period_start = datetime.fromtimestamp(subscription_data["current_period_start"])
         if "current_period_end" in subscription_data:
             existing_sub_by_id.current_period_end = datetime.fromtimestamp(subscription_data["current_period_end"])
+
+        # Check if the plan (price) has changed
+        items = subscription_data.get("items", {}).get("data", [])
+        if items:
+            new_price_id = items[0]["price"]["id"]
+            logger.info(f"Subscription {subscription_id} has price_id: {new_price_id}")
+
+            # Find the plan by Stripe price ID
+            new_plan = db.query(Plan).filter(Plan.stripe_price_id == new_price_id).first()
+            if new_plan and new_plan.id != old_plan_id:
+                existing_sub_by_id.plan_id = new_plan.id
+                logger.info(f"Updated subscription {subscription_id}: plan changed to '{new_plan.name}'")
+
         db.commit()
         return
 
@@ -353,12 +367,25 @@ async def handle_subscription_created(event: dict, db: Session):
     if existing_sub:
         # Update existing subscription with the new subscription_id
         logger.info(f"Updating existing customer subscription with new subscription_id: {subscription_id}")
+        old_plan_id = existing_sub.plan_id
         existing_sub.stripe_subscription_id = subscription_id
         existing_sub.status = subscription_data.get("status", "active")
         if "current_period_start" in subscription_data:
             existing_sub.current_period_start = datetime.fromtimestamp(subscription_data["current_period_start"])
         if "current_period_end" in subscription_data:
             existing_sub.current_period_end = datetime.fromtimestamp(subscription_data["current_period_end"])
+
+        # Check if the plan (price) has changed
+        items = subscription_data.get("items", {}).get("data", [])
+        if items:
+            new_price_id = items[0]["price"]["id"]
+            logger.info(f"Subscription {subscription_id} has price_id: {new_price_id}")
+
+            # Find the plan by Stripe price ID
+            new_plan = db.query(Plan).filter(Plan.stripe_price_id == new_price_id).first()
+            if new_plan and new_plan.id != old_plan_id:
+                existing_sub.plan_id = new_plan.id
+                logger.info(f"Updated subscription {subscription_id}: plan changed to '{new_plan.name}'")
     else:
         # Create new subscription
         # Get user_id from subscription metadata
