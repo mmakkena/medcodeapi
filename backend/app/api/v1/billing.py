@@ -430,11 +430,29 @@ async def handle_subscription_updated(event: dict, db: Session):
 
     if subscription:
         old_status = subscription.status
+        old_plan_id = subscription.plan_id
+
+        # Update status
         subscription.status = new_status
+
+        # Update periods
         if "current_period_start" in subscription_data:
             subscription.current_period_start = datetime.fromtimestamp(subscription_data["current_period_start"])
         if "current_period_end" in subscription_data:
             subscription.current_period_end = datetime.fromtimestamp(subscription_data["current_period_end"])
+
+        # IMPORTANT: Check if the plan (price) has changed (plan upgrade/downgrade)
+        items = subscription_data.get("items", {}).get("data", [])
+        if items:
+            new_price_id = items[0]["price"]["id"]
+            logger.info(f"Subscription {subscription_id} has price_id: {new_price_id}")
+
+            # Find the plan by Stripe price ID
+            new_plan = db.query(Plan).filter(Plan.stripe_price_id == new_price_id).first()
+            if new_plan and new_plan.id != old_plan_id:
+                subscription.plan_id = new_plan.id
+                logger.info(f"Updated subscription {subscription_id}: plan changed to '{new_plan.name}'")
+
         db.commit()
         logger.info(f"Updated subscription {subscription_id}: status '{old_status}' → '{subscription.status}'")
     else:
