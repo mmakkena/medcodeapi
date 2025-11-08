@@ -286,6 +286,85 @@ async def sync_subscription(
         )
 
 
+@router.post("/admin/sync-all-subscriptions")
+async def sync_all_subscriptions(
+    admin_key: str,
+    db: Session = Depends(get_db)
+):
+    """
+    ADMIN ONLY: Sync ALL subscriptions with Stripe data.
+    This will update subscription statuses and plan_ids to match Stripe.
+
+    Requires admin_key query parameter for security.
+    """
+    import logging
+    import stripe
+    logger = logging.getLogger(__name__)
+
+    # Simple admin key check (you should use an environment variable)
+    if admin_key != settings.SECRET_KEY:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Invalid admin key"
+        )
+
+    subscriptions = db.query(StripeSubscription).all()
+    logger.info(f"Syncing {len(subscriptions)} subscriptions with Stripe")
+
+    results = {
+        "total": len(subscriptions),
+        "synced": 0,
+        "errors": 0,
+        "changes": []
+    }
+
+    for sub in subscriptions:
+        try:
+            # Fetch from Stripe
+            stripe_sub = stripe.Subscription.retrieve(sub.stripe_subscription_id)
+            stripe_status = stripe_sub.get("status")
+
+            # Get price_id
+            items = list(stripe_sub.get("items", {}).get("data", []))
+            if items:
+                stripe_price_id = items[0]["price"]["id"]
+                correct_plan = db.query(Plan).filter(Plan.stripe_price_id == stripe_price_id).first()
+
+                if correct_plan:
+                    current_plan = db.query(Plan).filter(Plan.id == sub.plan_id).first()
+
+                    changes = []
+                    # Check status
+                    if sub.status != stripe_status:
+                        changes.append(f"status: {sub.status} → {stripe_status}")
+                        sub.status = stripe_status
+
+                    # Check plan
+                    if sub.plan_id != correct_plan.id:
+                        changes.append(f"plan: {current_plan.name if current_plan else 'Unknown'} → {correct_plan.name}")
+                        sub.plan_id = correct_plan.id
+
+                    if changes:
+                        results["changes"].append({
+                            "subscription_id": sub.stripe_subscription_id,
+                            "updates": changes
+                        })
+                        logger.info(f"Updated {sub.stripe_subscription_id}: {', '.join(changes)}")
+
+                    results["synced"] += 1
+        except Exception as e:
+            logger.error(f"Error syncing {sub.stripe_subscription_id}: {e}")
+            results["errors"] += 1
+
+    db.commit()
+
+    return {
+        "success": True,
+        "message": f"Synced {results['synced']} subscriptions ({results['errors']} errors)",
+        "results": results
+    }
+
+
 @router.post("/webhook")
 async def stripe_webhook(
     request: Request,
