@@ -379,7 +379,25 @@ async def handle_checkout_completed(event: dict, db: Session):
             plan = db.query(Plan).filter(Plan.stripe_price_id == price_id).first()
 
             if plan:
-                # Create subscription record
+                # Cancel any other active subscriptions for this user before creating the new one
+                old_subscriptions = db.query(StripeSubscription).filter(
+                    StripeSubscription.user_id == user_id,
+                    StripeSubscription.status == 'active'
+                ).all()
+
+                for old_sub in old_subscriptions:
+                    try:
+                        logger.info(f"Canceling old subscription {old_sub.stripe_subscription_id} for user {user_id}")
+                        # Cancel in Stripe
+                        stripe.Subscription.cancel(old_sub.stripe_subscription_id)
+                        # Update status in database
+                        old_sub.status = 'canceled'
+                        logger.info(f"Successfully canceled old subscription {old_sub.stripe_subscription_id}")
+                    except stripe.error.StripeError as e:
+                        logger.error(f"Failed to cancel subscription {old_sub.stripe_subscription_id}: {e}")
+                        # Continue even if cancellation fails
+
+                # Create new subscription record
                 new_subscription = StripeSubscription(
                     user_id=user_id,
                     plan_id=plan.id,
