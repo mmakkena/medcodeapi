@@ -67,11 +67,11 @@ async def get_user_usage_stats(db: Session, user_id: UUID) -> dict:
     # Get user's plan limit from subscription
     monthly_limit = 100  # Default free tier
 
-    # Check if user has an active subscription
+    # Check if user has an active subscription (get most recent if multiple)
     subscription = db.query(StripeSubscription).filter(
         StripeSubscription.user_id == user_id,
         StripeSubscription.status.in_(["active", "trialing", "past_due"])
-    ).first()
+    ).order_by(StripeSubscription.current_period_start.desc()).first()
 
     if subscription:
         # Get plan details
