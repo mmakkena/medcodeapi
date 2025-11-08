@@ -29,10 +29,11 @@ async def get_subscription(
     import logging
     logger = logging.getLogger(__name__)
 
-    # Find user's subscription
+    # Find user's active subscription (most recent if multiple)
     subscription = db.query(StripeSubscription).filter(
-        StripeSubscription.user_id == current_user.id
-    ).first()
+        StripeSubscription.user_id == current_user.id,
+        StripeSubscription.status == 'active'
+    ).order_by(StripeSubscription.current_period_start.desc()).first()
 
     if not subscription:
         # Return free plan if no subscription
@@ -90,10 +91,11 @@ async def debug_subscription(
     import logging
     logger = logging.getLogger(__name__)
 
-    # Find user's subscription
+    # Find user's active subscription (most recent if multiple)
     subscription = db.query(StripeSubscription).filter(
-        StripeSubscription.user_id == current_user.id
-    ).first()
+        StripeSubscription.user_id == current_user.id,
+        StripeSubscription.status == 'active'
+    ).order_by(StripeSubscription.current_period_start.desc()).first()
 
     if not subscription:
         return {
@@ -178,10 +180,11 @@ async def get_billing_portal(
     Get Stripe billing portal URL for the current user.
     Allows users to manage their subscription, payment methods, and billing history.
     """
-    # Find user's subscription
+    # Find user's active subscription (most recent if multiple)
     subscription = db.query(StripeSubscription).filter(
-        StripeSubscription.user_id == current_user.id
-    ).first()
+        StripeSubscription.user_id == current_user.id,
+        StripeSubscription.status == 'active'
+    ).order_by(StripeSubscription.current_period_start.desc()).first()
 
     if not subscription:
         raise HTTPException(
@@ -198,6 +201,89 @@ async def get_billing_portal(
     )
 
     return {"url": portal_session.url}
+
+
+@router.post("/sync-subscription")
+async def sync_subscription(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Sync user's subscription with Stripe (fetch latest plan from Stripe)
+    Useful for fixing out-of-sync subscription data
+    """
+    import logging
+    import stripe
+    logger = logging.getLogger(__name__)
+
+    # Find user's active subscription (most recent if multiple)
+    subscription = db.query(StripeSubscription).filter(
+        StripeSubscription.user_id == current_user.id,
+        StripeSubscription.status == 'active'
+    ).order_by(StripeSubscription.current_period_start.desc()).first()
+
+    if not subscription:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No subscription found"
+        )
+
+    try:
+        # Fetch subscription from Stripe
+        stripe_sub = stripe.Subscription.retrieve(subscription.stripe_subscription_id)
+
+        # Get the price ID from Stripe
+        items = list(stripe_sub.get("items", {}).get("data", []))
+        if not items:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="No items found in Stripe subscription"
+            )
+
+        stripe_price_id = items[0]["price"]["id"]
+        logger.info(f"Stripe price_id: {stripe_price_id}")
+
+        # Find the matching plan in our database
+        correct_plan = db.query(Plan).filter(Plan.stripe_price_id == stripe_price_id).first()
+
+        if not correct_plan:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"No plan found for price_id: {stripe_price_id}"
+            )
+
+        # Update subscription
+        old_plan = db.query(Plan).filter(Plan.id == subscription.plan_id).first()
+        old_plan_name = old_plan.name if old_plan else "Unknown"
+
+        subscription.plan_id = correct_plan.id
+        subscription.status = stripe_sub.get("status")
+        subscription.current_period_start = datetime.fromtimestamp(stripe_sub["current_period_start"])
+        subscription.current_period_end = datetime.fromtimestamp(stripe_sub["current_period_end"])
+
+        db.commit()
+        db.refresh(subscription)
+
+        logger.info(f"Synced subscription for user {current_user.email}: {old_plan_name} → {correct_plan.name}")
+
+        return {
+            "success": True,
+            "message": f"Subscription synced: {old_plan_name} → {correct_plan.name}",
+            "old_plan": old_plan_name,
+            "new_plan": correct_plan.name,
+            "subscription": {
+                "plan_id": str(subscription.plan_id),
+                "plan_name": correct_plan.name,
+                "status": subscription.status
+            }
+        }
+
+    except stripe.error.StripeError as e:
+        logger.error(f"Stripe error: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Stripe error: {str(e)}"
+        )
 
 
 @router.post("/webhook")
