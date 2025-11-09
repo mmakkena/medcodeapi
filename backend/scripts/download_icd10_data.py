@@ -34,19 +34,19 @@ ICD10CM_URLS = {
     "2024": {
         "codes": "https://www.cms.gov/files/zip/2024-code-descriptions-tabular-order.zip",
         "order": "https://www.cms.gov/files/zip/2024-icd-10-cm-codes-file.zip",
-        "guidelines": "https://www.cms.gov/files/zip/2024-icd-10-cm-guidelines.zip"
+        "guidelines": "https://www.cms.gov/files/document/fy-2024-icd-10-cm-coding-guidelines.pdf"
     },
     "2025": {
         # Effective: October 1, 2024 - September 30, 2025
         "codes": "https://www.cms.gov/files/zip/2025-code-descriptions-tabular-order.zip",
         "order": "https://www.cms.gov/files/zip/2025-icd-10-cm-codes-file.zip",
-        "guidelines": "https://www.cms.gov/files/zip/2025-icd-10-cm-guidelines.zip"
+        "guidelines": "https://www.cms.gov/files/document/fy-2025-icd-10-cm-coding-guidelines.pdf"
     },
     "2026": {
         # Effective: October 1, 2025 - September 30, 2026
         "codes": "https://www.cms.gov/files/zip/2026-code-descriptions-tabular-order.zip",
         "order": "https://www.cms.gov/files/zip/2026-icd-10-cm-codes-file.zip",
-        "guidelines": "https://www.cms.gov/files/zip/2026-icd-10-cm-guidelines.zip"
+        "guidelines": "https://www.cms.gov/files/document/fy-2026-icd-10-cm-coding-guidelines.pdf"
     }
 }
 
@@ -141,24 +141,41 @@ def download_icd10cm_data(year: str = "2024") -> bool:
     total_count = len(urls)
 
     for file_type, url in urls.items():
-        # Download zip file
-        zip_filename = f"icd10cm_{year}_{file_type}.zip"
-        zip_path = year_dir / zip_filename
+        # Determine file type (PDF or ZIP)
+        is_pdf = url.endswith('.pdf')
 
-        if zip_path.exists():
-            logger.info(f"{zip_filename} already exists, skipping download")
+        if is_pdf:
+            # Download PDF directly (no extraction needed)
+            pdf_filename = f"icd10cm_{year}_{file_type}.pdf"
+            pdf_path = year_dir / pdf_filename
+
+            if pdf_path.exists():
+                logger.info(f"{pdf_filename} already exists, skipping download")
+                success_count += 1
+            else:
+                if download_file(url, pdf_path):
+                    success_count += 1
+                else:
+                    logger.warning(f"Failed to download {file_type} data")
         else:
-            if not download_file(url, zip_path):
-                logger.warning(f"Failed to download {file_type} data")
+            # Download and extract ZIP file
+            zip_filename = f"icd10cm_{year}_{file_type}.zip"
+            zip_path = year_dir / zip_filename
+
+            if zip_path.exists():
+                logger.info(f"{zip_filename} already exists, skipping download")
+            else:
+                if not download_file(url, zip_path):
+                    logger.warning(f"Failed to download {file_type} data")
+                    continue
+
+            # Extract zip file
+            extract_dir = year_dir / file_type
+            if not extract_zip(zip_path, extract_dir):
+                logger.warning(f"Failed to extract {file_type} data")
                 continue
 
-        # Extract zip file
-        extract_dir = year_dir / file_type
-        if not extract_zip(zip_path, extract_dir):
-            logger.warning(f"Failed to extract {file_type} data")
-            continue
-
-        success_count += 1
+            success_count += 1
 
     logger.info(f"\nDownload summary: {success_count}/{total_count} files successful")
     return success_count == total_count
