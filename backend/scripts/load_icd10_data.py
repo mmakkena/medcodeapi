@@ -443,7 +443,8 @@ def main():
         logger.info(f"\nProcessing: {file_path.name}")
 
         # Try different parsers based on filename patterns
-        if 'tabular' in file_path.name.lower():
+        # Files with "tabular" or "order" in the name use the tabular parser
+        if 'tabular' in file_path.name.lower() or 'order' in file_path.name.lower():
             codes = parse_icd10cm_tabular_file(file_path)
         else:
             codes = parse_icd10cm_codes_file(file_path)
