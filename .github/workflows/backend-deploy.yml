@@ -143,7 +143,6 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build, tag, and push image to Amazon ECR
-        id: build-image
         uses: docker/build-push-action@v5
         with:
           context: ./backend
@@ -155,6 +154,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Set image output
+        id: build-image
         run: |
           echo "image=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}" >> $GITHUB_OUTPUT
 
