@@ -33,19 +33,16 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 ICD10CM_URLS = {
     "2024": {
         "codes": "https://www.cms.gov/files/zip/2024-code-descriptions-tabular-order.zip",
-        "order": "https://www.cms.gov/files/zip/2024-icd-10-cm-codes-file.zip",
         "guidelines": "https://www.cms.gov/files/document/fy-2024-icd-10-cm-coding-guidelines.pdf"
     },
     "2025": {
         # Effective: October 1, 2024 - September 30, 2025
         "codes": "https://www.cms.gov/files/zip/2025-code-descriptions-tabular-order.zip",
-        "order": "https://www.cms.gov/files/zip/2025-icd-10-cm-codes-file.zip",
         "guidelines": "https://www.cms.gov/files/document/fy-2025-icd-10-cm-coding-guidelines.pdf"
     },
     "2026": {
         # Effective: October 1, 2025 - September 30, 2026
         "codes": "https://www.cms.gov/files/zip/2026-code-descriptions-tabular-order.zip",
-        "order": "https://www.cms.gov/files/zip/2026-icd-10-cm-codes-file.zip",
         "guidelines": "https://www.cms.gov/files/document/fy-2026-icd-10-cm-coding-guidelines.pdf"
     }
 }
