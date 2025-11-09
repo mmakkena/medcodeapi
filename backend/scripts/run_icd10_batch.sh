@@ -58,7 +58,7 @@ run_ecs_task() {
         --network-configuration "awsvpcConfiguration={subnets=[$SUBNETS],securityGroups=[$SECURITY_GROUPS],assignPublicIp=ENABLED}" \
         --overrides "{
             \"containerOverrides\": [{
-                \"name\": \"nuvii-api\",
+                \"name\": \"nuvii-batch\",
                 \"command\": [\"sh\", \"-c\", \"$command\"]
             }],
             \"cpu\": \"$cpu\",
@@ -131,7 +131,7 @@ run_ecs_task_async() {
         --network-configuration "awsvpcConfiguration={subnets=[$SUBNETS],securityGroups=[$SECURITY_GROUPS],assignPublicIp=ENABLED}" \
         --overrides "{
             \"containerOverrides\": [{
-                \"name\": \"nuvii-api\",
+                \"name\": \"nuvii-batch\",
                 \"command\": [\"sh\", \"-c\", \"$command\"]
             }],
             \"cpu\": \"$cpu\",
@@ -163,6 +163,7 @@ print_usage() {
     echo "Usage: $0 <operation> [year]"
     echo ""
     echo "Operations:"
+    echo "  migrate              Run Alembic database migration"
     echo "  download <year>       Download ICD-10-CM data from CMS (default: 2026)"
     echo "  load <year>          Load ICD-10-CM codes into database (default: 2026)"
     echo "  download-load <year> Download and load in one operation (default: 2026)"
@@ -170,6 +171,7 @@ print_usage() {
     echo "  facets               Generate AI clinical facets"
     echo ""
     echo "Examples:"
+    echo "  $0 migrate"
     echo "  $0 download 2026"
     echo "  $0 load 2026"
     echo "  $0 download-load 2025"
@@ -185,6 +187,16 @@ print_usage() {
 
 # Main operations
 case "$OPERATION" in
+    migrate)
+        echo -e "${YELLOW}=== Run Database Migration ===${NC}"
+        echo ""
+        run_ecs_task \
+            "Run Alembic Migration" \
+            "alembic upgrade head && echo MIGRATION_COMPLETE" \
+            512 \
+            1024
+        ;;
+
     download)
         echo -e "${YELLOW}=== Download ICD-10-CM Data for Year $YEAR ===${NC}"
         echo ""
