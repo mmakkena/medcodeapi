@@ -396,6 +396,7 @@ def load_codes_to_database(codes: List[Dict], db: Session, version_year: int = 2
 
         if existing:
             # Update existing code
+            existing.description = code_data['description']
             existing.short_desc = code_data['description']
             existing.long_desc = code_data['description']  # Same for now
             existing.chapter = code_data.get('chapter')
@@ -409,6 +410,7 @@ def load_codes_to_database(codes: List[Dict], db: Session, version_year: int = 2
             new_code = ICD10Code(
                 code=code_data['code'],
                 code_system=code_data['code_system'],
+                description=code_data['description'],
                 short_desc=code_data['description'],
                 long_desc=code_data['description'],
                 chapter=code_data.get('chapter'),
