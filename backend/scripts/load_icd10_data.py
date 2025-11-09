@@ -107,6 +107,65 @@ def parse_icd10cm_tabular_file(file_path: Path) -> List[Dict]:
     return codes
 
 
+def parse_icd10cm_order_file(file_path: Path) -> List[Dict]:
+    """
+    Parse ICD-10-CM order file format.
+
+    Format: LINE_NUMBER CODE INDENT SHORT_DESC LONG_DESC
+    Example: 00001 A00     0 Cholera                                                      Cholera
+
+    Args:
+        file_path: Path to order file
+
+    Returns:
+        List of code dictionaries
+    """
+    codes = []
+
+    logger.info(f"Parsing file: {file_path}")
+
+    try:
+        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+            lines = f.readlines()
+
+        for line in lines:
+            # Skip empty lines
+            if not line.strip():
+                continue
+
+            # Split by whitespace
+            parts = line.strip().split(None, 4)  # Split into max 5 parts
+
+            if len(parts) >= 4:
+                # parts[0] = line number
+                # parts[1] = code
+                # parts[2] = indent level
+                # parts[3] = short description
+                # parts[4] = long description (if exists)
+
+                code = parts[1]
+
+                # Validate ICD-10 code format
+                # Matches: A00, A081, A0811, A00.1, A081.3, etc.
+                if re.match(r'^[A-Z][0-9]{2}[0-9A-Z]{0,4}(?:\.[0-9A-Z]{1,4})?$', code):
+                    description = parts[4] if len(parts) >= 5 else parts[3]
+                    chapter = get_chapter_from_code(code)
+
+                    codes.append({
+                        'code': code,
+                        'description': description,
+                        'chapter': chapter,
+                        'code_system': 'ICD10-CM'
+                    })
+
+        logger.info(f"Parsed {len(codes)} codes from {file_path.name}")
+
+    except Exception as e:
+        logger.error(f"Error parsing {file_path}: {e}")
+
+    return codes
+
+
 def parse_icd10cm_codes_file(file_path: Path) -> List[Dict]:
     """
     Parse ICD-10-CM codes file (XML format or tabular).
@@ -443,10 +502,14 @@ def main():
         logger.info(f"\nProcessing: {file_path.name}")
 
         # Try different parsers based on filename patterns
-        # Files with "tabular" or "order" in the name use the tabular parser
-        if 'tabular' in file_path.name.lower() or 'order' in file_path.name.lower():
+        if 'order' in file_path.name.lower():
+            # Order files have format: LINE_NUMBER CODE INDENT SHORT_DESC LONG_DESC
+            codes = parse_icd10cm_order_file(file_path)
+        elif 'tabular' in file_path.name.lower():
+            # Tabular files start with the code
             codes = parse_icd10cm_tabular_file(file_path)
         else:
+            # Generic code files
             codes = parse_icd10cm_codes_file(file_path)
 
         all_codes.extend(codes)
