@@ -226,8 +226,8 @@ case "$OPERATION" in
         run_ecs_task \
             "Download and Load ICD-10-CM $YEAR" \
             "python scripts/download_icd10_data.py --year $YEAR && python scripts/load_icd10_data.py --year $YEAR && echo COMPLETE" \
-            512 \
-            1024
+            1024 \
+            2048
         ;;
 
     parse-guidelines)
