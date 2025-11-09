@@ -37,15 +37,35 @@ def upgrade() -> None:
         AND effective_date IS NULL
     """)
 
-    # Step 3: Drop the old unique constraint (code, code_system)
-    op.drop_constraint('uix_icd10_code', 'icd10_codes', type_='unique')
+    # Step 3: Drop the old unique constraint (code, code_system) if it exists
+    # Make this idempotent - only drop if exists
+    op.execute("""
+        DO $$
+        BEGIN
+            IF EXISTS (
+                SELECT 1 FROM pg_constraint
+                WHERE conname = 'uix_icd10_code'
+                AND conrelid = 'icd10_codes'::regclass
+            ) THEN
+                ALTER TABLE icd10_codes DROP CONSTRAINT uix_icd10_code;
+            END IF;
+        END $$;
+    """)
 
-    # Step 4: Create new unique constraint (code, code_system, version_year)
-    op.create_unique_constraint(
-        'uix_icd10_code_version',
-        'icd10_codes',
-        ['code', 'code_system', 'version_year']
-    )
+    # Step 4: Create new unique constraint (code, code_system, version_year) if it doesn't exist
+    op.execute("""
+        DO $$
+        BEGIN
+            IF NOT EXISTS (
+                SELECT 1 FROM pg_constraint
+                WHERE conname = 'uix_icd10_code_version'
+                AND conrelid = 'icd10_codes'::regclass
+            ) THEN
+                ALTER TABLE icd10_codes ADD CONSTRAINT uix_icd10_code_version
+                    UNIQUE (code, code_system, version_year);
+            END IF;
+        END $$;
+    """)
 
 
 def downgrade() -> None:
