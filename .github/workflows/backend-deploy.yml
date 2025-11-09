@@ -179,6 +179,22 @@ jobs:
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
 
+      - name: Pre-deployment health check
+        run: |
+          echo "=== Current Service Status ==="
+          aws ecs describe-services \
+            --cluster ${{ env.ECS_CLUSTER }} \
+            --services ${{ env.ECS_SERVICE }} \
+            --query 'services[0].{Status:status,RunningCount:runningCount,DesiredCount:desiredCount,PendingCount:pendingCount}' \
+            --output table
+
+          echo "=== Checking for recent failures ==="
+          aws ecs describe-services \
+            --cluster ${{ env.ECS_CLUSTER }} \
+            --services ${{ env.ECS_SERVICE }} \
+            --query 'services[0].events[:5]' \
+            --output table
+
       - name: Deploy to Amazon ECS
         id: deploy
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -187,6 +203,47 @@ jobs:
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
+          wait-for-minutes: 10
+        timeout-minutes: 12
+
+      - name: Check deployment status on timeout/failure
+        if: failure()
+        run: |
+          echo "::error::Deployment failed or timed out. Gathering diagnostics..."
+
+          # Get service events (shows why tasks are failing)
+          echo "=== Service Events (last 10) ==="
+          aws ecs describe-services \
+            --cluster ${{ env.ECS_CLUSTER }} \
+            --services ${{ env.ECS_SERVICE }} \
+            --query 'services[0].events[:10]' \
+            --output table
+
+          # Get task failures
+          echo "=== Failed/Stopped Tasks ==="
+          STOPPED_TASKS=$(aws ecs list-tasks \
+            --cluster ${{ env.ECS_CLUSTER }} \
+            --service-name ${{ env.ECS_SERVICE }} \
+            --desired-status STOPPED \
+            --query 'taskArns[:3]' \
+            --output text)
+
+          if [ ! -z "$STOPPED_TASKS" ]; then
+            aws ecs describe-tasks \
+              --cluster ${{ env.ECS_CLUSTER }} \
+              --tasks $STOPPED_TASKS \
+              --query 'tasks[*].{TaskArn:taskArn,StopCode:stopCode,StopReason:stoppedReason,Containers:containers[*].{Name:name,ExitCode:exitCode,Reason:reason}}' \
+              --output table
+          fi
+
+          # Get current running tasks
+          echo "=== Currently Running Tasks ==="
+          aws ecs list-tasks \
+            --cluster ${{ env.ECS_CLUSTER }} \
+            --service-name ${{ env.ECS_SERVICE }} \
+            --desired-status RUNNING \
+            --query 'taskArns' \
+            --output table
 
       - name: Verify deployment
         run: |
