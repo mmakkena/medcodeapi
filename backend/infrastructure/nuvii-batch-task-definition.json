@@ -1,0 +1,81 @@
+{
+  "family": "nuvii-batch-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::793523315434:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "nuvii-batch",
+      "image": "793523315434.dkr.ecr.us-east-2.amazonaws.com/nuvii-api:latest",
+      "cpu": 0,
+      "essential": true,
+      "command": ["sh", "-c", "echo 'Batch task - command will be overridden at runtime'"],
+      "environment": [
+        {
+          "name": "DATABASE_URL",
+          "value": "postgresql://USER:PASSWORD@HOST:5432/DATABASE"
+        },
+        {
+          "name": "ENVIRONMENT",
+          "value": "production"
+        },
+        {
+          "name": "SECRET_KEY",
+          "value": "YOUR_SECRET_KEY_HERE"
+        },
+        {
+          "name": "JWT_SECRET_KEY",
+          "value": "YOUR_JWT_SECRET_KEY_HERE"
+        },
+        {
+          "name": "REDIS_URL",
+          "value": "redis://YOUR_REDIS_HOST:6379/0"
+        },
+        {
+          "name": "STRIPE_SECRET_KEY",
+          "value": "sk_test_YOUR_STRIPE_SECRET_KEY"
+        },
+        {
+          "name": "STRIPE_PUBLISHABLE_KEY",
+          "value": "pk_test_YOUR_STRIPE_PUBLISHABLE_KEY"
+        },
+        {
+          "name": "STRIPE_WEBHOOK_SECRET",
+          "value": "whsec_YOUR_WEBHOOK_SECRET"
+        },
+        {
+          "name": "GOOGLE_CLIENT_ID",
+          "value": "YOUR_GOOGLE_CLIENT_ID"
+        },
+        {
+          "name": "GOOGLE_CLIENT_SECRET",
+          "value": "YOUR_GOOGLE_CLIENT_SECRET"
+        },
+        {
+          "name": "DEBUG",
+          "value": "false"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/nuvii-batch-task",
+          "awslogs-create-group": "true",
+          "awslogs-region": "us-east-2",
+          "awslogs-stream-prefix": "batch"
+        }
+      },
+      "systemControls": []
+    }
+  ],
+  "volumes": [],
+  "placementConstraints": [],
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  }
+}
