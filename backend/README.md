@@ -6,7 +6,10 @@ Medical coding lookup API for ICD-10 and CPT codes.
 
 - 🔐 **Authentication**: JWT-based user authentication + API key authentication
 - 📊 **Code Search**: Search ICD-10 and CPT codes by code or description
-- 🤖 **Code Suggestions**: AI-powered code suggestions from clinical text (keyword-based MVP, LLM-ready)
+- 🧠 **Semantic Search**: AI-powered semantic search using MedCPT clinical embeddings (768-dim vectors)
+- 🔀 **Hybrid Search**: Combines semantic (AI) + keyword matching for best results
+- 🏷️ **Faceted Search**: Filter by clinical facets (body system, severity, chronicity, etc.)
+- 🤖 **Code Suggestions**: AI-powered code suggestions from clinical text
 - 🔑 **API Key Management**: Create, rotate, and revoke API keys
 - 📈 **Usage Tracking**: Track API usage with detailed logs and statistics
 - 💳 **Billing**: Stripe integration for subscription management
@@ -16,11 +19,13 @@ Medical coding lookup API for ICD-10 and CPT codes.
 ## Tech Stack
 
 - **Framework**: FastAPI (Python 3.11)
-- **Database**: PostgreSQL 15
+- **Database**: PostgreSQL 15 + pgvector extension
 - **ORM**: SQLAlchemy 2.0 + Alembic
 - **Cache/Rate Limiting**: Redis (optional)
 - **Payments**: Stripe
 - **Search**: PostgreSQL full-text search (pg_trgm + tsvector)
+- **Embeddings**: MedCPT (ncbi/MedCPT-Query-Encoder) - 768-dimensional clinical embeddings
+- **Vector Search**: pgvector for cosine similarity search
 
 ## Project Structure
 
@@ -131,7 +136,10 @@ For complete API documentation with detailed request/response formats, authentic
 - `GET /api/v1/auth/me` - Get current user profile
 
 #### Code Search (API Key Required)
-- `GET /api/v1/icd10/search` - Search ICD-10 diagnosis codes
+- `GET /api/v1/icd10/search` - Search ICD-10 diagnosis codes (keyword-based)
+- `GET /api/v1/icd10/semantic-search` - AI-powered semantic search using clinical embeddings
+- `GET /api/v1/icd10/hybrid-search` - Hybrid search (combines semantic + keyword matching)
+- `GET /api/v1/icd10/faceted-search` - Search by clinical facets (body system, severity, etc.)
 - `GET /api/v1/cpt/search` - Search CPT procedure codes
 - `POST /api/v1/suggest` - AI-powered code suggestions from clinical text
 
@@ -183,7 +191,20 @@ curl -X POST http://localhost:8000/api/v1/api-keys \
 ### 3. Search ICD-10 Codes
 
 ```bash
+# Keyword search
 curl -X GET "http://localhost:8000/api/v1/icd10/search?query=hypertension" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+
+# Semantic search (AI-powered, understands medical context)
+curl -X GET "http://localhost:8000/api/v1/icd10/semantic-search?query=patient%20with%20chest%20pain&limit=10" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+
+# Hybrid search (combines semantic + keyword)
+curl -X GET "http://localhost:8000/api/v1/icd10/hybrid-search?query=diabetes&semantic_weight=0.7" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+
+# Faceted search (filter by clinical characteristics)
+curl -X GET "http://localhost:8000/api/v1/icd10/faceted-search?body_system=Cardiovascular&severity=Severe" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 

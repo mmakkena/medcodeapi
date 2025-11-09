@@ -78,7 +78,23 @@ curl -X GET "http://localhost:8000/api/v1/icd10/search?query=diabetes" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
-### 5️⃣ Get Code Suggestions
+### 5️⃣ Try Semantic Search (AI-Powered)
+
+```bash
+# Semantic search understands medical context
+curl -X GET "http://localhost:8000/api/v1/icd10/semantic-search?query=patient%20with%20chest%20pain%20and%20difficulty%20breathing&limit=5" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+
+# Hybrid search (combines AI + keywords)
+curl -X GET "http://localhost:8000/api/v1/icd10/hybrid-search?query=diabetes&semantic_weight=0.7&limit=5" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+
+# Filter by clinical facets
+curl -X GET "http://localhost:8000/api/v1/icd10/faceted-search?body_system=Cardiovascular&severity=Severe&limit=10" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### 6️⃣ Get Code Suggestions
 
 ```bash
 curl -X POST http://localhost:8000/api/v1/suggest \
@@ -99,7 +115,10 @@ curl -X POST http://localhost:8000/api/v1/suggest \
 | `POST /api/v1/auth/signup` | None | Create account |
 | `POST /api/v1/auth/login` | None | Get JWT token |
 | `GET /api/v1/auth/me` | JWT | Get user info |
-| `GET /api/v1/icd10/search` | API Key | Search ICD-10 codes |
+| `GET /api/v1/icd10/search` | API Key | Search ICD-10 codes (keyword) |
+| `GET /api/v1/icd10/semantic-search` | API Key | AI semantic search (MedCPT) |
+| `GET /api/v1/icd10/hybrid-search` | API Key | Hybrid (semantic + keyword) |
+| `GET /api/v1/icd10/faceted-search` | API Key | Filter by clinical facets |
 | `GET /api/v1/cpt/search` | API Key | Search CPT codes |
 | `POST /api/v1/suggest` | API Key | Get code suggestions |
 | `GET /api/v1/api-keys` | JWT | List API keys |
