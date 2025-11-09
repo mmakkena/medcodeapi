@@ -24,6 +24,12 @@ class ICD10Code(Base):
     version_year = Column(Integer, nullable=True)
     effective_date = Column(Date, nullable=True)
     expiry_date = Column(Date, nullable=True)
+
+    # Guideline-specific fields for year-specific coding guidance
+    coding_guidelines = Column(Text, nullable=True)  # Year-specific coding rules from official guidelines
+    clinical_notes = Column(Text, nullable=True)     # Clinical context and usage notes
+    coding_tips = Column(Text, nullable=True)        # Practical coding tips and common scenarios
+
     embedding = Column(VECTOR(768), nullable=True)  # 768-dim MedCPT embeddings
     last_updated = Column(DateTime, default=datetime.utcnow, nullable=False)
 

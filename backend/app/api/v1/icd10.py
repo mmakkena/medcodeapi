@@ -95,6 +95,7 @@ async def search_icd10(
 async def semantic_search_icd10(
     query: str = Query(..., description="Query text for semantic search", min_length=1),
     code_system: str | None = Query(None, description="Filter by code system (ICD10-CM, ICD10-PCS)"),
+    version_year: int | None = Query(None, description="Filter by version year (e.g., 2024, 2025, 2026)"),
     limit: int = Query(10, ge=1, le=100, description="Maximum number of results"),
     min_similarity: float = Query(0.0, ge=0.0, le=1.0, description="Minimum similarity threshold (0-1)"),
     api_key_data: tuple[APIKey, User] = Depends(verify_api_key_with_usage),
@@ -105,6 +106,8 @@ async def semantic_search_icd10(
     Returns codes most similar to the query text based on meaning, not just keywords.
 
     Example: "patient with chest pain and difficulty breathing" will find relevant cardiopulmonary codes
+
+    Use version_year to search within a specific year's coding guidelines (e.g., 2026).
     """
     api_key, user = api_key_data
     start_time = time.time()
@@ -118,6 +121,7 @@ async def semantic_search_icd10(
             db=db,
             query_text=query,
             code_system=code_system,
+            version_year=version_year,
             limit=limit,
             min_similarity=min_similarity
         )
@@ -157,7 +161,7 @@ async def semantic_search_icd10(
             user_id=user.id,
             endpoint="/api/v1/icd10/semantic-search",
             method="GET",
-            query_params={"query": query, "code_system": code_system, "limit": limit, "min_similarity": min_similarity},
+            query_params={"query": query, "code_system": code_system, "version_year": version_year, "limit": limit, "min_similarity": min_similarity},
             status_code=200,
             response_time_ms=response_time_ms,
             ip_address=None
@@ -178,7 +182,7 @@ async def semantic_search_icd10(
             user_id=user.id,
             endpoint="/api/v1/icd10/semantic-search",
             method="GET",
-            query_params={"query": query, "code_system": code_system, "limit": limit},
+            query_params={"query": query, "code_system": code_system, "version_year": version_year, "limit": limit},
             status_code=500,
             response_time_ms=response_time_ms,
             ip_address=None
@@ -190,6 +194,7 @@ async def semantic_search_icd10(
 async def hybrid_search_icd10(
     query: str = Query(..., description="Query text for hybrid search", min_length=1),
     code_system: str | None = Query(None, description="Filter by code system (ICD10-CM, ICD10-PCS)"),
+    version_year: int | None = Query(None, description="Filter by version year (e.g., 2024, 2025, 2026)"),
     semantic_weight: float = Query(0.7, ge=0.0, le=1.0, description="Weight for semantic results (0-1)"),
     limit: int = Query(10, ge=1, le=100, description="Maximum number of results"),
     api_key_data: tuple[APIKey, User] = Depends(verify_api_key_with_usage),
@@ -203,6 +208,8 @@ async def hybrid_search_icd10(
     - 1.0 = Pure semantic search
     - 0.5 = Equal weight for semantic and keyword
     - 0.0 = Pure keyword search
+
+    Use version_year to search within a specific year's coding guidelines (e.g., 2026).
     """
     api_key, user = api_key_data
     start_time = time.time()
@@ -216,6 +223,7 @@ async def hybrid_search_icd10(
             db=db,
             query_text=query,
             code_system=code_system,
+            version_year=version_year,
             semantic_weight=semantic_weight,
             limit=limit
         )
@@ -254,7 +262,7 @@ async def hybrid_search_icd10(
             user_id=user.id,
             endpoint="/api/v1/icd10/hybrid-search",
             method="GET",
-            query_params={"query": query, "code_system": code_system, "semantic_weight": semantic_weight, "limit": limit},
+            query_params={"query": query, "code_system": code_system, "version_year": version_year, "semantic_weight": semantic_weight, "limit": limit},
             status_code=200,
             response_time_ms=response_time_ms,
             ip_address=None
@@ -275,7 +283,7 @@ async def hybrid_search_icd10(
             user_id=user.id,
             endpoint="/api/v1/icd10/hybrid-search",
             method="GET",
-            query_params={"query": query, "code_system": code_system, "limit": limit},
+            query_params={"query": query, "code_system": code_system, "version_year": version_year, "limit": limit},
             status_code=500,
             response_time_ms=response_time_ms,
             ip_address=None

@@ -4,6 +4,7 @@
 # This script runs batch tasks on ECS for:
 # - Downloading ICD-10-CM codes from CMS
 # - Loading ICD-10-CM codes into database
+# - Parsing PDF guidelines and extracting code-specific guidance
 # - Generating embeddings for semantic search
 # - Generating AI facets
 #
@@ -167,6 +168,7 @@ print_usage() {
     echo "  download <year>       Download ICD-10-CM data from CMS (default: 2026)"
     echo "  load <year>          Load ICD-10-CM codes into database (default: 2026)"
     echo "  download-load <year> Download and load in one operation (default: 2026)"
+    echo "  parse-guidelines <year> Parse PDF guidelines and extract code-specific guidance (default: 2026)"
     echo "  embeddings <year>    Generate MedCPT embeddings (long-running, async)"
     echo "  facets               Generate AI clinical facets"
     echo ""
@@ -175,6 +177,7 @@ print_usage() {
     echo "  $0 download 2026"
     echo "  $0 load 2026"
     echo "  $0 download-load 2025"
+    echo "  $0 parse-guidelines 2026"
     echo "  $0 embeddings 2026"
     echo "  $0 facets"
     echo ""
@@ -225,6 +228,16 @@ case "$OPERATION" in
             "python scripts/download_icd10_data.py --year $YEAR && python scripts/load_icd10_data.py --year $YEAR && echo COMPLETE" \
             512 \
             1024
+        ;;
+
+    parse-guidelines)
+        echo -e "${YELLOW}=== Parse ICD-10-CM Guidelines for Year $YEAR ===${NC}"
+        echo ""
+        run_ecs_task \
+            "Parse Guidelines $YEAR" \
+            "python scripts/parse_icd10_guidelines.py --year $YEAR && echo GUIDELINES_PARSED" \
+            1024 \
+            2048
         ;;
 
     embeddings)

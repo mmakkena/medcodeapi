@@ -49,7 +49,8 @@ def create_embedding_text(code: ICD10Code) -> str:
     """
     Create text for embedding generation from ICD-10 code.
 
-    Combines code, short description, and long description for better semantic representation.
+    Combines code, descriptions, and year-specific guideline information
+    for better semantic representation.
 
     Args:
         code: ICD10Code object
@@ -74,6 +75,20 @@ def create_embedding_text(code: ICD10Code) -> str:
     if code.chapter:
         parts.append(f"({code.chapter})")
 
+    # Add year-specific guideline information
+    if code.coding_guidelines:
+        parts.append(f"Guidelines: {code.coding_guidelines}")
+
+    if code.clinical_notes:
+        parts.append(f"Clinical context: {code.clinical_notes}")
+
+    if code.coding_tips:
+        parts.append(f"Coding tips: {code.coding_tips}")
+
+    # Add version year for temporal context
+    if code.version_year:
+        parts.append(f"(FY {code.version_year})")
+
     return " ".join(parts)
 
 
@@ -81,7 +96,8 @@ def generate_embeddings_for_codes(
     db: Session,
     batch_size: int = 32,
     code_system: str = "ICD10-CM",
-    skip_existing: bool = True
+    skip_existing: bool = True,
+    year: Optional[int] = None
 ) -> int:
     """
     Generate embeddings for all codes in the database.
@@ -91,12 +107,17 @@ def generate_embeddings_for_codes(
         batch_size: Number of codes to process at once
         code_system: Code system to process
         skip_existing: Skip codes that already have embeddings
+        year: Filter by version_year (optional)
 
     Returns:
         Number of codes processed
     """
     # Get codes without embeddings (or all codes if not skipping)
     query = db.query(ICD10Code).filter(ICD10Code.code_system == code_system)
+
+    # Filter by year if specified
+    if year is not None:
+        query = query.filter(ICD10Code.version_year == year)
 
     if skip_existing:
         query = query.filter(ICD10Code.embedding.is_(None))
@@ -243,6 +264,11 @@ def main():
         "--sample",
         action="store_true",
         help="Show sample embeddings after generation"
+    )
+    parser.add_argument(
+        "--year",
+        type=int,
+        help="Filter by version year (e.g., 2024, 2025, 2026)"
     )
 
     args = parser.parse_args()

@@ -17,6 +17,7 @@ async def semantic_search(
     db: Session,
     query_text: str,
     code_system: Optional[str] = None,
+    version_year: Optional[int] = None,
     limit: int = 10,
     min_similarity: float = 0.0
 ) -> List[tuple[ICD10Code, float]]:
@@ -27,6 +28,7 @@ async def semantic_search(
         db: Database session
         query_text: Search query text
         code_system: Optional filter by code system (ICD10, ICD10-CM, ICD10-PCS)
+        version_year: Optional filter by version year (e.g., 2024, 2025, 2026)
         limit: Maximum number of results
         min_similarity: Minimum similarity threshold (0-1)
 
@@ -50,6 +52,10 @@ async def semantic_search(
         if code_system:
             query = query.filter(ICD10Code.code_system == code_system)
 
+        # Filter by version year if specified
+        if version_year is not None:
+            query = query.filter(ICD10Code.version_year == version_year)
+
         # Filter by minimum similarity
         if min_similarity > 0:
             query = query.filter(
@@ -64,13 +70,14 @@ async def semantic_search(
     except Exception as e:
         logger.error(f"Semantic search error: {e}")
         # Fallback to keyword search if semantic fails
-        return await keyword_search(db, query_text, code_system, limit)
+        return await keyword_search(db, query_text, code_system, version_year, limit)
 
 
 async def keyword_search(
     db: Session,
     query_text: str,
     code_system: Optional[str] = None,
+    version_year: Optional[int] = None,
     limit: int = 10
 ) -> List[tuple[ICD10Code, float]]:
     """
@@ -80,6 +87,7 @@ async def keyword_search(
         db: Database session
         query_text: Search query text
         code_system: Optional filter by code system
+        version_year: Optional filter by version year
         limit: Maximum number of results
 
     Returns:
@@ -105,6 +113,10 @@ async def keyword_search(
     if code_system:
         query = query.filter(ICD10Code.code_system == code_system)
 
+    # Filter by version year if specified
+    if version_year is not None:
+        query = query.filter(ICD10Code.version_year == version_year)
+
     # Limit results
     results = query.limit(limit).all()
 
@@ -116,6 +128,7 @@ async def hybrid_search(
     db: Session,
     query_text: str,
     code_system: Optional[str] = None,
+    version_year: Optional[int] = None,
     semantic_weight: float = 0.7,
     limit: int = 10
 ) -> List[tuple[ICD10Code, float]]:
@@ -126,6 +139,7 @@ async def hybrid_search(
         db: Database session
         query_text: Search query text
         code_system: Optional filter by code system
+        version_year: Optional filter by version year
         semantic_weight: Weight for semantic results (0-1), keyword weight is (1 - semantic_weight)
         limit: Maximum number of results
 
@@ -133,8 +147,8 @@ async def hybrid_search(
         List of (ICD10Code, combined_score) tuples
     """
     # Get both semantic and keyword results
-    semantic_results = await semantic_search(db, query_text, code_system, limit * 2)
-    keyword_results = await keyword_search(db, query_text, code_system, limit * 2)
+    semantic_results = await semantic_search(db, query_text, code_system, version_year, limit * 2)
+    keyword_results = await keyword_search(db, query_text, code_system, version_year, limit * 2)
 
     # Combine results with weighted scores
     combined_scores: Dict[str, tuple[ICD10Code, float]] = {}
@@ -168,7 +182,8 @@ async def hybrid_search(
 async def get_code_with_details(
     db: Session,
     code: str,
-    code_system: str = "ICD10-CM"
+    code_system: str = "ICD10-CM",
+    version_year: Optional[int] = None
 ) -> Optional[Dict[str, Any]]:
     """
     Get detailed information about a specific ICD-10 code.
@@ -177,17 +192,24 @@ async def get_code_with_details(
         db: Database session
         code: ICD-10 code
         code_system: Code system (default: ICD10-CM)
+        version_year: Optional filter by version year
 
     Returns:
         Dictionary with code info, facets, and mappings, or None if not found
     """
-    # Get the code
-    icd_code = db.query(ICD10Code).filter(
+    # Build query for the code
+    query = db.query(ICD10Code).filter(
         and_(
             ICD10Code.code == code,
             ICD10Code.code_system == code_system
         )
-    ).first()
+    )
+
+    # Filter by version year if specified
+    if version_year is not None:
+        query = query.filter(ICD10Code.version_year == version_year)
+
+    icd_code = query.first()
 
     if not icd_code:
         return None
