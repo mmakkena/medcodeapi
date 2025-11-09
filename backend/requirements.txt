@@ -33,8 +33,8 @@ boto3==1.34.0
 botocore==1.34.0
 
 # Embeddings and ML
-sentence-transformers==2.2.2
-torch==2.1.0
+sentence-transformers==2.3.1
+torch==2.2.0
 numpy==1.24.3
 
 # Testing
