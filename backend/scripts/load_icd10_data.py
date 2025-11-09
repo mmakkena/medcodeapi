@@ -543,10 +543,13 @@ def main():
         # Load codes
         added, updated = load_codes_to_database(all_codes, db, int(args.year))
 
-        # Get all loaded codes for relationship creation
+        # Get all loaded codes for relationship creation (for this year only)
         logger.info("\nFetching loaded codes for relationship creation...")
         loaded_codes = db.query(ICD10Code).filter(
-            ICD10Code.code_system == 'ICD10-CM'
+            and_(
+                ICD10Code.code_system == 'ICD10-CM',
+                ICD10Code.version_year == int(args.year)
+            )
         ).all()
 
         # Create relationships
