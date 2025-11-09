@@ -413,8 +413,8 @@ def main():
     parser.add_argument(
         "--year",
         type=str,
-        default="2024",
-        help="Year of ICD-10-CM data to load (default: 2024)"
+        default="2026",
+        help="Year of ICD-10-CM data to load (default: 2026)"
     )
     parser.add_argument(
         "--db-url",

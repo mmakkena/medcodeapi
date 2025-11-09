@@ -27,8 +27,9 @@ logger = logging.getLogger(__name__)
 DATA_DIR = Path(__file__).parent.parent / "data" / "icd10"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-# CMS ICD-10-CM data URLs (2024 FY release)
+# CMS ICD-10-CM data URLs
 # Note: CMS updates these URLs annually. Check https://www.cms.gov/medicare/coding-billing/icd-10-codes
+# ICD-10 codes are effective October 1st each year
 ICD10CM_URLS = {
     "2024": {
         "codes": "https://www.cms.gov/files/zip/2024-code-descriptions-tabular-order.zip",
@@ -36,9 +37,16 @@ ICD10CM_URLS = {
         "guidelines": "https://www.cms.gov/files/zip/2024-icd-10-cm-guidelines.zip"
     },
     "2025": {
-        # 2025 URLs will be available later in the year
+        # Effective: October 1, 2024 - September 30, 2025
         "codes": "https://www.cms.gov/files/zip/2025-code-descriptions-tabular-order.zip",
         "order": "https://www.cms.gov/files/zip/2025-icd-10-cm-codes-file.zip",
+        "guidelines": "https://www.cms.gov/files/zip/2025-icd-10-cm-guidelines.zip"
+    },
+    "2026": {
+        # Effective: October 1, 2025 - September 30, 2026
+        "codes": "https://www.cms.gov/files/zip/2026-code-descriptions-tabular-order.zip",
+        "order": "https://www.cms.gov/files/zip/2026-icd-10-cm-codes-file.zip",
+        "guidelines": "https://www.cms.gov/files/zip/2026-icd-10-cm-guidelines.zip"
     }
 }
 
@@ -186,8 +194,8 @@ def main():
     parser.add_argument(
         "--year",
         type=str,
-        default="2024",
-        help="Year of ICD-10-CM release to download (default: 2024)"
+        default="2026",
+        help="Year of ICD-10-CM release to download (default: 2026)"
     )
     parser.add_argument(
         "--list",
