@@ -422,9 +422,10 @@ def load_codes_to_database(codes: List[Dict], db: Session, version_year: int = 2
             db.add(new_code)
             added += 1
 
-        # Commit in batches of 1000
+        # Commit in batches of 1000 and clear session cache
         if (added + updated) % 1000 == 0:
             db.commit()
+            db.expire_all()  # Clear session cache to free memory
             logger.info(f"Progress: {added + updated} codes processed")
 
     db.commit()
