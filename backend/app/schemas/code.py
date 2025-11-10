@@ -168,3 +168,164 @@ class HybridSearchRequest(BaseModel):
     use_keyword: bool = Field(True, description="Enable keyword search")
     semantic_weight: float = Field(0.7, description="Weight for semantic results (0-1)", ge=0.0, le=1.0)
     limit: int = Field(10, ge=1, le=100)
+
+
+# =============================================================================
+# Procedure Code (CPT/HCPCS) Schemas
+# =============================================================================
+
+class ProcedureCodeResponse(BaseModel):
+    """Basic schema for procedure code response (CPT/HCPCS)"""
+    id: UUID
+    code: str
+    code_system: str
+    description: str  # Auto-selected based on license_status
+    category: Optional[str] = None
+    license_status: str
+    version_year: int
+
+    class Config:
+        from_attributes = True
+
+
+class ProcedureCodeEnhancedResponse(BaseModel):
+    """Enhanced schema for procedure code with all fields"""
+    id: UUID
+    code: str
+    code_system: str  # CPT or HCPCS
+
+    # Dual description strategy
+    paraphrased_desc: Optional[str] = None
+    short_desc: Optional[str] = None  # AMA licensed for CPT
+    long_desc: Optional[str] = None   # AMA licensed for CPT
+
+    # Classification
+    category: Optional[str] = None
+    procedure_type: Optional[str] = None
+
+    # Versioning and lifecycle
+    version_year: int
+    is_active: bool = True
+    effective_date: Optional[date] = None
+    expiry_date: Optional[date] = None
+
+    # Licensing
+    license_status: str  # 'free' or 'AMA_licensed'
+
+    # Billing metadata
+    relative_value_units: Optional[str] = None
+    global_period: Optional[str] = None
+    modifier_51_exempt: bool = False
+
+    # Timestamps
+    created_at: datetime
+    last_updated: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class ProcedureCodeFacetResponse(BaseModel):
+    """Schema for procedure code facets"""
+    code: str
+    code_system: str
+
+    # Anatomical classification
+    body_region: Optional[str] = None
+    body_system: Optional[str] = None
+
+    # Procedure classification
+    procedure_category: Optional[str] = None
+    procedure_type: Optional[str] = None
+
+    # Complexity
+    complexity_level: Optional[str] = None
+    typical_duration_mins: Optional[int] = None
+    relative_complexity_score: Optional[int] = None
+
+    # Anesthesia
+    anesthesia_type: Optional[str] = None
+    anesthesia_base_units: Optional[int] = None
+
+    # Service context
+    service_location: Optional[str] = None
+    provider_type: Optional[str] = None
+
+    # Clinical attributes
+    is_bilateral: bool = False
+    requires_modifier: bool = False
+    age_specific: bool = False
+    gender_specific: Optional[str] = None
+
+    # Special flags
+    is_add_on_code: bool = False
+    is_unlisted_code: bool = False
+    requires_special_report: bool = False
+
+    # E/M specific
+    em_level: Optional[str] = None
+    em_patient_type: Optional[str] = None
+
+    # Surgical specific
+    surgical_approach: Optional[str] = None
+    is_major_surgery: bool = False
+
+    # Imaging specific
+    imaging_modality: Optional[str] = None
+    uses_contrast: bool = False
+
+    # Additional metadata
+    extra: Optional[Dict[str, Any]] = None
+
+    class Config:
+        from_attributes = True
+
+
+class ProcedureCodeDetailResponse(BaseModel):
+    """Detailed procedure code response with facets and mappings"""
+    code_info: ProcedureCodeEnhancedResponse
+    facets: Optional[ProcedureCodeFacetResponse] = None
+    mappings: List[CodeMappingResponse] = []
+    similarity: Optional[float] = None  # For semantic search results
+
+    class Config:
+        from_attributes = True
+
+
+class ProcedureSemanticSearchResponse(BaseModel):
+    """Schema for procedure code semantic search response"""
+    query: str
+    results: List[ProcedureCodeDetailResponse]
+    total_results: int
+
+
+class ProcedureFacetedSearchRequest(BaseModel):
+    """Schema for procedure faceted search request"""
+    body_region: Optional[str] = Field(None, description="Filter by body region")
+    body_system: Optional[str] = Field(None, description="Filter by body system")
+    procedure_category: Optional[str] = Field(None, description="Filter by procedure category")
+    complexity_level: Optional[str] = Field(None, description="Filter by complexity level")
+    service_location: Optional[str] = Field(None, description="Filter by service location")
+    em_level: Optional[str] = Field(None, description="Filter by E/M level")
+    em_patient_type: Optional[str] = Field(None, description="Filter by E/M patient type")
+    is_major_surgery: Optional[bool] = Field(None, description="Filter by major surgery flag")
+    imaging_modality: Optional[str] = Field(None, description="Filter by imaging modality")
+    code_system: Optional[str] = Field(None, description="Filter by CPT or HCPCS")
+    limit: int = Field(50, ge=1, le=100, description="Maximum number of results")
+
+
+class ProcedureHybridSearchRequest(BaseModel):
+    """Schema for procedure hybrid search request"""
+    query: str = Field(..., min_length=1, description="Search query")
+    code_system: Optional[str] = Field(None, description="Filter by CPT or HCPCS")
+    version_year: Optional[int] = Field(None, description="Filter by version year")
+    semantic_weight: float = Field(0.7, description="Weight for semantic results (0-1)", ge=0.0, le=1.0)
+    limit: int = Field(10, ge=1, le=100, description="Maximum number of results")
+
+
+class ProcedureCodeSuggestionRequest(BaseModel):
+    """Schema for procedure code suggestion from clinical text"""
+    clinical_text: str = Field(..., min_length=10, description="Clinical documentation text")
+    code_system: Optional[str] = Field(None, description="Filter by CPT or HCPCS")
+    limit: int = Field(5, ge=1, le=20, description="Maximum number of suggestions")
+    min_similarity: float = Field(0.6, description="Minimum similarity threshold", ge=0.0, le=1.0)

@@ -40,6 +40,10 @@ app = FastAPI(
             "description": "Search and lookup CPT procedure codes"
         },
         {
+            "name": "Procedure Codes (CPT/HCPCS)",
+            "description": "Enhanced CPT and HCPCS procedure code search with semantic search, faceted filtering, and AI-powered suggestions. Supports license-compliant dual description strategy."
+        },
+        {
             "name": "Code Suggestions",
             "description": "AI-powered code suggestions from clinical text"
         },
@@ -114,11 +118,12 @@ if os.path.exists(static_dir):
 
 
 # Import and include routers
-from app.api.v1 import auth, icd10, cpt, suggest, api_keys, usage, billing
+from app.api.v1 import auth, icd10, cpt, procedure, suggest, api_keys, usage, billing
 
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
 app.include_router(icd10.router, prefix="/api/v1/icd10", tags=["ICD-10 Codes"])
 app.include_router(cpt.router, prefix="/api/v1/cpt", tags=["CPT Codes"])
+app.include_router(procedure.router, prefix="/api/v1/procedure", tags=["Procedure Codes (CPT/HCPCS)"])
 app.include_router(suggest.router, prefix="/api/v1", tags=["Code Suggestions"])
 app.include_router(api_keys.router, prefix="/api/v1/api-keys", tags=["API Keys"])
 app.include_router(usage.router, prefix="/api/v1/usage", tags=["Usage Tracking"])
