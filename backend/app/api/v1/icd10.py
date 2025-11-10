@@ -32,6 +32,7 @@ router = APIRouter()
 @router.get("/search", response_model=list[ICD10Response])
 async def search_icd10(
     query: str = Query(..., description="Search query (code or description)"),
+    version_year: int | None = Query(None, description="Filter by version year (e.g., 2024, 2025, 2026)"),
     limit: int = Query(10, ge=1, le=100, description="Maximum number of results"),
     api_key_data: tuple[APIKey, User] = Depends(verify_api_key_with_usage),
     db: Session = Depends(get_db)
@@ -39,6 +40,9 @@ async def search_icd10(
     """
     Search ICD-10 codes by code or description.
     Supports exact code match and fuzzy text search.
+
+    Use version_year to search within a specific year's codes (e.g., 2026).
+    If not specified, searches across all versions.
     """
     api_key, user = api_key_data
     start_time = time.time()
@@ -47,14 +51,25 @@ async def search_icd10(
     await check_rate_limit(api_key, user)
 
     try:
+        # Build base query
+        base_query = db.query(ICD10Code)
+
+        # Add version_year filter if specified
+        if version_year:
+            base_query = base_query.filter(ICD10Code.version_year == version_year)
+
         # Search by exact code match first
-        results = db.query(ICD10Code).filter(
+        results = base_query.filter(
             ICD10Code.code.ilike(f"{query}%")
         ).limit(limit).all()
 
         # If no exact matches, do fuzzy text search on description
         if not results:
-            results = db.query(ICD10Code).filter(
+            description_query = db.query(ICD10Code)
+            if version_year:
+                description_query = description_query.filter(ICD10Code.version_year == version_year)
+
+            results = description_query.filter(
                 ICD10Code.description.ilike(f"%{query}%")
             ).limit(limit).all()
 
@@ -66,7 +81,7 @@ async def search_icd10(
             user_id=user.id,
             endpoint="/api/v1/icd10/search",
             method="GET",
-            query_params={"query": query, "limit": limit},
+            query_params={"query": query, "version_year": version_year, "limit": limit},
             status_code=200,
             response_time_ms=response_time_ms,
             ip_address=None
@@ -83,7 +98,7 @@ async def search_icd10(
             user_id=user.id,
             endpoint="/api/v1/icd10/search",
             method="GET",
-            query_params={"query": query, "limit": limit},
+            query_params={"query": query, "version_year": version_year, "limit": limit},
             status_code=500,
             response_time_ms=response_time_ms,
             ip_address=None
