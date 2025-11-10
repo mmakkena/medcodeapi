@@ -386,11 +386,12 @@ def load_codes_to_database(codes: List[Dict], db: Session, version_year: int = 2
     logger.info(f"Loading {len(codes)} codes to database...")
 
     for code_data in codes:
-        # Check if code already exists
+        # Check if code already exists for this specific year
         existing = db.query(ICD10Code).filter(
             and_(
                 ICD10Code.code == code_data['code'],
-                ICD10Code.code_system == code_data['code_system']
+                ICD10Code.code_system == code_data['code_system'],
+                ICD10Code.version_year == version_year
             )
         ).first()
 
