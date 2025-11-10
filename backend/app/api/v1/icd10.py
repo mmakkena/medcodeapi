@@ -159,6 +159,9 @@ async def semantic_search_icd10(
                 "effective_date": code.effective_date,
                 "expiry_date": code.expiry_date,
                 "last_updated": code.last_updated,
+                "coding_guidelines": code.coding_guidelines,
+                "clinical_notes": code.clinical_notes,
+                "coding_tips": code.coding_tips,
                 "description": code.description
             }
             response_items.append({
@@ -260,6 +263,9 @@ async def hybrid_search_icd10(
                 "effective_date": code.effective_date,
                 "expiry_date": code.expiry_date,
                 "last_updated": code.last_updated,
+                "coding_guidelines": code.coding_guidelines,
+                "clinical_notes": code.clinical_notes,
+                "coding_tips": code.coding_tips,
                 "description": code.description
             }
             response_items.append({

@@ -33,6 +33,11 @@ class ICD10EnhancedResponse(BaseModel):
     expiry_date: Optional[date] = None
     last_updated: datetime
 
+    # Year-specific guideline fields (populated from official ICD-10-CM guidelines)
+    coding_guidelines: Optional[str] = None
+    clinical_notes: Optional[str] = None
+    coding_tips: Optional[str] = None
+
     # Legacy field for backward compatibility
     description: Optional[str] = None
 
