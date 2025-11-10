@@ -89,8 +89,7 @@ def upgrade() -> None:
         sa.Column('created_at', sa.DateTime(), nullable=False,
                   server_default=sa.text('CURRENT_TIMESTAMP')),
         sa.Column('last_updated', sa.DateTime(), nullable=False,
-                  server_default=sa.text('CURRENT_TIMESTAMP'),
-                  onupdate=sa.text('CURRENT_TIMESTAMP')),
+                  server_default=sa.text('CURRENT_TIMESTAMP')),
 
         # Legacy fields for backward compatibility
         sa.Column('search_vector', postgresql.TSVECTOR(), nullable=True,

@@ -2,6 +2,7 @@
 
 from fastapi import APIRouter, Depends, Query, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy import or_
 from app.database import get_db
 from app.models.procedure_code import ProcedureCode
 from app.models.api_key import APIKey
@@ -83,7 +84,7 @@ async def search_procedures(
                 description_query = description_query.filter(ProcedureCode.version_year == version_year)
 
             results = description_query.filter(
-                db.or_(
+                or_(
                     ProcedureCode.paraphrased_desc.ilike(f"%{query}%"),
                     ProcedureCode.short_desc.ilike(f"%{query}%"),
                     ProcedureCode.category.ilike(f"%{query}%")
