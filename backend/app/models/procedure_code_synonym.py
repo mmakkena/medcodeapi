@@ -35,11 +35,10 @@ class ProcedureCodeSynonym(Base):
         # Index for fast lookup by code and system
         Index("ix_procedure_synonyms_code_system", "code", "code_system"),
 
-        # Full-text search index on synonyms for fuzzy matching
+        # Full-text search index on synonyms for fuzzy matching (trigram index for fuzzy text search)
         Index("ix_procedure_synonyms_text", "synonym",
               postgresql_ops={"synonym": "gin_trgm_ops"},
-              postgresql_using="gin",
-              comment="Trigram index for fuzzy text search on synonyms"),
+              postgresql_using="gin"),
     )
 
     def __repr__(self):
