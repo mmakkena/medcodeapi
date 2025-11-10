@@ -1,0 +1,17 @@
+code,code_system,paraphrased_desc,short_desc,category,license_status,version_year
+J0585,HCPCS,Botulinum toxin type A injection,Injection botulinum toxin type A per unit,Drugs,free,2025
+J1817,HCPCS,Insulin medication administration,Injection insulin per 5 units,Drugs,free,2025
+J3301,HCPCS,Triamcinolone acetonide injection,Injection triamcinolone acetonide per 10mg,Drugs,free,2025
+J2001,HCPCS,Lidocaine injection,Injection lidocaine HCI 10mg,Drugs,free,2025
+Q4081,HCPCS,Skin substitute graft,Skin substitute per square centimeter,Supplies,free,2025
+E0250,HCPCS,Hospital bed rental,Hospital bed fixed height with mattress,Equipment,free,2025
+E0424,HCPCS,Oxygen delivery equipment,Stationary compressed gaseous oxygen system rental,Equipment,free,2025
+E0601,HCPCS,CPAP machine,Continuous positive airway pressure device,Equipment,free,2025
+E0781,HCPCS,Ambulatory infusion pump,Ambulatory infusion pump multi-channel,Equipment,free,2025
+E1390,HCPCS,Oxygen concentrator,Oxygen concentrator single delivery port,Equipment,free,2025
+A4217,HCPCS,Sterile water supply,Sterile water per 10ml,Supplies,free,2025
+A4253,HCPCS,Blood glucose test strips,Blood glucose test strips for home monitor per 50,Supplies,free,2025
+A4557,HCPCS,Insulin infusion supplies,Insulin infusion set for insulin pump,Supplies,free,2025
+G0438,HCPCS,Annual wellness visit initial,Annual wellness visit includes personalized prevention plan initial visit,Evaluation,free,2025
+G0439,HCPCS,Annual wellness visit subsequent,Annual wellness visit includes personalized prevention plan subsequent visit,Evaluation,free,2025
+S9325,HCPCS,Home infusion therapy medication,Home infusion therapy medication per diem,Services,free,2025

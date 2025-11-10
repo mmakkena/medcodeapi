@@ -1,0 +1,136 @@
+code,code_system,paraphrased_desc,category,license_status,version_year
+99201,CPT,New patient office visit - straightforward medical decision making,E/M,free,2025
+99202,CPT,New patient office visit - low complexity medical decision making,E/M,free,2025
+99203,CPT,New patient office visit - moderate complexity evaluation,E/M,free,2025
+99204,CPT,New patient office visit - high complexity assessment,E/M,free,2025
+99205,CPT,New patient office visit - comprehensive high complexity evaluation,E/M,free,2025
+99211,CPT,Established patient office visit - minimal presenting problem,E/M,free,2025
+99212,CPT,Established patient office visit - straightforward decision making,E/M,free,2025
+99213,CPT,Established patient office visit - low to moderate complexity,E/M,free,2025
+99214,CPT,Established patient office visit - moderate to high complexity,E/M,free,2025
+99215,CPT,Established patient office visit - high complexity assessment,E/M,free,2025
+99221,CPT,Initial hospital inpatient care per day - straightforward,E/M,free,2025
+99222,CPT,Initial hospital inpatient care per day - moderate complexity,E/M,free,2025
+99223,CPT,Initial hospital inpatient care per day - high complexity,E/M,free,2025
+99231,CPT,Subsequent hospital inpatient care per day - straightforward,E/M,free,2025
+99232,CPT,Subsequent hospital inpatient care per day - moderate complexity,E/M,free,2025
+99233,CPT,Subsequent hospital inpatient care per day - high complexity,E/M,free,2025
+99281,CPT,Emergency department visit - self-limited minor problem,E/M,free,2025
+99282,CPT,Emergency department visit - low to moderate severity,E/M,free,2025
+99283,CPT,Emergency department visit - moderate severity requiring urgent evaluation,E/M,free,2025
+99284,CPT,Emergency department visit - high severity immediate attention,E/M,free,2025
+99285,CPT,Emergency department visit - high severity immediate significant threat,E/M,free,2025
+99291,CPT,Critical care evaluation and management first hour,E/M,free,2025
+99292,CPT,Critical care evaluation and management each additional 30 minutes,E/M,free,2025
+99385,CPT,Initial comprehensive preventive medicine evaluation age 18-39 years,E/M,free,2025
+99386,CPT,Initial comprehensive preventive medicine evaluation age 40-64 years,E/M,free,2025
+99387,CPT,Initial comprehensive preventive medicine evaluation age 65 years and older,E/M,free,2025
+99395,CPT,Periodic comprehensive preventive medicine age 18-39 years,E/M,free,2025
+99396,CPT,Periodic comprehensive preventive medicine age 40-64 years,E/M,free,2025
+99397,CPT,Periodic comprehensive preventive medicine age 65 years and older,E/M,free,2025
+99406,CPT,Smoking and tobacco use cessation counseling 3 to 10 minutes,E/M,free,2025
+99407,CPT,Smoking and tobacco use cessation counseling more than 10 minutes,E/M,free,2025
+10060,CPT,Drainage of skin abscess simple or single,Surgery,free,2025
+10061,CPT,Drainage of skin abscess complicated or multiple,Surgery,free,2025
+11042,CPT,Debridement subcutaneous tissue first 20 sq cm or less,Surgery,free,2025
+11043,CPT,Debridement muscle and fascia first 20 sq cm or less,Surgery,free,2025
+11200,CPT,Removal of skin tags first 15 lesions,Surgery,free,2025
+11400,CPT,Excision benign lesion trunk arms or legs diameter 0.5 cm or less,Surgery,free,2025
+11401,CPT,Excision benign lesion trunk arms or legs diameter 0.6 to 1.0 cm,Surgery,free,2025
+12001,CPT,Simple repair superficial wounds face ears eyelids nose lips mucous membranes 2.5 cm or less,Surgery,free,2025
+12002,CPT,Simple repair superficial wounds scalp neck axillae genitalia trunk and extremities 2.5 cm or less,Surgery,free,2025
+17000,CPT,Destruction of premalignant lesions first lesion,Surgery,free,2025
+17110,CPT,Destruction of benign lesions other than skin tags or fibrocutaneous up to 14 lesions,Surgery,free,2025
+20610,CPT,Arthrocentesis aspiration and injection of major joint or bursa,Surgery,free,2025
+29881,CPT,Knee arthroscopy surgical with meniscectomy,Surgery,free,2025
+36415,CPT,Routine venipuncture for collection of blood specimen,Laboratory,free,2025
+43239,CPT,Upper gastrointestinal endoscopy with biopsy,Surgery,free,2025
+45378,CPT,Colonoscopy flexible diagnostic with or without collection of specimen,Surgery,free,2025
+45380,CPT,Colonoscopy flexible with biopsy single or multiple,Surgery,free,2025
+45385,CPT,Colonoscopy flexible with removal of tumor polyp or lesion by snare technique,Surgery,free,2025
+51798,CPT,Measurement of post-voiding residual urine using ultrasound,Laboratory,free,2025
+57454,CPT,Colposcopy of cervix including upper adjacent vagina with biopsy,Surgery,free,2025
+69210,CPT,Removal of impacted ear wax requiring instrumentation unilateral,Surgery,free,2025
+70450,CPT,Computed tomography head or brain without contrast,Radiology,free,2025
+70486,CPT,Computed tomography maxillofacial area without contrast,Radiology,free,2025
+70553,CPT,Magnetic resonance imaging brain without contrast then with contrast,Radiology,free,2025
+71045,CPT,Radiologic examination chest single view,Radiology,free,2025
+71046,CPT,Radiologic examination chest two views,Radiology,free,2025
+71250,CPT,Computed tomography thorax without contrast,Radiology,free,2025
+72148,CPT,Magnetic resonance imaging spinal canal and contents lumbar without contrast,Radiology,free,2025
+73030,CPT,Radiologic examination shoulder minimum two views,Radiology,free,2025
+73060,CPT,Radiologic examination humerus minimum two views,Radiology,free,2025
+73070,CPT,Radiologic examination elbow two views,Radiology,free,2025
+73090,CPT,Radiologic examination forearm two views,Radiology,free,2025
+73110,CPT,Radiologic examination wrist two views,Radiology,free,2025
+73130,CPT,Radiologic examination hand minimum three views,Radiology,free,2025
+73500,CPT,Radiologic examination hip unilateral minimum two views,Radiology,free,2025
+73560,CPT,Radiologic examination knee one or two views,Radiology,free,2025
+73562,CPT,Radiologic examination knee three views,Radiology,free,2025
+73600,CPT,Radiologic examination ankle two views,Radiology,free,2025
+73610,CPT,Radiologic examination ankle complete minimum three views,Radiology,free,2025
+73630,CPT,Radiologic examination foot minimum three views,Radiology,free,2025
+74018,CPT,Radiologic examination abdomen one view,Radiology,free,2025
+74019,CPT,Radiologic examination abdomen two views,Radiology,free,2025
+74160,CPT,Computed tomography abdomen with contrast,Radiology,free,2025
+74177,CPT,Computed tomography abdomen and pelvis with contrast,Radiology,free,2025
+76700,CPT,Ultrasound abdominal complete,Radiology,free,2025
+76705,CPT,Ultrasound abdominal limited,Radiology,free,2025
+76770,CPT,Ultrasound retroperitoneal complete,Radiology,free,2025
+76801,CPT,Ultrasound pregnant uterus complete first trimester,Radiology,free,2025
+76805,CPT,Ultrasound pregnant uterus complete single or first gestation,Radiology,free,2025
+76817,CPT,Ultrasound pregnant uterus transvaginal,Radiology,free,2025
+76830,CPT,Ultrasound transvaginal,Radiology,free,2025
+76856,CPT,Ultrasound pelvic complete,Radiology,free,2025
+76870,CPT,Ultrasound scrotum and contents,Radiology,free,2025
+76882,CPT,Ultrasound limited joint or focal evaluation,Radiology,free,2025
+77065,CPT,Diagnostic mammography including computer-aided detection unilateral,Radiology,free,2025
+77066,CPT,Diagnostic mammography including computer-aided detection bilateral,Radiology,free,2025
+77067,CPT,Screening mammography bilateral including computer-aided detection,Radiology,free,2025
+80053,CPT,Comprehensive metabolic panel,Laboratory,free,2025
+80061,CPT,Lipid panel,Laboratory,free,2025
+80069,CPT,Renal function panel,Laboratory,free,2025
+80076,CPT,Hepatic function panel,Laboratory,free,2025
+82947,CPT,Glucose blood quantitative,Laboratory,free,2025
+82962,CPT,Glucose blood reagent strip,Laboratory,free,2025
+83036,CPT,Hemoglobin glycosylated A1C,Laboratory,free,2025
+83718,CPT,Lipoprotein direct measurement HDL cholesterol,Laboratory,free,2025
+84132,CPT,Potassium serum plasma whole blood,Laboratory,free,2025
+84153,CPT,Prostate specific antigen total,Laboratory,free,2025
+84443,CPT,Thyroid stimulating hormone,Laboratory,free,2025
+85025,CPT,Complete blood count with automated differential,Laboratory,free,2025
+85027,CPT,Complete blood count automated,Laboratory,free,2025
+86580,CPT,Skin test tuberculosis intradermal,Laboratory,free,2025
+86900,CPT,Blood type,Laboratory,free,2025
+87070,CPT,Culture bacterial any source except urine blood or stool aerobic isolate,Laboratory,free,2025
+87086,CPT,Urine culture bacterial quantitative colony count,Laboratory,free,2025
+87427,CPT,Infectious agent detection by nucleic acid Influenza,Laboratory,free,2025
+87804,CPT,Infectious agent detection by nucleic acid amplified probe Influenza,Laboratory,free,2025
+87880,CPT,Infectious agent detection by nucleic acid Streptococcus group A,Laboratory,free,2025
+90471,CPT,Immunization administration first or only component,Medicine,free,2025
+90472,CPT,Immunization administration each additional component,Medicine,free,2025
+90630,CPT,Influenza virus vaccine quadrivalent split virus,Medicine,free,2025
+90649,CPT,Human papillomavirus vaccine nonavalent 2 or 3 dose schedule,Medicine,free,2025
+90670,CPT,Pneumococcal conjugate vaccine 13 valent,Medicine,free,2025
+90686,CPT,Influenza virus vaccine quadrivalent split virus preservative free,Medicine,free,2025
+90707,CPT,Measles mumps and rubella vaccine live,Medicine,free,2025
+90715,CPT,Tetanus diphtheria toxoids and acellular pertussis vaccine,Medicine,free,2025
+90732,CPT,Pneumococcal polysaccharide vaccine 23 valent,Medicine,free,2025
+90734,CPT,Meningococcal conjugate vaccine serogroups A C W Y,Medicine,free,2025
+90736,CPT,Zoster vaccine live,Medicine,free,2025
+92004,CPT,Ophthalmological examination and evaluation comprehensive new patient,Medicine,free,2025
+92012,CPT,Ophthalmological examination and evaluation comprehensive established patient,Medicine,free,2025
+92014,CPT,Ophthalmological examination and evaluation comprehensive established patient one or more visits,Medicine,free,2025
+93000,CPT,Electrocardiogram complete,Medicine,free,2025
+93005,CPT,Electrocardiogram tracing only without interpretation,Medicine,free,2025
+93306,CPT,Echocardiography transthoracic complete,Medicine,free,2025
+94010,CPT,Spirometry including graphic record total and timed vital capacity,Medicine,free,2025
+94060,CPT,Bronchodilation responsiveness spirometry pre and post,Medicine,free,2025
+95810,CPT,Polysomnography sleep study,Medicine,free,2025
+96372,CPT,Therapeutic injection subcutaneous or intramuscular,Medicine,free,2025
+96374,CPT,Therapeutic injection intravenous push single or initial,Medicine,free,2025
+96523,CPT,Irrigation of implanted venous access drug delivery system,Medicine,free,2025
+97110,CPT,Therapeutic procedure therapeutic exercises,Medicine,free,2025
+97140,CPT,Manual therapy techniques one or more regions,Medicine,free,2025
+97530,CPT,Therapeutic activities direct patient contact,Medicine,free,2025
+99000,CPT,Handling and conveyance of specimen for transfer,Medicine,free,2025

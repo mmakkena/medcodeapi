@@ -1,0 +1,8 @@
+code,category,range,license_needed
+99201,E/M,Office visit - new patient,True
+99211,E/M,Office visit - established patient,True
+00100,Anesthesia,Anesthesia procedures,True
+10004,Surgery,Surgical procedures,True
+70010,Radiology,Diagnostic imaging,True
+80047,Laboratory,Lab tests and panels,True
+90281,Medicine,Medical services,True
