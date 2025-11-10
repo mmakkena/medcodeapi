@@ -114,7 +114,8 @@ def main():
     data_dir = script_dir.parent / 'data' / 'procedure_codes'
 
     # Check if data files exist
-    cpt_file = data_dir / 'cpt_2025_sample.csv'
+    # Use expanded CPT dataset (1509 codes) instead of sample (151 codes)
+    cpt_file = data_dir / 'cpt_2025_expanded.csv'
     hcpcs_file = data_dir / 'hcpcs_2025_sample.csv'
 
     if not cpt_file.exists():

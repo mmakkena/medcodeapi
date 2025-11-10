@@ -1,0 +1,1510 @@
+code,code_system,paraphrased_desc,short_desc,category,license_status,version_year
+99202,CPT,"Office visit for new patient, 15 minute typical time, medical decision making level 1",,E/M,free,2025
+99203,CPT,"Office visit for new patient, 30 minute typical time, medical decision making level 2",,E/M,free,2025
+99204,CPT,"Office visit for new patient, 45 minute typical time, medical decision making level 3",,E/M,free,2025
+99205,CPT,"Office visit for new patient, 60 minute typical time, medical decision making level 4",,E/M,free,2025
+99211,CPT,"Brief office visit for established patient, minimal medical decision making",,E/M,free,2025
+99212,CPT,"Office visit for established patient, 10 minute typical time, medical decision making level 1",,E/M,free,2025
+99213,CPT,"Office visit for established patient, 20 minute typical time, medical decision making level 2",,E/M,free,2025
+99214,CPT,"Office visit for established patient, 30 minute typical time, medical decision making level 3",,E/M,free,2025
+99215,CPT,"Office visit for established patient, 40 minute typical time, medical decision making level 4",,E/M,free,2025
+99217,CPT,Observation care discharge day management,,E/M,free,2025
+99218,CPT,"Initial observation care, low complexity medical decision making",,E/M,free,2025
+99219,CPT,"Initial observation care, moderate complexity medical decision making",,E/M,free,2025
+992110,CPT,"Initial observation care, high complexity medical decision making",,E/M,free,2025
+99224,CPT,"Subsequent observation care, low complexity medical decision making",,E/M,free,2025
+99225,CPT,"Subsequent observation care, moderate complexity medical decision making",,E/M,free,2025
+99226,CPT,"Subsequent observation care, high complexity medical decision making",,E/M,free,2025
+99234,CPT,"Observation or inpatient same-day admission and discharge, low complexity",,E/M,free,2025
+99235,CPT,"Observation or inpatient same-day admission and discharge, moderate complexity",,E/M,free,2025
+99236,CPT,"Observation or inpatient same-day admission and discharge, high complexity",,E/M,free,2025
+99221,CPT,"Initial hospital admission and evaluation, low complexity medical decision making",,E/M,free,2025
+99222,CPT,"Initial hospital admission and evaluation, moderate complexity medical decision making",,E/M,free,2025
+99223,CPT,"Initial hospital admission and evaluation, high complexity medical decision making",,E/M,free,2025
+99231,CPT,"Follow-up hospital visit, low complexity medical decision making",,E/M,free,2025
+99232,CPT,"Follow-up hospital visit, moderate complexity medical decision making",,E/M,free,2025
+99233,CPT,"Follow-up hospital visit, high complexity medical decision making",,E/M,free,2025
+99238,CPT,"Hospital discharge management, 30 minutes or less",,E/M,free,2025
+99239,CPT,"Hospital discharge management, more than 30 minutes",,E/M,free,2025
+99281,CPT,"Emergency department visit, minimal complexity medical decision making",,E/M,free,2025
+99282,CPT,"Emergency department visit, low complexity medical decision making",,E/M,free,2025
+99283,CPT,"Emergency department visit, moderate complexity medical decision making",,E/M,free,2025
+99284,CPT,"Emergency department visit, high complexity medical decision making",,E/M,free,2025
+99285,CPT,"Emergency department visit, critical complexity medical decision making",,E/M,free,2025
+99291,CPT,"Critical care services, first 30-74 minutes",,E/M,free,2025
+99292,CPT,"Critical care services, each additional 30 minutes",,E/M,free,2025
+99241,CPT,"Office consultation for new or established patient, 20 minute typical time",,E/M,free,2025
+99242,CPT,"Office consultation for new or established patient, 30 minute typical time",,E/M,free,2025
+99243,CPT,"Office consultation for new or established patient, 40 minute typical time",,E/M,free,2025
+99244,CPT,"Office consultation for new or established patient, 60 minute typical time",,E/M,free,2025
+99245,CPT,"Office consultation for new or established patient, 80 minute typical time",,E/M,free,2025
+99251,CPT,"Inpatient consultation, 20 minute typical time",,E/M,free,2025
+99252,CPT,"Inpatient consultation, 40 minute typical time",,E/M,free,2025
+99253,CPT,"Inpatient consultation, 55 minute typical time",,E/M,free,2025
+99254,CPT,"Inpatient consultation, 80 minute typical time",,E/M,free,2025
+99255,CPT,"Inpatient consultation, 110 minute typical time",,E/M,free,2025
+99304,CPT,"Initial nursing facility care, low complexity medical decision making",,E/M,free,2025
+99305,CPT,"Initial nursing facility care, moderate complexity medical decision making",,E/M,free,2025
+99306,CPT,"Initial nursing facility care, high complexity medical decision making",,E/M,free,2025
+99307,CPT,"Subsequent nursing facility care, low complexity medical decision making",,E/M,free,2025
+99308,CPT,"Subsequent nursing facility care, moderate complexity medical decision making",,E/M,free,2025
+99309,CPT,"Subsequent nursing facility care, high complexity medical decision making",,E/M,free,2025
+99310,CPT,"Nursing facility discharge management, 30 minutes or less",,E/M,free,2025
+99318,CPT,Annual nursing facility assessment,,E/M,free,2025
+99324,CPT,"Domiciliary or rest home visit, new patient, low complexity",,E/M,free,2025
+99325,CPT,"Domiciliary or rest home visit, new patient, moderate complexity",,E/M,free,2025
+99326,CPT,"Domiciliary or rest home visit, new patient, moderate-high complexity",,E/M,free,2025
+99327,CPT,"Domiciliary or rest home visit, new patient, high complexity",,E/M,free,2025
+99328,CPT,"Domiciliary or rest home visit, new patient, high complex complexity",,E/M,free,2025
+99334,CPT,"Domiciliary or rest home visit, established patient, low complexity",,E/M,free,2025
+99335,CPT,"Domiciliary or rest home visit, established patient, moderate complexity",,E/M,free,2025
+99336,CPT,"Domiciliary or rest home visit, established patient, moderate-high complexity",,E/M,free,2025
+99337,CPT,"Domiciliary or rest home visit, established patient, high complexity",,E/M,free,2025
+99339,CPT,"Domiciliary care plan oversight, 15-29 minutes",,E/M,free,2025
+99340,CPT,"Domiciliary care plan oversight, 30 minutes or more",,E/M,free,2025
+99341,CPT,"Home visit, new patient, low complexity medical decision making",,E/M,free,2025
+99342,CPT,"Home visit, new patient, moderate complexity medical decision making",,E/M,free,2025
+99343,CPT,"Home visit, new patient, moderate-high complexity medical decision making",,E/M,free,2025
+99344,CPT,"Home visit, new patient, high complexity medical decision making",,E/M,free,2025
+99345,CPT,"Home visit, new patient, high complex complexity medical decision making",,E/M,free,2025
+99347,CPT,"Home visit, established patient, low complexity medical decision making",,E/M,free,2025
+99348,CPT,"Home visit, established patient, moderate complexity medical decision making",,E/M,free,2025
+99349,CPT,"Home visit, established patient, moderate-high complexity medical decision making",,E/M,free,2025
+993410,CPT,"Home visit, established patient, high complexity medical decision making",,E/M,free,2025
+99381,CPT,"Preventive medicine visit for new patient, infant",,E/M,free,2025
+99382,CPT,"Preventive medicine visit for new patient, child 1-4",,E/M,free,2025
+99383,CPT,"Preventive medicine visit for new patient, child 5-11",,E/M,free,2025
+99384,CPT,"Preventive medicine visit for new patient, adolescent 12-17",,E/M,free,2025
+99385,CPT,"Preventive medicine visit for new patient, adult 18-39",,E/M,free,2025
+99386,CPT,"Preventive medicine visit for new patient, adult 40-64",,E/M,free,2025
+99387,CPT,"Preventive medicine visit for new patient, adult 65+",,E/M,free,2025
+99391,CPT,"Preventive medicine visit for established patient, infant",,E/M,free,2025
+99392,CPT,"Preventive medicine visit for established patient, child 1-4",,E/M,free,2025
+99393,CPT,"Preventive medicine visit for established patient, child 5-11",,E/M,free,2025
+99394,CPT,"Preventive medicine visit for established patient, adolescent 12-17",,E/M,free,2025
+99395,CPT,"Preventive medicine visit for established patient, adult 18-39",,E/M,free,2025
+99396,CPT,"Preventive medicine visit for established patient, adult 40-64",,E/M,free,2025
+99397,CPT,"Preventive medicine visit for established patient, adult 65+",,E/M,free,2025
+99354,CPT,"Prolonged outpatient service, first hour",,E/M,free,2025
+99355,CPT,"Prolonged outpatient service, additional 30 minutes",,E/M,free,2025
+99356,CPT,"Prolonged inpatient service, first hour",,E/M,free,2025
+99357,CPT,"Prolonged inpatient service, additional 30 minutes",,E/M,free,2025
+99366,CPT,"Medical team conference with interdisciplinary team, 30 minutes",,E/M,free,2025
+99367,CPT,"Medical team conference with patient or family present, 30 minutes",,E/M,free,2025
+99368,CPT,"Medical team conference without patient present, 30 minutes",,E/M,free,2025
+99374,CPT,"Care plan oversight for home health, 15-29 minutes",,E/M,free,2025
+99375,CPT,"Care plan oversight for home health, 30 minutes or more",,E/M,free,2025
+99377,CPT,"Care plan oversight for hospice, 15-29 minutes",,E/M,free,2025
+99378,CPT,"Care plan oversight for hospice, 30 minutes or more",,E/M,free,2025
+99379,CPT,"Care plan oversight for nursing facility, 15-29 minutes",,E/M,free,2025
+99380,CPT,"Care plan oversight for nursing facility, 30 minutes or more",,E/M,free,2025
+99460,CPT,"Initial hospital or birthing center care, newborn evaluation",,E/M,free,2025
+99461,CPT,"Initial care, normal newborn in other than hospital or birthing center",,E/M,free,2025
+99462,CPT,"Subsequent hospital care, normal newborn",,E/M,free,2025
+99463,CPT,"Initial hospital or birthing center care, normal newborn",,E/M,free,2025
+99464,CPT,Attendance at delivery and initial stabilization of newborn,,E/M,free,2025
+99465,CPT,"Delivery room or resuscitation, standby services",,E/M,free,2025
+99468,CPT,"Initial inpatient neonatal critical care, neonate 28 days or younger",,E/M,free,2025
+99469,CPT,"Subsequent inpatient neonatal critical care, neonate 28 days or younger",,E/M,free,2025
+99471,CPT,"Initial inpatient pediatric critical care, infant 29 days through 24 months",,E/M,free,2025
+99472,CPT,"Subsequent inpatient pediatric critical care, infant 29 days through 24 months",,E/M,free,2025
+99475,CPT,"Initial inpatient pediatric critical care, child 2-5 years",,E/M,free,2025
+99476,CPT,"Subsequent inpatient pediatric critical care, child 2-5 years",,E/M,free,2025
+99490,CPT,"Chronic care management services, 20 minutes minimum",,E/M,free,2025
+99491,CPT,"Chronic care management services, 30 minutes minimum",,E/M,free,2025
+99495,CPT,"Transitional care management, moderate complexity",,E/M,free,2025
+99496,CPT,"Transitional care management, high complexity",,E/M,free,2025
+99497,CPT,"Advance care planning, first 30 minutes",,E/M,free,2025
+99498,CPT,"Advance care planning, additional 30 minutes",,E/M,free,2025
+99421,CPT,"Online digital evaluation and management service, 5 minutes",,E/M,free,2025
+99441,CPT,"Telephone evaluation and management service, 5 minutes",,E/M,free,2025
+99422,CPT,"Online digital evaluation and management service, 10 minutes",,E/M,free,2025
+99442,CPT,"Telephone evaluation and management service, 10 minutes",,E/M,free,2025
+99423,CPT,"Online digital evaluation and management service, 20 minutes",,E/M,free,2025
+99443,CPT,"Telephone evaluation and management service, 20 minutes",,E/M,free,2025
+99446,CPT,"Interprofessional telephone or internet assessment, 5 minutes",,E/M,free,2025
+99447,CPT,"Interprofessional telephone or internet assessment, 10 minutes",,E/M,free,2025
+99448,CPT,"Interprofessional telephone or internet assessment, 20 minutes",,E/M,free,2025
+99449,CPT,"Interprofessional telephone or internet assessment, 30 minutes",,E/M,free,2025
+99453,CPT,"Remote monitoring of physiologic parameters, initial setup",,E/M,free,2025
+99454,CPT,"Remote monitoring device supply, each 30 days",,E/M,free,2025
+99457,CPT,"Remote physiologic monitoring treatment, first 20 minutes",,E/M,free,2025
+99458,CPT,"Remote physiologic monitoring treatment, additional 20 minutes",,E/M,free,2025
+80047,CPT,"Basic metabolic panel with calcium, 8 tests",,Laboratory,free,2025
+80048,CPT,"Basic metabolic panel, 8 tests",,Laboratory,free,2025
+80050,CPT,General health panel,,Laboratory,free,2025
+80053,CPT,"Comprehensive metabolic panel, 14 tests",,Laboratory,free,2025
+80061,CPT,"Lipid panel with total cholesterol, HDL, LDL, triglycerides",,Laboratory,free,2025
+80076,CPT,"Liver function panel with albumin, bilirubin, ALT, AST, alkaline phosphatase",,Laboratory,free,2025
+80069,CPT,"Kidney function panel with albumin, calcium, carbon dioxide, chloride, creatinine, glucose, phosphorus, potassium, sodium, urea",,Laboratory,free,2025
+85025,CPT,Complete blood count with automated differential,,Laboratory,free,2025
+85027,CPT,Complete blood count with manual differential,,Laboratory,free,2025
+85004,CPT,"Blood count, automated differential WBC",,Laboratory,free,2025
+83036,CPT,Hemoglobin A1c test for diabetes monitoring,,Laboratory,free,2025
+83037,CPT,Hemoglobin glycosylated,,Laboratory,free,2025
+84436,CPT,Thyroxine (T4) total,,Laboratory,free,2025
+84439,CPT,Thyroxine (T4) free,,Laboratory,free,2025
+84443,CPT,Thyroid stimulating hormone (TSH),,Laboratory,free,2025
+84480,CPT,Triiodothyronine (T3) total,,Laboratory,free,2025
+84481,CPT,Triiodothyronine (T3) free,,Laboratory,free,2025
+82947,CPT,"Glucose blood test, quantitative",,Laboratory,free,2025
+82950,CPT,"Glucose tolerance test, 3 specimens",,Laboratory,free,2025
+82951,CPT,"Glucose tolerance test, additional specimens",,Laboratory,free,2025
+81000,CPT,"Urinalysis, manual test without microscopy",,Laboratory,free,2025
+81001,CPT,"Urinalysis, automated without microscopy",,Laboratory,free,2025
+81002,CPT,"Urinalysis, manual test with microscopy",,Laboratory,free,2025
+81003,CPT,"Urinalysis, automated with microscopy",,Laboratory,free,2025
+81007,CPT,"Urinalysis, bacteriuria screen",,Laboratory,free,2025
+84153,CPT,Prostate specific antigen (PSA) total,,Laboratory,free,2025
+84154,CPT,Prostate specific antigen (PSA) free,,Laboratory,free,2025
+82306,CPT,"Vitamin D, 25-hydroxy measurement",,Laboratory,free,2025
+82607,CPT,Vitamin B12 measurement,,Laboratory,free,2025
+82746,CPT,Folic acid (folate) serum,,Laboratory,free,2025
+83540,CPT,Iron serum measurement,,Laboratory,free,2025
+83550,CPT,Iron binding capacity measurement,,Laboratory,free,2025
+84466,CPT,Transferrin measurement,,Laboratory,free,2025
+82728,CPT,Ferritin measurement,,Laboratory,free,2025
+84484,CPT,"Troponin, quantitative cardiac marker",,Laboratory,free,2025
+83880,CPT,B-type natriuretic peptide (BNP) for heart failure assessment,,Laboratory,free,2025
+82565,CPT,Creatinine blood test,,Laboratory,free,2025
+82435,CPT,Chloride blood test,,Laboratory,free,2025
+82374,CPT,Carbon dioxide (bicarbonate),,Laboratory,free,2025
+84132,CPT,Potassium serum,,Laboratory,free,2025
+84295,CPT,Sodium serum,,Laboratory,free,2025
+84460,CPT,Alanine aminotransferase (ALT/SGPT),,Laboratory,free,2025
+84450,CPT,Aspartate aminotransferase (AST/SGOT),,Laboratory,free,2025
+84075,CPT,Alkaline phosphatase,,Laboratory,free,2025
+82040,CPT,Albumin serum,,Laboratory,free,2025
+82247,CPT,Bilirubin total,,Laboratory,free,2025
+82248,CPT,Bilirubin direct,,Laboratory,free,2025
+84550,CPT,Uric acid blood test,,Laboratory,free,2025
+82310,CPT,Calcium total,,Laboratory,free,2025
+83735,CPT,Magnesium measurement,,Laboratory,free,2025
+84100,CPT,Phosphorus inorganic (phosphate),,Laboratory,free,2025
+85610,CPT,Prothrombin time (PT),,Laboratory,free,2025
+85730,CPT,Partial thromboplastin time (PTT),,Laboratory,free,2025
+87040,CPT,Blood culture for bacteria,,Laboratory,free,2025
+87045,CPT,Stool culture for bacteria,,Laboratory,free,2025
+87070,CPT,"Culture bacterial, any source except urine, blood, or stool",,Laboratory,free,2025
+87086,CPT,Urine culture for bacteria,,Laboratory,free,2025
+87088,CPT,Urine culture for bacteria with colony count,,Laboratory,free,2025
+87880,CPT,Streptococcus group A rapid test,,Laboratory,free,2025
+87804,CPT,Influenza virus detection,,Laboratory,free,2025
+87635,CPT,SARS-CoV-2 (COVID-19) detection,,Laboratory,free,2025
+84703,CPT,Human chorionic gonadotropin (HCG) qualitative pregnancy test,,Laboratory,free,2025
+80305,CPT,"Drug test, presumptive, any number of drug classes",,Laboratory,free,2025
+80306,CPT,"Drug test, presumptive, read by instrument",,Laboratory,free,2025
+80307,CPT,"Drug test, presumptive, by chemistry analyzers",,Laboratory,free,2025
+82670,CPT,Estradiol measurement,,Laboratory,free,2025
+84402,CPT,"Testosterone, total",,Laboratory,free,2025
+84403,CPT,"Testosterone, free",,Laboratory,free,2025
+84144,CPT,Progesterone measurement,,Laboratory,free,2025
+82533,CPT,"Cortisol, total",,Laboratory,free,2025
+82530,CPT,"Cortisol, free",,Laboratory,free,2025
+82024,CPT,ACTH (adrenocorticotropic hormone),,Laboratory,free,2025
+83001,CPT,FSH (follicle stimulating hormone),,Laboratory,free,2025
+83002,CPT,LH (luteinizing hormone),,Laboratory,free,2025
+83003,CPT,Growth hormone,,Laboratory,free,2025
+84146,CPT,Prolactin measurement,,Laboratory,free,2025
+84305,CPT,Somatomedin (IGF-1),,Laboratory,free,2025
+82626,CPT,DHEA (dehydroepiandrosterone),,Laboratory,free,2025
+82627,CPT,DHEA-sulfate,,Laboratory,free,2025
+83498,CPT,"Hydroxyprogesterone, 17-D",,Laboratory,free,2025
+84449,CPT,SHBG (sex hormone binding globulin),,Laboratory,free,2025
+84145,CPT,Procalcitonin,,Laboratory,free,2025
+83519,CPT,"Immunoassay, qualitative or semiquantitative",,Laboratory,free,2025
+82378,CPT,CEA (carcinoembryonic antigen),,Laboratory,free,2025
+86304,CPT,CA 19-9 (cancer antigen 19-9),,Laboratory,free,2025
+86300,CPT,CA 125 (cancer antigen 125),,Laboratory,free,2025
+86316,CPT,CA 15-3 (cancer antigen 15-3),,Laboratory,free,2025
+86301,CPT,CA 27-29 (cancer antigen 27-29),,Laboratory,free,2025
+82105,CPT,"AFP (alpha-fetoprotein), serum",,Laboratory,free,2025
+82106,CPT,"AFP (alpha-fetoprotein), amniotic fluid",,Laboratory,free,2025
+84152,CPT,"PSA (prostate specific antigen), complexed",,Laboratory,free,2025
+83520,CPT,"Immunoassay, tumor antigen, quantitative",,Laboratory,free,2025
+84999,CPT,Unlisted chemistry procedure,,Laboratory,free,2025
+80162,CPT,Digoxin therapeutic drug level,,Laboratory,free,2025
+80178,CPT,Lithium therapeutic drug level,,Laboratory,free,2025
+80185,CPT,"Phenytoin (Dilantin) level, total",,Laboratory,free,2025
+80186,CPT,"Phenytoin (Dilantin) level, free",,Laboratory,free,2025
+80164,CPT,"Valproic acid (Depakote) level, total",,Laboratory,free,2025
+80165,CPT,"Valproic acid (Depakote) level, free",,Laboratory,free,2025
+80150,CPT,Amikacin therapeutic drug level,,Laboratory,free,2025
+80155,CPT,Caffeine therapeutic drug level,,Laboratory,free,2025
+80156,CPT,"Carbamazepine (Tegretol) level, total",,Laboratory,free,2025
+80157,CPT,"Carbamazepine (Tegretol) level, free",,Laboratory,free,2025
+80159,CPT,Clozapine therapeutic drug level,,Laboratory,free,2025
+80160,CPT,Desipramine therapeutic drug level,,Laboratory,free,2025
+80168,CPT,Gentamicin therapeutic drug level,,Laboratory,free,2025
+80171,CPT,Gabapentin (Neurontin) level,,Laboratory,free,2025
+80173,CPT,Haloperidol therapeutic drug level,,Laboratory,free,2025
+80177,CPT,Levetiracetam (Keppra) level,,Laboratory,free,2025
+80183,CPT,Oxcarbazepine (Trileptal) level,,Laboratory,free,2025
+80184,CPT,Phenobarbital level,,Laboratory,free,2025
+80188,CPT,Primidone level,,Laboratory,free,2025
+80190,CPT,Procainamide therapeutic drug level,,Laboratory,free,2025
+80192,CPT,Quinidine therapeutic drug level,,Laboratory,free,2025
+80194,CPT,Quinidine therapeutic drug level,,Laboratory,free,2025
+80195,CPT,Sirolimus therapeutic drug level,,Laboratory,free,2025
+80197,CPT,Tacrolimus therapeutic drug level,,Laboratory,free,2025
+80198,CPT,Theophylline therapeutic drug level,,Laboratory,free,2025
+80199,CPT,Tiagabine therapeutic drug level,,Laboratory,free,2025
+80200,CPT,Tobramycin therapeutic drug level,,Laboratory,free,2025
+80201,CPT,Topiramate therapeutic drug level,,Laboratory,free,2025
+80202,CPT,Vancomycin therapeutic drug level,,Laboratory,free,2025
+80203,CPT,Zonisamide therapeutic drug level,,Laboratory,free,2025
+85379,CPT,"Fibrin degradation products (D-dimer), qualitative",,Laboratory,free,2025
+85378,CPT,"Fibrin degradation products (D-dimer), quantitative",,Laboratory,free,2025
+85384,CPT,Fibrinogen activity,,Laboratory,free,2025
+85385,CPT,Fibrinogen antigen,,Laboratory,free,2025
+85337,CPT,Thrombin time,,Laboratory,free,2025
+85345,CPT,"Coagulation time, Lee and White",,Laboratory,free,2025
+85348,CPT,"Coagulation time, other methods",,Laboratory,free,2025
+85362,CPT,"Fibrin degradation products, qualitative",,Laboratory,free,2025
+85366,CPT,"Fibrin degradation products, quantitative",,Laboratory,free,2025
+85370,CPT,Clot retraction test,,Laboratory,free,2025
+85396,CPT,"Coagulation factor assay, each factor",,Laboratory,free,2025
+85397,CPT,Coagulation inhibitor screen,,Laboratory,free,2025
+85400,CPT,Fibrinolytic factor assay,,Laboratory,free,2025
+85415,CPT,Plasminogen antigen,,Laboratory,free,2025
+85420,CPT,Plasminogen activity,,Laboratory,free,2025
+85421,CPT,Plasminogen activator inhibitor-1,,Laboratory,free,2025
+82803,CPT,"Blood gases, arterial, pH, pCO2, pO2",,Laboratory,free,2025
+82805,CPT,"Blood gases, arterial, with O2 saturation",,Laboratory,free,2025
+82810,CPT,"Blood gases, venous",,Laboratory,free,2025
+82820,CPT,Hemoglobin oxygen affinity,,Laboratory,free,2025
+86038,CPT,"Antinuclear antibodies (ANA), titer",,Laboratory,free,2025
+86039,CPT,"Antinuclear antibodies (ANA), pattern",,Laboratory,free,2025
+86140,CPT,C-reactive protein (CRP),,Laboratory,free,2025
+86141,CPT,"C-reactive protein (CRP), high sensitivity",,Laboratory,free,2025
+86430,CPT,"Rheumatoid factor, qualitative",,Laboratory,free,2025
+86431,CPT,"Rheumatoid factor, quantitative",,Laboratory,free,2025
+86200,CPT,Cyclic citrullinated peptide (CCP) antibody,,Laboratory,free,2025
+86235,CPT,Anti-DNA antibody,,Laboratory,free,2025
+86255,CPT,Fluorescent antibody screen,,Laboratory,free,2025
+86160,CPT,Complement C3,,Laboratory,free,2025
+86161,CPT,Complement C4,,Laboratory,free,2025
+86162,CPT,Complement total (CH50),,Laboratory,free,2025
+82784,CPT,IgA (immunoglobulin A),,Laboratory,free,2025
+82787,CPT,IgE (immunoglobulin E),,Laboratory,free,2025
+82785,CPT,IgG (immunoglobulin G),,Laboratory,free,2025
+82784,CPT,IgM (immunoglobulin M),,Laboratory,free,2025
+86334,CPT,"Immunofixation electrophoresis, serum",,Laboratory,free,2025
+86335,CPT,"Immunofixation electrophoresis, other fluids",,Laboratory,free,2025
+86701,CPT,HIV-1 antibody test,,Laboratory,free,2025
+86702,CPT,"HIV-1 and HIV-2, single assay",,Laboratory,free,2025
+86703,CPT,"HIV-1 antibody, confirmatory test",,Laboratory,free,2025
+87389,CPT,HIV-1 antigen detection,,Laboratory,free,2025
+86704,CPT,"Hepatitis B core antibody (anti-HBc), total",,Laboratory,free,2025
+86705,CPT,"Hepatitis B core antibody (anti-HBc), IgM",,Laboratory,free,2025
+87340,CPT,Hepatitis B surface antigen (HBsAg),,Laboratory,free,2025
+86706,CPT,Hepatitis B surface antibody (anti-HBs),,Laboratory,free,2025
+87350,CPT,Hepatitis Be antigen (HBeAg),,Laboratory,free,2025
+86707,CPT,Hepatitis Be antibody (anti-HBe),,Laboratory,free,2025
+86803,CPT,Hepatitis C antibody,,Laboratory,free,2025
+86804,CPT,"Hepatitis C antibody, confirmatory",,Laboratory,free,2025
+87520,CPT,"Hepatitis C virus, direct probe",,Laboratory,free,2025
+86780,CPT,Treponema pallidum antibody (syphilis),,Laboratory,free,2025
+86592,CPT,"Syphilis, non-treponemal antibody (RPR)",,Laboratory,free,2025
+86593,CPT,"Syphilis, non-treponemal antibody (VDRL)",,Laboratory,free,2025
+86617,CPT,Lyme disease antibody (Borrelia),,Laboratory,free,2025
+86618,CPT,Lyme disease confirmatory test (Western blot),,Laboratory,free,2025
+86762,CPT,Rubella antibody,,Laboratory,free,2025
+86765,CPT,Rubeola (measles) antibody,,Laboratory,free,2025
+86644,CPT,"Cytomegalovirus (CMV) antibody, IgG",,Laboratory,free,2025
+86645,CPT,"Cytomegalovirus (CMV) antibody, IgM",,Laboratory,free,2025
+86663,CPT,Epstein-Barr virus (EBV) antibody,,Laboratory,free,2025
+86694,CPT,"Herpes simplex virus, non-specific antibody",,Laboratory,free,2025
+86695,CPT,"Herpes simplex virus, type 1 specific",,Laboratory,free,2025
+86696,CPT,"Herpes simplex virus, type 2 specific",,Laboratory,free,2025
+86790,CPT,Varicella-zoster virus antibody,,Laboratory,free,2025
+86580,CPT,Toxoplasma antibody,,Laboratory,free,2025
+86777,CPT,"Toxoplasma antibody, IgG",,Laboratory,free,2025
+86778,CPT,"Toxoplasma antibody, IgM",,Laboratory,free,2025
+81211,CPT,"BRCA1 and BRCA2 gene analysis, full sequence",,Laboratory,free,2025
+81212,CPT,"BRCA1 gene analysis, 185delAG variant",,Laboratory,free,2025
+81220,CPT,"CFTR gene analysis for cystic fibrosis, common variants",,Laboratory,free,2025
+81221,CPT,"CFTR gene analysis for cystic fibrosis, known familial variants",,Laboratory,free,2025
+81222,CPT,"CFTR gene analysis for cystic fibrosis, full gene sequence",,Laboratory,free,2025
+81240,CPT,"F2 gene analysis, prothrombin mutation",,Laboratory,free,2025
+81241,CPT,"F5 gene analysis, Factor V Leiden mutation",,Laboratory,free,2025
+81245,CPT,FMR1 gene analysis for Fragile X syndrome,,Laboratory,free,2025
+81250,CPT,"G6PD gene analysis, common variants",,Laboratory,free,2025
+81257,CPT,HBA1/HBA2 gene analysis for alpha thalassemia,,Laboratory,free,2025
+81361,CPT,HBB gene analysis for beta hemoglobinopathy,,Laboratory,free,2025
+81401,CPT,"Molecular pathology, Level 2",,Laboratory,free,2025
+81402,CPT,"Molecular pathology, Level 3",,Laboratory,free,2025
+81403,CPT,"Molecular pathology, Level 4",,Laboratory,free,2025
+81404,CPT,"Molecular pathology, Level 5",,Laboratory,free,2025
+81405,CPT,"Molecular pathology, Level 6",,Laboratory,free,2025
+87081,CPT,"Culture, presumptive pathogenic organisms, screening only",,Laboratory,free,2025
+87084,CPT,"Culture, blood, with organism isolation and sensitivity",,Laboratory,free,2025
+87101,CPT,"Culture, fungi, skin, hair, or nail",,Laboratory,free,2025
+87102,CPT,"Culture, fungi, other source",,Laboratory,free,2025
+87103,CPT,"Culture, fungi, blood",,Laboratory,free,2025
+87106,CPT,"Culture, fungi, definitive identification",,Laboratory,free,2025
+87116,CPT,"Culture, mycobacteria, definitive identification",,Laboratory,free,2025
+87118,CPT,"Culture, mycobacterial, other",,Laboratory,free,2025
+87140,CPT,"Culture, typing, immunologic method",,Laboratory,free,2025
+87143,CPT,"Culture, typing, gas liquid chromatography method",,Laboratory,free,2025
+87147,CPT,"Culture, typing, identification by nucleic acid probe",,Laboratory,free,2025
+87149,CPT,"Culture, typing, identification by nucleic acid sequencing",,Laboratory,free,2025
+87150,CPT,"Culture, typing, identification by pulse field gel electrophoresis",,Laboratory,free,2025
+87152,CPT,"Culture, typing, identification by MALDI-TOF mass spectrometry",,Laboratory,free,2025
+87153,CPT,Organism identification by nucleic acid probe,,Laboratory,free,2025
+87158,CPT,Organism identification by nucleic acid sequencing,,Laboratory,free,2025
+87176,CPT,"Homogenization, tissue for culture",,Laboratory,free,2025
+87177,CPT,"Ova and parasites, direct smears",,Laboratory,free,2025
+87181,CPT,"Susceptibility studies, antimicrobial agent, each agent",,Laboratory,free,2025
+87184,CPT,"Susceptibility studies, disk method, per plate",,Laboratory,free,2025
+87185,CPT,"Susceptibility studies, enzyme detection",,Laboratory,free,2025
+87186,CPT,"Susceptibility studies, microdilution or agar dilution",,Laboratory,free,2025
+87187,CPT,"Susceptibility studies, microbial, minimum lethal concentration",,Laboratory,free,2025
+87188,CPT,"Susceptibility studies, macrobroth dilution",,Laboratory,free,2025
+82108,CPT,Aluminum measurement,,Laboratory,free,2025
+82131,CPT,"Amino acids, single quantitative",,Laboratory,free,2025
+82135,CPT,Aminolevulinic acid (ALA),,Laboratory,free,2025
+82139,CPT,Ammonia measurement,,Laboratory,free,2025
+82150,CPT,Amylase measurement,,Laboratory,free,2025
+82232,CPT,Beta-2 microglobulin,,Laboratory,free,2025
+82300,CPT,Cadmium measurement,,Laboratory,free,2025
+82308,CPT,Calcitonin measurement,,Laboratory,free,2025
+82330,CPT,"Calcium, ionized",,Laboratory,free,2025
+82340,CPT,"Calcium, urine quantitative",,Laboratory,free,2025
+82355,CPT,"Calculus (stone) analysis, qualitative",,Laboratory,free,2025
+82360,CPT,"Calculus (stone) analysis, quantitative",,Laboratory,free,2025
+82365,CPT,"Calculus (stone) analysis, infrared spectroscopy",,Laboratory,free,2025
+82373,CPT,Carbohydrate deficient transferrin,,Laboratory,free,2025
+82379,CPT,"Carnitine, total and free",,Laboratory,free,2025
+82380,CPT,Carotene measurement,,Laboratory,free,2025
+82382,CPT,"Catecholamines, total urine",,Laboratory,free,2025
+82383,CPT,"Catecholamines, blood",,Laboratory,free,2025
+82384,CPT,"Catecholamines, fractionated",,Laboratory,free,2025
+82387,CPT,Cathepsin-D,,Laboratory,free,2025
+82390,CPT,Ceruloplasmin measurement,,Laboratory,free,2025
+82397,CPT,Chemiluminescent assay,,Laboratory,free,2025
+82415,CPT,Chloramphenicol level,,Laboratory,free,2025
+82436,CPT,"Chloride, urine",,Laboratory,free,2025
+82438,CPT,"Chloride, other source",,Laboratory,free,2025
+71045,CPT,"Chest X-ray, single view",,Radiology,free,2025
+71046,CPT,"Chest X-ray, 2 views",,Radiology,free,2025
+71047,CPT,"Chest X-ray, 3 views",,Radiology,free,2025
+71048,CPT,"Chest X-ray, 4 or more views",,Radiology,free,2025
+72020,CPT,"Spine X-ray, single view",,Radiology,free,2025
+72040,CPT,"Cervical spine X-ray, 2-3 views",,Radiology,free,2025
+72050,CPT,"Cervical spine X-ray, complete 4-5 views",,Radiology,free,2025
+72070,CPT,"Thoracic spine X-ray, 2 views",,Radiology,free,2025
+72072,CPT,"Thoracic spine X-ray, 3 views",,Radiology,free,2025
+72100,CPT,"Lumbar spine X-ray, 2-3 views",,Radiology,free,2025
+72110,CPT,"Lumbar spine X-ray, complete 4-5 views",,Radiology,free,2025
+73000,CPT,Clavicle X-ray,,Radiology,free,2025
+73010,CPT,Scapula X-ray,,Radiology,free,2025
+73020,CPT,"Shoulder X-ray, single view",,Radiology,free,2025
+73030,CPT,"Shoulder X-ray, complete",,Radiology,free,2025
+73060,CPT,Humerus X-ray,,Radiology,free,2025
+73070,CPT,"Elbow X-ray, 2 views",,Radiology,free,2025
+73080,CPT,"Elbow X-ray, complete",,Radiology,free,2025
+73090,CPT,"Forearm X-ray, 2 views",,Radiology,free,2025
+73100,CPT,"Wrist X-ray, 2 views",,Radiology,free,2025
+73110,CPT,"Wrist X-ray, complete",,Radiology,free,2025
+73120,CPT,"Hand X-ray, 2 views",,Radiology,free,2025
+73130,CPT,"Hand X-ray, complete 3 views",,Radiology,free,2025
+73140,CPT,Finger X-ray,,Radiology,free,2025
+73500,CPT,"Hip X-ray, single view",,Radiology,free,2025
+73510,CPT,"Hip X-ray, complete",,Radiology,free,2025
+73520,CPT,"Hips bilateral X-ray, 2-3 views",,Radiology,free,2025
+73550,CPT,Femur X-ray,,Radiology,free,2025
+73560,CPT,"Knee X-ray, 1-2 views",,Radiology,free,2025
+73562,CPT,"Knee X-ray, 3 views",,Radiology,free,2025
+73564,CPT,"Knee X-ray, complete 4 or more views",,Radiology,free,2025
+73590,CPT,"Tibia and fibula X-ray, 2 views",,Radiology,free,2025
+73600,CPT,"Ankle X-ray, 2 views",,Radiology,free,2025
+73610,CPT,"Ankle X-ray, complete 3 views",,Radiology,free,2025
+73620,CPT,"Foot X-ray, 2 views",,Radiology,free,2025
+73630,CPT,"Foot X-ray, complete 3 views",,Radiology,free,2025
+73650,CPT,Heel (calcaneus) X-ray,,Radiology,free,2025
+73660,CPT,Toe X-ray,,Radiology,free,2025
+70450,CPT,CT scan of head or brain without contrast,,Radiology,free,2025
+70460,CPT,CT scan of head or brain with contrast,,Radiology,free,2025
+70470,CPT,"CT scan of head or brain without contrast, followed by with contrast",,Radiology,free,2025
+71250,CPT,CT scan of chest without contrast,,Radiology,free,2025
+71260,CPT,CT scan of chest with contrast,,Radiology,free,2025
+71270,CPT,"CT scan of chest without contrast, followed by with contrast",,Radiology,free,2025
+74150,CPT,CT scan of abdomen without contrast,,Radiology,free,2025
+74160,CPT,CT scan of abdomen with contrast,,Radiology,free,2025
+74170,CPT,"CT scan of abdomen without contrast, followed by with contrast",,Radiology,free,2025
+72192,CPT,CT scan of pelvis without contrast,,Radiology,free,2025
+72193,CPT,CT scan of pelvis with contrast,,Radiology,free,2025
+72194,CPT,"CT scan of pelvis without contrast, followed by with contrast",,Radiology,free,2025
+74176,CPT,CT scan of abdomen and pelvis without contrast,,Radiology,free,2025
+74177,CPT,CT scan of abdomen and pelvis with contrast,,Radiology,free,2025
+74178,CPT,"CT scan of abdomen and pelvis without contrast, followed by with contrast",,Radiology,free,2025
+70551,CPT,MRI of brain without contrast,,Radiology,free,2025
+70552,CPT,MRI of brain with contrast,,Radiology,free,2025
+70553,CPT,"MRI of brain without contrast, followed by with contrast",,Radiology,free,2025
+72141,CPT,MRI of cervical spine without contrast,,Radiology,free,2025
+72142,CPT,MRI of cervical spine with contrast,,Radiology,free,2025
+72146,CPT,MRI of thoracic spine without contrast,,Radiology,free,2025
+72148,CPT,MRI of lumbar spine without contrast,,Radiology,free,2025
+72149,CPT,MRI of lumbar spine with contrast,,Radiology,free,2025
+73221,CPT,MRI of any joint of upper extremity without contrast,,Radiology,free,2025
+73721,CPT,MRI of any joint of lower extremity without contrast,,Radiology,free,2025
+76700,CPT,"Ultrasound of abdomen, complete",,Radiology,free,2025
+76705,CPT,"Ultrasound of abdomen, limited",,Radiology,free,2025
+76856,CPT,"Ultrasound of pelvis (non-obstetric), complete",,Radiology,free,2025
+76857,CPT,"Ultrasound of pelvis (non-obstetric), limited",,Radiology,free,2025
+76801,CPT,"Ultrasound, pregnant uterus, first trimester, single fetus",,Radiology,free,2025
+76805,CPT,"Ultrasound, pregnant uterus, after first trimester, single fetus",,Radiology,free,2025
+76811,CPT,"Ultrasound, pregnant uterus, detailed fetal anatomic exam, single fetus",,Radiology,free,2025
+76815,CPT,"Ultrasound, pregnant uterus, limited exam",,Radiology,free,2025
+76817,CPT,"Ultrasound, pregnant uterus, transvaginal",,Radiology,free,2025
+93880,CPT,Ultrasound study of arteries in head and neck,,Radiology,free,2025
+93970,CPT,Ultrasound study of veins in extremities,,Radiology,free,2025
+93971,CPT,"Ultrasound study of veins in extremities, unilateral or limited",,Radiology,free,2025
+77065,CPT,"Screening mammography, bilateral, 2D digital",,Radiology,free,2025
+77066,CPT,"Diagnostic mammography, unilateral",,Radiology,free,2025
+77067,CPT,"Diagnostic mammography, bilateral",,Radiology,free,2025
+77080,CPT,Bone density study (DEXA scan) for osteoporosis screening,,Radiology,free,2025
+78306,CPT,"Bone scan, whole body",,Radiology,free,2025
+78452,CPT,"Heart muscle imaging (myocardial perfusion), multiple studies",,Radiology,free,2025
+78465,CPT,Heart muscle blood flow imaging at rest and stress,,Radiology,free,2025
+70030,CPT,X-ray of eye for foreign body,,Radiology,free,2025
+70100,CPT,"X-ray of jaw, mandible",,Radiology,free,2025
+70110,CPT,"X-ray of jaw, mandible, complete",,Radiology,free,2025
+70120,CPT,X-ray of mastoids,,Radiology,free,2025
+70130,CPT,"X-ray of mastoids, complete series",,Radiology,free,2025
+70140,CPT,"X-ray of facial bones, less than 3 views",,Radiology,free,2025
+70150,CPT,"X-ray of facial bones, complete",,Radiology,free,2025
+70160,CPT,X-ray of nasal bones,,Radiology,free,2025
+70170,CPT,X-ray of tear duct (dacryocystography),,Radiology,free,2025
+70190,CPT,X-ray of eye sockets (orbits),,Radiology,free,2025
+70200,CPT,"X-ray of eye sockets (orbits), complete",,Radiology,free,2025
+70210,CPT,"X-ray of sinuses, less than 3 views",,Radiology,free,2025
+70220,CPT,"X-ray of sinuses, complete",,Radiology,free,2025
+70250,CPT,"X-ray of skull, less than 4 views",,Radiology,free,2025
+70260,CPT,"X-ray of skull, complete",,Radiology,free,2025
+70360,CPT,"X-ray of neck, soft tissue",,Radiology,free,2025
+70380,CPT,X-ray of salivary gland for stones,,Radiology,free,2025
+72170,CPT,"X-ray of pelvis, 1-2 views",,Radiology,free,2025
+72190,CPT,"X-ray of pelvis, complete",,Radiology,free,2025
+72200,CPT,"X-ray of sacroiliac joints, less than 3 views",,Radiology,free,2025
+72202,CPT,"X-ray of sacroiliac joints, 3 or more views",,Radiology,free,2025
+72220,CPT,"X-ray of sacrum and coccyx, 2 views",,Radiology,free,2025
+73090,CPT,"X-ray of forearm, 2 views",,Radiology,free,2025
+73200,CPT,CT scan of upper extremity without contrast,,Radiology,free,2025
+73201,CPT,CT scan of upper extremity with contrast,,Radiology,free,2025
+73202,CPT,CT scan of upper extremity without and with contrast,,Radiology,free,2025
+73700,CPT,CT scan of lower extremity without contrast,,Radiology,free,2025
+73701,CPT,CT scan of lower extremity with contrast,,Radiology,free,2025
+73702,CPT,CT scan of lower extremity without and with contrast,,Radiology,free,2025
+72125,CPT,CT scan of cervical spine without contrast,,Radiology,free,2025
+72126,CPT,CT scan of cervical spine with contrast,,Radiology,free,2025
+72127,CPT,CT scan of cervical spine without and with contrast,,Radiology,free,2025
+72128,CPT,CT scan of thoracic spine without contrast,,Radiology,free,2025
+72129,CPT,CT scan of thoracic spine with contrast,,Radiology,free,2025
+72130,CPT,CT scan of thoracic spine without and with contrast,,Radiology,free,2025
+72131,CPT,CT scan of lumbar spine without contrast,,Radiology,free,2025
+72132,CPT,CT scan of lumbar spine with contrast,,Radiology,free,2025
+72133,CPT,CT scan of lumbar spine without and with contrast,,Radiology,free,2025
+70480,CPT,"CT scan of orbits, ear or fossa without contrast",,Radiology,free,2025
+70481,CPT,"CT scan of orbits, ear or fossa with contrast",,Radiology,free,2025
+70482,CPT,"CT scan of orbits, ear or fossa without and with contrast",,Radiology,free,2025
+70486,CPT,CT scan of maxillofacial area without contrast,,Radiology,free,2025
+70487,CPT,CT scan of maxillofacial area with contrast,,Radiology,free,2025
+70488,CPT,CT scan of maxillofacial area without and with contrast,,Radiology,free,2025
+70490,CPT,CT scan of soft tissue of neck without contrast,,Radiology,free,2025
+70491,CPT,CT scan of soft tissue of neck with contrast,,Radiology,free,2025
+70492,CPT,CT scan of soft tissue of neck without and with contrast,,Radiology,free,2025
+70540,CPT,"MRI of orbit, face, or neck without contrast",,Radiology,free,2025
+70542,CPT,"MRI of orbit, face, or neck with contrast",,Radiology,free,2025
+70543,CPT,"MRI of orbit, face, or neck without and with contrast",,Radiology,free,2025
+70544,CPT,MRA (angiography) of head without contrast,,Radiology,free,2025
+70545,CPT,MRA (angiography) of head with contrast,,Radiology,free,2025
+70546,CPT,MRA (angiography) of head without and with contrast,,Radiology,free,2025
+70547,CPT,MRA (angiography) of neck without contrast,,Radiology,free,2025
+70548,CPT,MRA (angiography) of neck with contrast,,Radiology,free,2025
+70549,CPT,MRA (angiography) of neck without and with contrast,,Radiology,free,2025
+71550,CPT,MRI of chest without contrast,,Radiology,free,2025
+71551,CPT,MRI of chest with contrast,,Radiology,free,2025
+71552,CPT,MRI of chest without and with contrast,,Radiology,free,2025
+71555,CPT,MRA (angiography) of chest without contrast,,Radiology,free,2025
+72195,CPT,MRI of pelvis without contrast,,Radiology,free,2025
+72196,CPT,MRI of pelvis with contrast,,Radiology,free,2025
+72197,CPT,MRI of pelvis without and with contrast,,Radiology,free,2025
+72198,CPT,"MRI of pelvis without contrast, repeat or limited study",,Radiology,free,2025
+73218,CPT,MRI of upper extremity without contrast,,Radiology,free,2025
+73219,CPT,MRI of upper extremity with contrast,,Radiology,free,2025
+73220,CPT,MRI of upper extremity without and with contrast,,Radiology,free,2025
+73718,CPT,MRI of lower extremity without contrast,,Radiology,free,2025
+73719,CPT,MRI of lower extremity with contrast,,Radiology,free,2025
+73720,CPT,MRI of lower extremity without and with contrast,,Radiology,free,2025
+74181,CPT,MRI of abdomen without contrast,,Radiology,free,2025
+74182,CPT,MRI of abdomen with contrast,,Radiology,free,2025
+74183,CPT,MRI of abdomen without and with contrast,,Radiology,free,2025
+74185,CPT,MRA (angiography) of abdomen without contrast,,Radiology,free,2025
+74187,CPT,MRA (angiography) of abdomen with contrast,,Radiology,free,2025
+73225,CPT,MRA (angiography) of upper extremity,,Radiology,free,2025
+73725,CPT,MRA (angiography) of lower extremity,,Radiology,free,2025
+74210,CPT,Contrast X-ray of esophagus,,Radiology,free,2025
+74220,CPT,"Contrast X-ray of esophagus, multiple studies",,Radiology,free,2025
+74230,CPT,Barium swallow study,,Radiology,free,2025
+74240,CPT,Upper GI series with films,,Radiology,free,2025
+74245,CPT,Upper GI series with air contrast,,Radiology,free,2025
+74246,CPT,"Upper GI series, radiological supervision",,Radiology,free,2025
+74247,CPT,"Upper GI series with air contrast, radiological supervision",,Radiology,free,2025
+74249,CPT,Upper GI tract X-ray and small bowel,,Radiology,free,2025
+74250,CPT,Small bowel X-ray series,,Radiology,free,2025
+74251,CPT,Small bowel X-ray series with timed films,,Radiology,free,2025
+74270,CPT,Barium enema with air contrast,,Radiology,free,2025
+74280,CPT,"Barium enema with air contrast, with fluoroscopy",,Radiology,free,2025
+76000,CPT,"Fluoroscopy, up to 1 hour",,Radiology,free,2025
+76001,CPT,"Fluoroscopy, over 1 hour",,Radiology,free,2025
+76010,CPT,Radiologic examination from nose to rectum for foreign body,,Radiology,free,2025
+78300,CPT,"Bone scan, limited area",,Radiology,free,2025
+78305,CPT,"Bone scan, multiple areas",,Radiology,free,2025
+78315,CPT,"Bone scan, 3-phase study",,Radiology,free,2025
+78320,CPT,"Bone scan, tomographic (SPECT)",,Radiology,free,2025
+78350,CPT,"Bone density measurement, single site",,Radiology,free,2025
+78351,CPT,"Bone density measurement, multiple sites",,Radiology,free,2025
+78428,CPT,Cardiac shunt detection,,Radiology,free,2025
+78430,CPT,"Cardiac blood pool imaging, gated equilibrium",,Radiology,free,2025
+78433,CPT,"Cardiac blood pool imaging, first pass",,Radiology,free,2025
+78445,CPT,"Cardiac blood pool imaging, special processing",,Radiology,free,2025
+78451,CPT,"Myocardial perfusion imaging, single study",,Radiology,free,2025
+78454,CPT,"Myocardial perfusion imaging, multiple studies",,Radiology,free,2025
+78456,CPT,"Myocardial perfusion imaging, rest and stress",,Radiology,free,2025
+78457,CPT,"Myocardial perfusion imaging, pharmacological stress",,Radiology,free,2025
+78458,CPT,"Myocardial perfusion imaging, exercise and pharmacological stress",,Radiology,free,2025
+78459,CPT,"Myocardial imaging, PET scan, rest and stress",,Radiology,free,2025
+78466,CPT,"Myocardial imaging, PET scan, metabolic evaluation",,Radiology,free,2025
+78468,CPT,"Myocardial imaging, PET scan, single study",,Radiology,free,2025
+78469,CPT,"Myocardial imaging, PET scan, multiple studies",,Radiology,free,2025
+78472,CPT,"Cardiac blood pool imaging, gated equilibrium",,Radiology,free,2025
+78473,CPT,"Cardiac blood pool imaging, multiple studies",,Radiology,free,2025
+78481,CPT,"Cardiac blood pool imaging, first pass",,Radiology,free,2025
+78483,CPT,"Cardiac blood pool imaging, SPECT",,Radiology,free,2025
+78491,CPT,"Myocardial imaging, PET scan, perfusion study",,Radiology,free,2025
+78492,CPT,"Myocardial imaging, PET scan, perfusion and metabolism",,Radiology,free,2025
+78496,CPT,"Cardiac PET scan, absolute quantification",,Radiology,free,2025
+78600,CPT,"Brain imaging, less than 4 views",,Radiology,free,2025
+78601,CPT,"Brain imaging, complete study",,Radiology,free,2025
+78605,CPT,"Brain imaging, vascular flow",,Radiology,free,2025
+78606,CPT,"Brain imaging, PET scan",,Radiology,free,2025
+78607,CPT,"Brain imaging, SPECT",,Radiology,free,2025
+78608,CPT,"Brain imaging, PET scan with CT",,Radiology,free,2025
+78609,CPT,"Brain imaging, PET scan, limited study",,Radiology,free,2025
+78610,CPT,"Brain imaging, vascular flow only",,Radiology,free,2025
+78630,CPT,Cerebrospinal fluid scan,,Radiology,free,2025
+78635,CPT,"Cerebrospinal fluid scan, ventriculography",,Radiology,free,2025
+78645,CPT,"Cerebrospinal fluid scan, shunt evaluation",,Radiology,free,2025
+78650,CPT,"Cerebrospinal fluid scan, cisternography",,Radiology,free,2025
+78660,CPT,Radiopharmaceutical dacryocystography,,Radiology,free,2025
+78700,CPT,"Kidney imaging, morphology",,Radiology,free,2025
+78701,CPT,"Kidney imaging, vascular flow",,Radiology,free,2025
+78707,CPT,"Kidney imaging, SPECT with CT",,Radiology,free,2025
+78708,CPT,"Kidney imaging, SPECT",,Radiology,free,2025
+78709,CPT,"Kidney imaging, SPECT with vascular flow",,Radiology,free,2025
+78710,CPT,"Kidney imaging, vascular flow and function",,Radiology,free,2025
+78725,CPT,"Kidney imaging, function study",,Radiology,free,2025
+78730,CPT,Urinary bladder residual study,,Radiology,free,2025
+78740,CPT,Ureteral reflux study,,Radiology,free,2025
+78761,CPT,Testicular imaging with vascular flow,,Radiology,free,2025
+75600,CPT,"Aortography, thoracic",,Radiology,free,2025
+75605,CPT,"Aortography, thoracic, by serialography",,Radiology,free,2025
+75625,CPT,"Aortography, abdominal",,Radiology,free,2025
+75630,CPT,"Aortography, abdominal plus bilateral leg arteries",,Radiology,free,2025
+75635,CPT,CT angiography of abdominal aorta and bilateral legs,,Radiology,free,2025
+75710,CPT,"Angiography, extremity, unilateral",,Radiology,free,2025
+75716,CPT,"Angiography, extremity, bilateral",,Radiology,free,2025
+75726,CPT,"Angiography, visceral, selective or supraselective",,Radiology,free,2025
+75731,CPT,"Angiography, adrenal, unilateral",,Radiology,free,2025
+75733,CPT,"Angiography, adrenal, bilateral",,Radiology,free,2025
+75741,CPT,"Angiography, pulmonary, unilateral",,Radiology,free,2025
+75743,CPT,"Angiography, pulmonary, bilateral",,Radiology,free,2025
+75774,CPT,"Angiography, each additional vessel",,Radiology,free,2025
+76506,CPT,"Echoencephalography, B-scan",,Radiology,free,2025
+76510,CPT,"Ophthalmic ultrasound, diagnostic, B-scan",,Radiology,free,2025
+76511,CPT,"Ophthalmic ultrasound, quantitative A-scan only",,Radiology,free,2025
+76512,CPT,"Ophthalmic ultrasound, B-scan with quantitative A-scan",,Radiology,free,2025
+76513,CPT,"Ophthalmic ultrasound, anterior segment",,Radiology,free,2025
+76514,CPT,"Ophthalmic ultrasound, corneal pachymetry",,Radiology,free,2025
+76516,CPT,Ophthalmic biometry by ultrasound,,Radiology,free,2025
+76536,CPT,"Ultrasound, soft tissues of head and neck",,Radiology,free,2025
+76604,CPT,"Ultrasound, chest, B-scan",,Radiology,free,2025
+76641,CPT,"Ultrasound, breast, unilateral, complete",,Radiology,free,2025
+76642,CPT,"Ultrasound, breast, limited",,Radiology,free,2025
+76770,CPT,"Ultrasound, retroperitoneal, complete",,Radiology,free,2025
+76775,CPT,"Ultrasound, retroperitoneal, limited",,Radiology,free,2025
+76776,CPT,"Ultrasound, transplanted kidney, complete",,Radiology,free,2025
+76830,CPT,"Ultrasound, transvaginal",,Radiology,free,2025
+76831,CPT,"Ultrasound, uterus and adnexa, complete",,Radiology,free,2025
+76856,CPT,"Ultrasound, pelvic, complete",,Radiology,free,2025
+76870,CPT,"Ultrasound, scrotum and contents",,Radiology,free,2025
+76872,CPT,"Ultrasound, transrectal",,Radiology,free,2025
+76873,CPT,"Ultrasound, transrectal, prostate",,Radiology,free,2025
+76881,CPT,"Ultrasound, extremity, complete",,Radiology,free,2025
+76882,CPT,"Ultrasound, extremity, limited",,Radiology,free,2025
+10060,CPT,"Drainage of skin abscess, simple or single",,Surgery,free,2025
+10061,CPT,"Drainage of skin abscess, complicated or multiple",,Surgery,free,2025
+11042,CPT,"Debridement of skin, subcutaneous tissue, up to 20 sq cm",,Surgery,free,2025
+11043,CPT,"Debridement of muscle and/or fascia, up to 20 sq cm",,Surgery,free,2025
+11044,CPT,"Debridement of bone, up to 20 sq cm",,Surgery,free,2025
+11102,CPT,"Skin biopsy, tangential, single lesion",,Surgery,free,2025
+11104,CPT,"Skin biopsy, punch, single lesion",,Surgery,free,2025
+11106,CPT,"Skin biopsy, incisional, single lesion",,Surgery,free,2025
+11400,CPT,"Excision of benign skin lesion, trunk/arms/legs, 0.5 cm or less",,Surgery,free,2025
+11401,CPT,"Excision of benign skin lesion, trunk/arms/legs, 0.6-1.0 cm",,Surgery,free,2025
+11402,CPT,"Excision of benign skin lesion, trunk/arms/legs, 1.1-2.0 cm",,Surgery,free,2025
+11403,CPT,"Excision of benign skin lesion, trunk/arms/legs, 2.1-3.0 cm",,Surgery,free,2025
+11404,CPT,"Excision of benign skin lesion, trunk/arms/legs, 3.1-4.0 cm",,Surgery,free,2025
+11200,CPT,"Removal of skin tags, up to 15 lesions",,Surgery,free,2025
+11201,CPT,"Removal of skin tags, each additional 10 lesions",,Surgery,free,2025
+17000,CPT,"Destruction of premalignant lesion, first lesion",,Surgery,free,2025
+17003,CPT,"Destruction of premalignant lesion, 2-14 additional lesions",,Surgery,free,2025
+17004,CPT,"Destruction of premalignant lesion, 15 or more lesions",,Surgery,free,2025
+17110,CPT,"Destruction of benign lesions, up to 14 lesions",,Surgery,free,2025
+17111,CPT,"Destruction of benign lesions, 15 or more lesions",,Surgery,free,2025
+12001,CPT,"Simple repair of wound, 2.5 cm or less",,Surgery,free,2025
+12002,CPT,"Simple repair of wound, 2.6-7.5 cm",,Surgery,free,2025
+12004,CPT,"Simple repair of wound, 7.6-12.5 cm",,Surgery,free,2025
+12011,CPT,"Simple repair of face/ears/eyelids/nose/lips/mucous membranes, 2.5 cm or less",,Surgery,free,2025
+12013,CPT,"Simple repair of face/ears/eyelids/nose/lips/mucous membranes, 2.6-5.0 cm",,Surgery,free,2025
+45378,CPT,Diagnostic colonoscopy with examination of entire colon,,Surgery,free,2025
+45380,CPT,"Colonoscopy with biopsy, single or multiple",,Surgery,free,2025
+45385,CPT,Colonoscopy with removal of polyp by snare technique,,Surgery,free,2025
+43235,CPT,"Upper GI endoscopy, diagnostic examination of esophagus, stomach, and duodenum",,Surgery,free,2025
+43239,CPT,"Upper GI endoscopy with biopsy, single or multiple",,Surgery,free,2025
+66984,CPT,Cataract removal with insertion of intraocular lens,,Surgery,free,2025
+20610,CPT,Drainage or injection into major joint or bursa,,Surgery,free,2025
+20605,CPT,Drainage or injection into intermediate joint or bursa,,Surgery,free,2025
+20600,CPT,Drainage or injection into small joint or bursa,,Surgery,free,2025
+20552,CPT,"Injection of trigger point, 1-2 muscles",,Surgery,free,2025
+20553,CPT,"Injection of trigger point, 3 or more muscles",,Surgery,free,2025
+64721,CPT,Surgical decompression of carpal tunnel,,Surgery,free,2025
+29870,CPT,"Knee arthroscopy, diagnostic with or without synovial biopsy",,Surgery,free,2025
+29881,CPT,Knee arthroscopy with meniscectomy (removal of torn cartilage),,Surgery,free,2025
+29805,CPT,"Shoulder arthroscopy, diagnostic with or without synovial biopsy",,Surgery,free,2025
+29826,CPT,Shoulder arthroscopy with decompression of subacromial space,,Surgery,free,2025
+42826,CPT,"Tonsillectomy, patient age 12 or over",,Surgery,free,2025
+44970,CPT,Laparoscopic appendectomy,,Surgery,free,2025
+47562,CPT,Laparoscopic cholecystectomy (gallbladder removal),,Surgery,free,2025
+49505,CPT,"Inguinal hernia repair, age 5 years or older",,Surgery,free,2025
+49520,CPT,"Recurrent inguinal hernia repair, any age",,Surgery,free,2025
+49585,CPT,"Umbilical hernia repair, age 5 years or older",,Surgery,free,2025
+49650,CPT,"Laparoscopic inguinal hernia repair, initial",,Surgery,free,2025
+49651,CPT,"Laparoscopic inguinal hernia repair, recurrent",,Surgery,free,2025
+49652,CPT,Laparoscopic ventral or incisional hernia repair,,Surgery,free,2025
+49653,CPT,"Laparoscopic ventral hernia repair, incarcerated",,Surgery,free,2025
+17311,CPT,"Mohs micrographic surgery, head, neck, hands, feet, first stage",,Surgery,free,2025
+17312,CPT,"Mohs micrographic surgery, head, neck, hands, feet, additional stage",,Surgery,free,2025
+17313,CPT,"Mohs micrographic surgery, trunk, arms, legs, first stage",,Surgery,free,2025
+17314,CPT,"Mohs micrographic surgery, trunk, arms, legs, additional stage",,Surgery,free,2025
+15002,CPT,"Surgical preparation of recipient site for skin graft, first 100 sq cm",,Surgery,free,2025
+15003,CPT,"Surgical preparation for skin graft, each additional 100 sq cm",,Surgery,free,2025
+15100,CPT,"Split-thickness skin graft, first 100 sq cm",,Surgery,free,2025
+15101,CPT,"Split-thickness skin graft, each additional 100 sq cm",,Surgery,free,2025
+15120,CPT,"Split-thickness skin graft, face, scalp, first 100 sq cm",,Surgery,free,2025
+15121,CPT,"Split-thickness skin graft, face, scalp, each additional 100 sq cm",,Surgery,free,2025
+15240,CPT,"Full-thickness skin graft, first 20 sq cm or less",,Surgery,free,2025
+15241,CPT,"Full-thickness skin graft, each additional 20 sq cm",,Surgery,free,2025
+19081,CPT,"Breast biopsy with placement of localization device, percutaneous, first lesion",,Surgery,free,2025
+19082,CPT,"Breast biopsy with localization, percutaneous, each additional lesion",,Surgery,free,2025
+19083,CPT,"Breast biopsy with clip placement, percutaneous, first lesion",,Surgery,free,2025
+19084,CPT,"Breast biopsy with clip placement, percutaneous, each additional lesion",,Surgery,free,2025
+19120,CPT,Excision of breast lesion,,Surgery,free,2025
+19125,CPT,Excision of breast lesion with preoperative placement of localization device,,Surgery,free,2025
+19301,CPT,Partial mastectomy with axillary lymph node removal,,Surgery,free,2025
+19302,CPT,Partial mastectomy with sentinel lymph node biopsy,,Surgery,free,2025
+19303,CPT,Simple mastectomy,,Surgery,free,2025
+19304,CPT,Subcutaneous mastectomy,,Surgery,free,2025
+19305,CPT,Radical mastectomy,,Surgery,free,2025
+19316,CPT,Breast reconstruction with tissue expander,,Surgery,free,2025
+19318,CPT,Breast reduction mammoplasty,,Surgery,free,2025
+19324,CPT,Breast enlargement with breast implant,,Surgery,free,2025
+19328,CPT,Breast implant removal,,Surgery,free,2025
+19330,CPT,Breast implant removal with capsulectomy,,Surgery,free,2025
+19340,CPT,Breast reconstruction with tissue flap,,Surgery,free,2025
+19342,CPT,Breast reconstruction with tissue flap and implant,,Surgery,free,2025
+19350,CPT,Nipple reconstruction,,Surgery,free,2025
+19355,CPT,"Breast reconstruction, free flap",,Surgery,free,2025
+19357,CPT,"Breast reconstruction, single stage",,Surgery,free,2025
+19361,CPT,Breast reconstruction with latissimus dorsi flap,,Surgery,free,2025
+19364,CPT,Breast reconstruction with free flap,,Surgery,free,2025
+19366,CPT,Breast reconstruction with other technique,,Surgery,free,2025
+19367,CPT,Breast reconstruction with transverse rectus abdominis myocutaneous flap,,Surgery,free,2025
+19368,CPT,Breast reconstruction with deep inferior epigastric perforator flap,,Surgery,free,2025
+19369,CPT,Breast reconstruction with superficial inferior epigastric artery flap,,Surgery,free,2025
+19370,CPT,Breast reconstruction with gluteal artery perforator flap,,Surgery,free,2025
+19371,CPT,Pedicle flap to breast reconstruction,,Surgery,free,2025
+19380,CPT,Breast revision,,Surgery,free,2025
+43246,CPT,Upper GI endoscopy with directed placement of feeding tube,,Surgery,free,2025
+43247,CPT,Upper GI endoscopy with removal of foreign body,,Surgery,free,2025
+43248,CPT,"Upper GI endoscopy with biopsy, hot biopsy forceps",,Surgery,free,2025
+43249,CPT,Upper GI endoscopy with balloon dilation of esophagus,,Surgery,free,2025
+43250,CPT,Upper GI endoscopy with removal of tumor or polyp by snare,,Surgery,free,2025
+43251,CPT,Upper GI endoscopy with removal of tumor by hot biopsy forceps,,Surgery,free,2025
+43252,CPT,Upper GI endoscopy with optical endomicroscopy,,Surgery,free,2025
+43270,CPT,ERCP diagnostic,,Surgery,free,2025
+43274,CPT,ERCP with placement of stent,,Surgery,free,2025
+43644,CPT,Laparoscopic gastric bypass,,Surgery,free,2025
+43645,CPT,Laparoscopic gastric restrictive procedure with gastric bypass,,Surgery,free,2025
+43770,CPT,"Laparoscopic gastric restrictive procedure, adjustable band",,Surgery,free,2025
+43775,CPT,"Laparoscopic gastric restrictive procedure, sleeve gastrectomy",,Surgery,free,2025
+44120,CPT,"Enterectomy, resection of small intestine, single",,Surgery,free,2025
+44140,CPT,"Colectomy, partial",,Surgery,free,2025
+44160,CPT,Colectomy with removal of terminal ileum,,Surgery,free,2025
+44204,CPT,"Laparoscopic colectomy, partial",,Surgery,free,2025
+44205,CPT,"Laparoscopic colectomy, partial with removal of terminal ileum",,Surgery,free,2025
+44206,CPT,"Laparoscopic colectomy, partial with colostomy",,Surgery,free,2025
+44207,CPT,"Laparoscopic colectomy, partial with coloproctostomy",,Surgery,free,2025
+44208,CPT,"Laparoscopic colectomy, partial with anastomosis",,Surgery,free,2025
+44950,CPT,Appendectomy,,Surgery,free,2025
+45378,CPT,"Colonoscopy with biopsy, hot biopsy forceps",,Surgery,free,2025
+45381,CPT,Colonoscopy with directed submucosal injection,,Surgery,free,2025
+45382,CPT,Colonoscopy with control of bleeding,,Surgery,free,2025
+45383,CPT,Colonoscopy with ablation of tumor or polyp,,Surgery,free,2025
+45384,CPT,"Colonoscopy with removal of tumor, polyp, or lesion by hot biopsy forceps",,Surgery,free,2025
+45388,CPT,Colonoscopy with ablation of tumor by any method,,Surgery,free,2025
+45391,CPT,Colonoscopy with endoscopic ultrasound examination,,Surgery,free,2025
+45392,CPT,Colonoscopy with transendoscopic ultrasound-guided biopsy,,Surgery,free,2025
+46020,CPT,Placement of seton for anal fistula,,Surgery,free,2025
+46221,CPT,"Hemorrhoidectomy, internal, by rubber band ligation",,Surgery,free,2025
+46250,CPT,"Hemorrhoidectomy, external, 2 or more columns/groups",,Surgery,free,2025
+46255,CPT,"Hemorrhoidectomy, internal and external, simple",,Surgery,free,2025
+46257,CPT,"Hemorrhoidectomy, internal and external, complex",,Surgery,free,2025
+46260,CPT,"Hemorrhoidectomy, internal and external, 2 or more columns/groups",,Surgery,free,2025
+46270,CPT,Surgical treatment of anal fistula,,Surgery,free,2025
+46275,CPT,"Surgical treatment of anal fistula, complex",,Surgery,free,2025
+46280,CPT,Surgical treatment of anal fistula with fistulectomy,,Surgery,free,2025
+46285,CPT,"Surgical treatment of anal fistula, second stage",,Surgery,free,2025
+46320,CPT,Removal of hemorrhoids by ligation,,Surgery,free,2025
+46600,CPT,"Anoscopy, diagnostic",,Surgery,free,2025
+46601,CPT,"Anoscopy, diagnostic with sampling",,Surgery,free,2025
+46606,CPT,Anoscopy with biopsy,,Surgery,free,2025
+46607,CPT,Anoscopy with high-resolution magnification,,Surgery,free,2025
+46608,CPT,Anoscopy with removal of foreign body,,Surgery,free,2025
+46610,CPT,Anoscopy with removal of single tumor or polyp,,Surgery,free,2025
+46611,CPT,Anoscopy with removal of multiple tumors or polyps,,Surgery,free,2025
+46612,CPT,Anoscopy with removal of multiple tumors or polyps by hot biopsy forceps,,Surgery,free,2025
+50040,CPT,"Nephrostomy, nephrotomy with drainage",,Surgery,free,2025
+50045,CPT,Nephrotomy with exploration,,Surgery,free,2025
+50060,CPT,"Removal of kidney stone, open",,Surgery,free,2025
+50080,CPT,Percutaneous nephrostolithotomy or pyelostolithotomy,,Surgery,free,2025
+50543,CPT,Laparoscopic partial nephrectomy,,Surgery,free,2025
+50545,CPT,Laparoscopic radical nephrectomy,,Surgery,free,2025
+50546,CPT,Laparoscopic nephrectomy including partial ureterectomy,,Surgery,free,2025
+51702,CPT,Insertion of temporary bladder catheter,,Surgery,free,2025
+51703,CPT,"Insertion of temporary bladder catheter, complicated",,Surgery,free,2025
+51705,CPT,Change of cystostomy tube,,Surgery,free,2025
+51798,CPT,Measurement of post-void urine residual by ultrasound,,Surgery,free,2025
+52000,CPT,Cystourethroscopy,,Surgery,free,2025
+52001,CPT,Cystourethroscopy with irrigation and evacuation,,Surgery,free,2025
+52005,CPT,Cystourethroscopy with ureteral catheterization,,Surgery,free,2025
+52007,CPT,Cystourethroscopy with ureteral catheterization with ureteroscopy,,Surgery,free,2025
+52010,CPT,Cystourethroscopy with ejaculatory duct catheterization,,Surgery,free,2025
+52204,CPT,Cystourethroscopy with biopsy,,Surgery,free,2025
+52214,CPT,Cystourethroscopy with fulguration of trigone,,Surgery,free,2025
+52224,CPT,Cystourethroscopy with fulguration of minor lesion,,Surgery,free,2025
+52234,CPT,Cystourethroscopy with fulguration of small bladder tumor,,Surgery,free,2025
+52235,CPT,Cystourethroscopy with fulguration of medium bladder tumor,,Surgery,free,2025
+52240,CPT,Cystourethroscopy with fulguration of large bladder tumor,,Surgery,free,2025
+52250,CPT,Cystourethroscopy with insertion of radioactive substance,,Surgery,free,2025
+52260,CPT,Cystourethroscopy with dilation of bladder neck,,Surgery,free,2025
+52276,CPT,Cystourethroscopy with direct vision urethrotomy,,Surgery,free,2025
+52281,CPT,Cystourethroscopy with calibration and dilation of urethra,,Surgery,free,2025
+52282,CPT,Cystourethroscopy with injection for cystography,,Surgery,free,2025
+52283,CPT,Cystourethroscopy with steroid injection,,Surgery,free,2025
+52287,CPT,Cystourethroscopy with injection for treatment of urinary incontinence,,Surgery,free,2025
+52310,CPT,Cystourethroscopy with removal of foreign body or calculus,,Surgery,free,2025
+52315,CPT,Cystourethroscopy with removal of bladder calculus,,Surgery,free,2025
+52320,CPT,Cystourethroscopy with removal of ureteral calculus,,Surgery,free,2025
+52325,CPT,Cystourethroscopy with fragmentation of ureteral calculus,,Surgery,free,2025
+52330,CPT,Cystourethroscopy with manipulation of ureteral calculus,,Surgery,free,2025
+52332,CPT,Cystourethroscopy with insertion of ureteral stent,,Surgery,free,2025
+52334,CPT,Cystourethroscopy with insertion of ureteral guide wire,,Surgery,free,2025
+52341,CPT,Cystourethroscopy with treatment of ureteral stricture,,Surgery,free,2025
+52342,CPT,Cystourethroscopy with treatment of ureteropelvic junction stricture,,Surgery,free,2025
+52343,CPT,Cystourethroscopy with treatment of intra-renal stricture,,Surgery,free,2025
+52344,CPT,Cystourethroscopy with ureteroscopy,,Surgery,free,2025
+52345,CPT,Cystourethroscopy with ureteroscopy and treatment of ureter stone,,Surgery,free,2025
+52346,CPT,Cystourethroscopy with ureteroscopy and treatment of kidney stone,,Surgery,free,2025
+52351,CPT,Cystourethroscopy with ureteroscopy and biopsy,,Surgery,free,2025
+52352,CPT,Cystourethroscopy with ureteroscopy and removal or manipulation of calculus,,Surgery,free,2025
+52353,CPT,Cystourethroscopy with ureteroscopy and lithotripsy,,Surgery,free,2025
+52354,CPT,Cystourethroscopy with ureteroscopy and treatment of ureteral lesion,,Surgery,free,2025
+52355,CPT,Cystourethroscopy with ureteroscopy and excision of ureteral tumor,,Surgery,free,2025
+52400,CPT,Cystourethroscopy with incision of bladder neck,,Surgery,free,2025
+52402,CPT,Cystourethroscopy with transurethral resection,,Surgery,free,2025
+52500,CPT,Transurethral resection of bladder neck,,Surgery,free,2025
+52601,CPT,"Transurethral resection of prostate (TURP), complete",,Surgery,free,2025
+52630,CPT,"Transurethral resection of prostate (TURP), residual or regrowth",,Surgery,free,2025
+52647,CPT,Laser vaporization of prostate,,Surgery,free,2025
+52648,CPT,"Laser vaporization of prostate, including control of postoperative bleeding",,Surgery,free,2025
+52649,CPT,Laser enucleation of prostate,,Surgery,free,2025
+54150,CPT,Circumcision using clamp or device,,Surgery,free,2025
+54160,CPT,"Circumcision, surgical excision other than clamp",,Surgery,free,2025
+54161,CPT,"Circumcision, surgical excision, newborn",,Surgery,free,2025
+54162,CPT,"Lysis or excision of penile adhesions, newborn",,Surgery,free,2025
+54163,CPT,Repair of incomplete circumcision,,Surgery,free,2025
+55250,CPT,Vasectomy,,Surgery,free,2025
+55400,CPT,"Vasotomy for vasograms, reversal procedures",,Surgery,free,2025
+55550,CPT,Laparoscopic repair of inguinal hernia,,Surgery,free,2025
+55700,CPT,"Biopsy of prostate, needle or punch, single or multiple",,Surgery,free,2025
+56605,CPT,"Vulvectomy, simple, partial",,Surgery,free,2025
+56620,CPT,"Vulvectomy, simple, complete",,Surgery,free,2025
+56630,CPT,"Vulvectomy, radical, partial",,Surgery,free,2025
+56633,CPT,"Vulvectomy, radical, complete",,Surgery,free,2025
+56637,CPT,"Vulvectomy, radical, complete with inguinofemoral lymphadenectomy",,Surgery,free,2025
+56640,CPT,"Vulvectomy, radical, complete with bilateral inguinofemoral lymphadenectomy",,Surgery,free,2025
+57100,CPT,"Biopsy of vagina, simple",,Surgery,free,2025
+57105,CPT,"Biopsy of vagina, extensive",,Surgery,free,2025
+57106,CPT,"Vaginectomy, partial",,Surgery,free,2025
+57107,CPT,"Vaginectomy, partial with removal of vaginal wall",,Surgery,free,2025
+57110,CPT,"Vaginectomy, complete",,Surgery,free,2025
+57111,CPT,"Vaginectomy, complete with removal of vaginal wall",,Surgery,free,2025
+57112,CPT,"Vaginectomy, complete with removal of vaginal wall with pelvic floor repair",,Surgery,free,2025
+57240,CPT,Anterior colporrhaphy for cystocele repair,,Surgery,free,2025
+57250,CPT,Posterior colporrhaphy for rectocele repair,,Surgery,free,2025
+57260,CPT,Combined anterior and posterior colporrhaphy,,Surgery,free,2025
+57265,CPT,Combined anterior and posterior colporrhaphy with enterocele repair,,Surgery,free,2025
+57268,CPT,Repair of enterocele,,Surgery,free,2025
+57270,CPT,Repair of enterocele with colpectomy,,Surgery,free,2025
+57280,CPT,"Colpopexy, abdominal approach",,Surgery,free,2025
+57282,CPT,"Colpopexy, vaginal approach, extra-peritoneal",,Surgery,free,2025
+57283,CPT,"Colpopexy, vaginal approach, intra-peritoneal",,Surgery,free,2025
+57284,CPT,Paravaginal defect repair,,Surgery,free,2025
+57288,CPT,Sling operation for stress incontinence,,Surgery,free,2025
+57289,CPT,Pereyra procedure,,Surgery,free,2025
+57452,CPT,Colposcopy of cervix,,Surgery,free,2025
+57454,CPT,Colposcopy of cervix with biopsy,,Surgery,free,2025
+57455,CPT,Colposcopy of cervix with biopsy and endocervical curettage,,Surgery,free,2025
+57456,CPT,Colposcopy of cervix with endocervical curettage,,Surgery,free,2025
+57460,CPT,Colposcopy of cervix with loop electrode excision,,Surgery,free,2025
+57461,CPT,Colposcopy of cervix with loop electrode conization,,Surgery,free,2025
+57500,CPT,"Biopsy of cervix, single or multiple",,Surgery,free,2025
+57505,CPT,Endocervical curettage,,Surgery,free,2025
+57510,CPT,"Cautery of cervix, electro or thermal",,Surgery,free,2025
+57511,CPT,Cryotherapy of cervix,,Surgery,free,2025
+57513,CPT,Laser surgery of cervix,,Surgery,free,2025
+57520,CPT,Conization of cervix with or without fulguration,,Surgery,free,2025
+57522,CPT,"Conization of cervix with or without fulguration, with dilation and curettage",,Surgery,free,2025
+57530,CPT,"Trachelectomy, amputation of cervix",,Surgery,free,2025
+58100,CPT,Endometrial biopsy,,Surgery,free,2025
+58120,CPT,"Dilation and curettage, diagnostic",,Surgery,free,2025
+58140,CPT,"Myomectomy, removal of fibroid tumor, single",,Surgery,free,2025
+58145,CPT,"Myomectomy, removal of fibroid tumor, multiple",,Surgery,free,2025
+58146,CPT,"Myomectomy, removal of fibroid tumor, myomectomy with total hysterectomy",,Surgery,free,2025
+58150,CPT,Total hysterectomy,,Surgery,free,2025
+58152,CPT,Total hysterectomy with removal of tube(s) and ovary(s),,Surgery,free,2025
+58180,CPT,Supracervical hysterectomy,,Surgery,free,2025
+58260,CPT,Vaginal hysterectomy,,Surgery,free,2025
+58262,CPT,Vaginal hysterectomy with removal of tube(s) and/or ovary(s),,Surgery,free,2025
+58263,CPT,"Vaginal hysterectomy with removal of tube(s), ovary(s), and repair of enterocele",,Surgery,free,2025
+58267,CPT,Vaginal hysterectomy with colpo-urethrocystopexy,,Surgery,free,2025
+58270,CPT,Vaginal hysterectomy with repair of enterocele,,Surgery,free,2025
+58275,CPT,Vaginal hysterectomy with total or partial vaginectomy,,Surgery,free,2025
+58280,CPT,Vaginal hysterectomy with repair of enterocele and repair of vaginal vault prolapse,,Surgery,free,2025
+58290,CPT,"Vaginal hysterectomy, complex",,Surgery,free,2025
+58291,CPT,"Vaginal hysterectomy, complex with removal of tube(s) and/or ovary(s)",,Surgery,free,2025
+58292,CPT,"Vaginal hysterectomy, complex with removal of tube(s), ovary(s), and repair of enterocele",,Surgery,free,2025
+58293,CPT,"Vaginal hysterectomy, complex with colpo-urethrocystopexy",,Surgery,free,2025
+58294,CPT,"Vaginal hysterectomy, complex with repair of enterocele",,Surgery,free,2025
+58541,CPT,Laparoscopic hysterectomy,,Surgery,free,2025
+58542,CPT,Laparoscopic hysterectomy with removal of tube(s) and/or ovary(s),,Surgery,free,2025
+58543,CPT,"Laparoscopic hysterectomy, supracervical",,Surgery,free,2025
+58544,CPT,"Laparoscopic hysterectomy with removal of tube(s) and/or ovary(s), supracervical",,Surgery,free,2025
+58545,CPT,"Laparoscopic hysterectomy, total or radical",,Surgery,free,2025
+58546,CPT,"Laparoscopic hysterectomy with removal of tube(s) and/or ovary(s), total or radical",,Surgery,free,2025
+58548,CPT,Laparoscopic radical hysterectomy with pelvic lymphadenectomy,,Surgery,free,2025
+58550,CPT,"Laparoscopy, surgical, with vaginal hysterectomy",,Surgery,free,2025
+58552,CPT,"Laparoscopy, surgical, with vaginal hysterectomy and removal of tube(s) and/or ovary(s)",,Surgery,free,2025
+58553,CPT,"Laparoscopy, surgical, with vaginal hysterectomy and total or partial vaginectomy",,Surgery,free,2025
+58554,CPT,"Laparoscopy, surgical, with vaginal hysterectomy and repair of enterocele",,Surgery,free,2025
+23350,CPT,Injection procedure for shoulder arthrography,,Surgery,free,2025
+23470,CPT,"Arthroplasty of shoulder joint, hemiarthroplasty",,Surgery,free,2025
+23472,CPT,"Arthroplasty of shoulder joint, total shoulder replacement",,Surgery,free,2025
+23473,CPT,Revision of total shoulder arthroplasty,,Surgery,free,2025
+23474,CPT,Revision of total shoulder replacement with glenoid and humeral component,,Surgery,free,2025
+24360,CPT,Arthroplasty of elbow joint,,Surgery,free,2025
+24361,CPT,Arthroplasty of elbow joint with distal humerus and proximal ulna replacement,,Surgery,free,2025
+24362,CPT,Arthroplasty of elbow joint with implant and fascia lata autograft,,Surgery,free,2025
+24363,CPT,"Arthroplasty of elbow joint, revision of total elbow arthroplasty",,Surgery,free,2025
+25441,CPT,"Arthroplasty with prosthetic replacement, distal radius",,Surgery,free,2025
+25442,CPT,"Arthroplasty with prosthetic replacement, distal ulna",,Surgery,free,2025
+25443,CPT,"Arthroplasty with prosthetic replacement, distal radius and ulna",,Surgery,free,2025
+25444,CPT,"Arthroplasty with prosthetic replacement, scaphoid carpal bone",,Surgery,free,2025
+25445,CPT,"Arthroplasty with prosthetic replacement, lunate carpal bone",,Surgery,free,2025
+25446,CPT,"Arthroplasty with prosthetic replacement, trapezium carpal bone",,Surgery,free,2025
+25447,CPT,"Arthroplasty with prosthetic replacement, distal radius and partial or complete carpus",,Surgery,free,2025
+27130,CPT,"Arthroplasty of hip, partial hip replacement",,Surgery,free,2025
+27132,CPT,"Arthroplasty of hip, femoral component only with bone graft",,Surgery,free,2025
+27134,CPT,"Revision of total hip arthroplasty, acetabular component only",,Surgery,free,2025
+27137,CPT,"Revision of total hip arthroplasty, femoral and acetabular components",,Surgery,free,2025
+27138,CPT,"Revision of total hip arthroplasty, femoral component only",,Surgery,free,2025
+27446,CPT,"Arthroplasty of knee, condyle and plateau, medial or lateral compartment",,Surgery,free,2025
+27447,CPT,"Arthroplasty of knee, condyle and plateau, medial and lateral compartment",,Surgery,free,2025
+27486,CPT,"Revision of total knee arthroplasty, femoral component",,Surgery,free,2025
+27487,CPT,"Revision of total knee arthroplasty, tibial component",,Surgery,free,2025
+27488,CPT,"Removal of prosthesis, knee joint",,Surgery,free,2025
+28285,CPT,Hammertoe correction with tendon transfer,,Surgery,free,2025
+28290,CPT,Hammertoe correction with simple tenotomy,,Surgery,free,2025
+28292,CPT,Hammertoe correction with joint resection,,Surgery,free,2025
+28293,CPT,Hammertoe correction with open or percutaneous arthroplasty,,Surgery,free,2025
+28294,CPT,"Hammertoe correction with open or percutaneous arthroplasty, each additional toe",,Surgery,free,2025
+28296,CPT,Bunionectomy with simple exostectomy,,Surgery,free,2025
+28297,CPT,Bunionectomy with exostectomy and soft tissue correction,,Surgery,free,2025
+28298,CPT,Bunionectomy with distal metatarsal osteotomy,,Surgery,free,2025
+28299,CPT,Bunionectomy with proximal metatarsal osteotomy,,Surgery,free,2025
+29826,CPT,"Arthroscopy shoulder, surgical, decompression of subacromial space",,Surgery,free,2025
+29827,CPT,"Arthroscopy shoulder, surgical, with rotator cuff repair",,Surgery,free,2025
+29880,CPT,"Arthroscopy knee, surgical, with meniscectomy",,Surgery,free,2025
+29882,CPT,"Arthroscopy knee, surgical, with meniscus repair",,Surgery,free,2025
+29883,CPT,"Arthroscopy knee, surgical, with meniscus repair and synovectomy",,Surgery,free,2025
+29884,CPT,"Arthroscopy knee, surgical, with lysis of adhesions",,Surgery,free,2025
+29885,CPT,"Arthroscopy knee, surgical, drilling for intact osteochondritis dissecans lesion",,Surgery,free,2025
+29886,CPT,"Arthroscopy knee, surgical, drilling for osteochondritis dissecans with bone grafting",,Surgery,free,2025
+29887,CPT,"Arthroscopy knee, surgical, drilling for osteochondritis dissecans with internal fixation",,Surgery,free,2025
+29888,CPT,"Arthroscopy knee, surgical, with loose body removal",,Surgery,free,2025
+30100,CPT,Intranasal biopsy,,Surgery,free,2025
+30110,CPT,"Excision of nasal polyp, simple",,Surgery,free,2025
+30115,CPT,"Excision of nasal polyp, extensive",,Surgery,free,2025
+30117,CPT,Excision or destruction of intranasal lesion,,Surgery,free,2025
+30118,CPT,"Excision or destruction of intranasal lesion, extensive",,Surgery,free,2025
+30124,CPT,"Excision of dermoid cyst, nose, simple",,Surgery,free,2025
+30125,CPT,"Excision of dermoid cyst, nose, complex",,Surgery,free,2025
+30130,CPT,"Excision of turbinate bones, partial or complete",,Surgery,free,2025
+30140,CPT,Submucous resection of turbinate,,Surgery,free,2025
+30400,CPT,"Rhinoplasty, primary, lateral and alar cartilages",,Surgery,free,2025
+30410,CPT,"Rhinoplasty, primary, complete",,Surgery,free,2025
+30420,CPT,"Rhinoplasty, secondary, minor revision",,Surgery,free,2025
+30430,CPT,"Rhinoplasty, secondary, major revision",,Surgery,free,2025
+30435,CPT,"Rhinoplasty, secondary, major revision including nasal tip",,Surgery,free,2025
+30450,CPT,"Rhinoplasty, major reconstruction",,Surgery,free,2025
+30460,CPT,"Rhinoplasty, augmentation",,Surgery,free,2025
+30520,CPT,Septoplasty for nasal airway obstruction,,Surgery,free,2025
+30540,CPT,Repair of nasal septal perforation,,Surgery,free,2025
+30545,CPT,"Repair of nasal septal perforation, complex",,Surgery,free,2025
+30801,CPT,"Ablation of inferior turbinates, intramural, unilateral",,Surgery,free,2025
+30802,CPT,"Ablation of inferior turbinates, intramural, bilateral",,Surgery,free,2025
+31231,CPT,"Nasal endoscopy, diagnostic",,Surgery,free,2025
+31233,CPT,"Nasal endoscopy, diagnostic with maxillary sinusoscopy",,Surgery,free,2025
+31235,CPT,"Nasal endoscopy, diagnostic with sphenoid sinusoscopy",,Surgery,free,2025
+31237,CPT,"Nasal endoscopy, surgical with biopsy",,Surgery,free,2025
+31238,CPT,"Nasal endoscopy, surgical with control of nasal hemorrhage",,Surgery,free,2025
+31240,CPT,"Nasal endoscopy, surgical with concha bullosa resection",,Surgery,free,2025
+31241,CPT,"Nasal endoscopy, surgical with ligation of sphenopalatine artery",,Surgery,free,2025
+31253,CPT,"Nasal endoscopy, surgical with ethmoidectomy, partial",,Surgery,free,2025
+31254,CPT,"Nasal endoscopy, surgical with ethmoidectomy, total",,Surgery,free,2025
+31255,CPT,"Nasal endoscopy, surgical with ethmoidectomy, total and removal of tissue from sphenoid sinus",,Surgery,free,2025
+31256,CPT,"Nasal endoscopy, surgical with maxillary antrostomy",,Surgery,free,2025
+31267,CPT,"Nasal endoscopy, surgical with maxillary antrostomy and removal of tissue",,Surgery,free,2025
+31276,CPT,"Nasal endoscopy, surgical with frontal sinus exploration",,Surgery,free,2025
+31287,CPT,"Nasal endoscopy, surgical with sphenoidotomy",,Surgery,free,2025
+31288,CPT,"Nasal endoscopy, surgical with sphenoidotomy and removal of tissue",,Surgery,free,2025
+31290,CPT,"Nasal endoscopy, surgical with repair of cerebrospinal fluid leak",,Surgery,free,2025
+31291,CPT,"Nasal endoscopy, surgical with repair of cerebrospinal fluid leak and graft",,Surgery,free,2025
+31292,CPT,"Nasal endoscopy, surgical with medial or inferior orbital wall decompression",,Surgery,free,2025
+31293,CPT,"Nasal endoscopy, surgical with medial orbital wall and inferior orbital wall decompression",,Surgery,free,2025
+31294,CPT,"Nasal endoscopy, surgical with optic nerve decompression",,Surgery,free,2025
+31295,CPT,"Nasal endoscopy, surgical with dilation of maxillary sinus ostium",,Surgery,free,2025
+31296,CPT,"Nasal endoscopy, surgical with dilation of frontal and sphenoid sinus ostia",,Surgery,free,2025
+31297,CPT,"Nasal endoscopy, surgical with dilation of frontal, maxillary, and sphenoid sinus ostia",,Surgery,free,2025
+31298,CPT,"Nasal endoscopy, surgical with dilation of frontal sinus ostium",,Surgery,free,2025
+69200,CPT,Removal of foreign body from external auditory canal,,Surgery,free,2025
+69205,CPT,Removal of foreign body from external auditory canal with general anesthesia,,Surgery,free,2025
+69210,CPT,"Removal of impacted earwax, unilateral",,Surgery,free,2025
+69222,CPT,"Debridement of mastoid cavity, simple",,Surgery,free,2025
+69420,CPT,Myringotomy,,Surgery,free,2025
+69421,CPT,Myringotomy with aspiration,,Surgery,free,2025
+69424,CPT,Ventilating tube removal requiring general anesthesia,,Surgery,free,2025
+69433,CPT,Tympanostomy with local or topical anesthesia,,Surgery,free,2025
+69436,CPT,Tympanostomy with general anesthesia,,Surgery,free,2025
+69501,CPT,Transmastoid antrotomy,,Surgery,free,2025
+69502,CPT,"Mastoidectomy, complete",,Surgery,free,2025
+69505,CPT,"Mastoidectomy, modified radical",,Surgery,free,2025
+69511,CPT,"Mastoidectomy, radical",,Surgery,free,2025
+69601,CPT,Revision mastoidectomy,,Surgery,free,2025
+69602,CPT,Revision mastoidectomy with apicectomy,,Surgery,free,2025
+69603,CPT,Revision mastoidectomy with tympanoplasty,,Surgery,free,2025
+69604,CPT,Revision mastoidectomy with ossicular chain reconstruction,,Surgery,free,2025
+69605,CPT,Revision mastoidectomy with apicectomy with tympanoplasty,,Surgery,free,2025
+69610,CPT,Tympanic membrane repair,,Surgery,free,2025
+69620,CPT,Myringoplasty,,Surgery,free,2025
+69631,CPT,"Tympanoplasty without mastoidectomy, without ossicular chain reconstruction",,Surgery,free,2025
+69632,CPT,"Tympanoplasty without mastoidectomy, with ossicular chain reconstruction",,Surgery,free,2025
+69633,CPT,"Tympanoplasty without mastoidectomy, with ossicular chain reconstruction and synthetic prosthesis",,Surgery,free,2025
+69635,CPT,"Tympanoplasty without mastoidectomy, radical or complete, with ossicular chain reconstruction",,Surgery,free,2025
+69636,CPT,"Tympanoplasty without mastoidectomy, radical or complete, with ossicular chain reconstruction and synthetic prosthesis",,Surgery,free,2025
+69641,CPT,"Tympanoplasty with mastoidectomy, without ossicular chain reconstruction",,Surgery,free,2025
+69642,CPT,"Tympanoplasty with mastoidectomy, with ossicular chain reconstruction",,Surgery,free,2025
+69643,CPT,"Tympanoplasty with mastoidectomy, with ossicular chain reconstruction and synthetic prosthesis",,Surgery,free,2025
+69644,CPT,"Tympanoplasty with mastoidectomy, with intact or reconstructed wall, without ossicular chain reconstruction",,Surgery,free,2025
+69645,CPT,"Tympanoplasty with mastoidectomy, with intact or reconstructed wall, with ossicular chain reconstruction",,Surgery,free,2025
+69646,CPT,"Tympanoplasty with mastoidectomy, with intact or reconstructed wall, with ossicular chain reconstruction and synthetic prosthesis",,Surgery,free,2025
+69650,CPT,Stapes mobilization,,Surgery,free,2025
+69660,CPT,Stapedectomy or stapedotomy,,Surgery,free,2025
+69661,CPT,Stapedectomy or stapedotomy with footplate drill out,,Surgery,free,2025
+69662,CPT,Revision or removal of stapes prosthesis,,Surgery,free,2025
+69666,CPT,Repair of oval window fistula,,Surgery,free,2025
+69667,CPT,Repair of round window fistula,,Surgery,free,2025
+69670,CPT,Mastoid obliteration,,Surgery,free,2025
+69676,CPT,Tympanic neurectomy,,Surgery,free,2025
+69711,CPT,Removal or repair of electromagnetic bone conduction hearing device,,Surgery,free,2025
+69714,CPT,Implantation of osseointegrated implant for bone conduction,,Surgery,free,2025
+69715,CPT,"Implantation of osseointegrated implant for bone conduction, temporal bone",,Surgery,free,2025
+69717,CPT,Replacement of osseointegrated implant for bone conduction,,Surgery,free,2025
+69718,CPT,"Replacement of osseointegrated implant for bone conduction, temporal bone",,Surgery,free,2025
+69720,CPT,Decompression of facial nerve,,Surgery,free,2025
+69725,CPT,"Decompression of facial nerve, complete",,Surgery,free,2025
+69740,CPT,Suture of facial nerve,,Surgery,free,2025
+69745,CPT,"Suture of facial nerve, with or without graft",,Surgery,free,2025
+69799,CPT,"Unlisted procedure, middle ear",,Surgery,free,2025
+65091,CPT,Evisceration of eye contents,,Surgery,free,2025
+65093,CPT,Evisceration of eye contents with implant,,Surgery,free,2025
+65101,CPT,Enucleation of eye with or without implant,,Surgery,free,2025
+65103,CPT,Enucleation of eye with implant and muscles attached,,Surgery,free,2025
+65105,CPT,Enucleation of eye with implant and muscles not attached,,Surgery,free,2025
+65110,CPT,Exenteration of orbit,,Surgery,free,2025
+65112,CPT,Exenteration of orbit with removal of adjacent structures,,Surgery,free,2025
+65114,CPT,Exenteration of orbit with removal of adjacent structures and bone removal,,Surgery,free,2025
+65125,CPT,Modification of ocular implant,,Surgery,free,2025
+65130,CPT,Insertion of ocular implant,,Surgery,free,2025
+65135,CPT,Insertion of ocular implant following evisceration,,Surgery,free,2025
+65140,CPT,Insertion of ocular implant following enucleation,,Surgery,free,2025
+65150,CPT,Reinsertion of ocular implant,,Surgery,free,2025
+65155,CPT,Reinsertion of ocular implant with or without conjunctival graft,,Surgery,free,2025
+65175,CPT,Removal of ocular implant,,Surgery,free,2025
+65205,CPT,Removal of foreign body from external eye,,Surgery,free,2025
+65210,CPT,Removal of foreign body from external eye with slit lamp,,Surgery,free,2025
+65220,CPT,Removal of foreign body from external eye with general anesthesia,,Surgery,free,2025
+65222,CPT,Removal of foreign body from external eye with general anesthesia and incision,,Surgery,free,2025
+65235,CPT,"Removal of foreign body from intraocular, anterior segment",,Surgery,free,2025
+65260,CPT,"Removal of foreign body from intraocular, posterior segment, magnetic extraction",,Surgery,free,2025
+65265,CPT,"Removal of foreign body from intraocular, posterior segment, nonmagnetic extraction",,Surgery,free,2025
+65270,CPT,Repair of laceration of conjunctiva,,Surgery,free,2025
+65272,CPT,Repair of laceration of conjunctiva with hospitalization,,Surgery,free,2025
+65273,CPT,Repair of laceration of conjunctiva with graft,,Surgery,free,2025
+65275,CPT,Repair of laceration of cornea,,Surgery,free,2025
+65280,CPT,Repair of laceration of cornea with tissue glue,,Surgery,free,2025
+65285,CPT,Repair of laceration of cornea with graft,,Surgery,free,2025
+65286,CPT,"Repair of laceration of cornea or sclera, perforating",,Surgery,free,2025
+66820,CPT,Discission of secondary membranous cataract,,Surgery,free,2025
+66821,CPT,Discission of secondary membranous cataract with laser surgery,,Surgery,free,2025
+66830,CPT,Removal of secondary membranous cataract,,Surgery,free,2025
+66840,CPT,"Removal of lens material, aspiration technique, 1 or more stages",,Surgery,free,2025
+66850,CPT,"Removal of lens material, phacofragmentation technique",,Surgery,free,2025
+66852,CPT,"Removal of lens material, pars plana approach",,Surgery,free,2025
+66920,CPT,"Removal of lens material, intracapsular",,Surgery,free,2025
+66930,CPT,"Removal of lens material, intracapsular, for dislocated lens",,Surgery,free,2025
+66940,CPT,"Removal of lens material, extracapsular",,Surgery,free,2025
+66982,CPT,"Cataract surgery, complex",,Surgery,free,2025
+66983,CPT,"Cataract surgery with intraocular lens implant, 1 stage",,Surgery,free,2025
+66985,CPT,"Insertion of intraocular lens prosthesis, secondary implant",,Surgery,free,2025
+66986,CPT,Exchange of intraocular lens,,Surgery,free,2025
+67005,CPT,Removal of vitreous by anterior approach,,Surgery,free,2025
+67010,CPT,Removal of vitreous by paracentesis of anterior chamber,,Surgery,free,2025
+67015,CPT,"Aspiration or release of vitreous, subretinal or choroidal fluid",,Surgery,free,2025
+67025,CPT,Injection of vitreous substitute,,Surgery,free,2025
+67027,CPT,Injection of vitreous substitute with aspiration,,Surgery,free,2025
+67028,CPT,Injection of drug into eye,,Surgery,free,2025
+67030,CPT,Discission of vitreous strands,,Surgery,free,2025
+67031,CPT,Severing of vitreous strands by laser surgery,,Surgery,free,2025
+67036,CPT,Vitrectomy with focal endolaser photocoagulation,,Surgery,free,2025
+67039,CPT,Vitrectomy with focal endolaser photocoagulation and prophylaxis of retinal detachment,,Surgery,free,2025
+67040,CPT,Vitrectomy with endolaser panretinal photocoagulation,,Surgery,free,2025
+67041,CPT,Vitrectomy with removal of preretinal cellular membrane,,Surgery,free,2025
+67042,CPT,Vitrectomy with removal of internal limiting membrane,,Surgery,free,2025
+67043,CPT,Vitrectomy with removal of subretinal membrane,,Surgery,free,2025
+67108,CPT,Repair of retinal detachment with diathermy,,Surgery,free,2025
+67110,CPT,Repair of retinal detachment with photocoagulation,,Surgery,free,2025
+67112,CPT,Repair of retinal detachment with cryotherapy,,Surgery,free,2025
+67113,CPT,Repair of retinal detachment with photocoagulation and cryotherapy,,Surgery,free,2025
+67115,CPT,Release of encircling material from previous surgery,,Surgery,free,2025
+67120,CPT,Removal of implanted material from posterior segment of eye,,Surgery,free,2025
+67121,CPT,Removal of implanted material from posterior segment of eye with vitrectomy,,Surgery,free,2025
+67141,CPT,Prophylaxis of retinal detachment with diathermy,,Surgery,free,2025
+67145,CPT,Prophylaxis of retinal detachment with photocoagulation,,Surgery,free,2025
+67208,CPT,Destruction of localized lesion of retina by cryotherapy,,Surgery,free,2025
+67210,CPT,Destruction of localized lesion of retina by photocoagulation,,Surgery,free,2025
+67218,CPT,Destruction of localized lesion of retina by radiation,,Surgery,free,2025
+67220,CPT,Destruction of localized lesion of choroid by photocoagulation,,Surgery,free,2025
+67221,CPT,Destruction of localized lesion of choroid by photodynamic therapy,,Surgery,free,2025
+67225,CPT,Destruction of localized lesion of choroid by radiation,,Surgery,free,2025
+67227,CPT,Destruction of extensive or progressive retinopathy by cryotherapy,,Surgery,free,2025
+67228,CPT,Destruction of extensive or progressive retinopathy by photocoagulation,,Surgery,free,2025
+92950,CPT,Cardiopulmonary resuscitation,,Surgery,free,2025
+92953,CPT,Temporary transcutaneous pacing,,Surgery,free,2025
+92960,CPT,"Cardioversion, elective, external",,Surgery,free,2025
+92961,CPT,"Cardioversion, elective, internal",,Surgery,free,2025
+92970,CPT,"Cardioassist, internal",,Surgery,free,2025
+92971,CPT,"Cardioassist, external",,Surgery,free,2025
+92975,CPT,"Thrombolysis, coronary, by intracoronary infusion",,Surgery,free,2025
+92977,CPT,"Thrombolysis, coronary, by intravenous infusion",,Surgery,free,2025
+92978,CPT,Endoluminal imaging of coronary vessel or graft,,Surgery,free,2025
+92979,CPT,"Endoluminal imaging of coronary vessel or graft, each additional vessel",,Surgery,free,2025
+92986,CPT,"Percutaneous balloon valvuloplasty, aortic valve",,Surgery,free,2025
+92987,CPT,"Percutaneous balloon valvuloplasty, mitral valve",,Surgery,free,2025
+92990,CPT,"Percutaneous balloon valvuloplasty, pulmonary valve",,Surgery,free,2025
+92992,CPT,Atrial septectomy or septostomy,,Surgery,free,2025
+92993,CPT,"Atrial septectomy or septostomy, transvenous method",,Surgery,free,2025
+92997,CPT,"Percutaneous transluminal pulmonary artery balloon angioplasty, single vessel",,Surgery,free,2025
+92998,CPT,"Percutaneous transluminal pulmonary artery balloon angioplasty, each additional vessel",,Surgery,free,2025
+93000,CPT,"Electrocardiogram, routine, with interpretation and report",,Surgery,free,2025
+93005,CPT,"Electrocardiogram, routine, tracing only",,Surgery,free,2025
+93010,CPT,"Electrocardiogram, routine, interpretation and report only",,Surgery,free,2025
+93015,CPT,Cardiovascular stress test with electrocardiogram,,Surgery,free,2025
+93016,CPT,"Cardiovascular stress test with electrocardiogram, supervision only",,Surgery,free,2025
+93017,CPT,"Cardiovascular stress test with electrocardiogram, tracing only",,Surgery,free,2025
+93018,CPT,"Cardiovascular stress test with electrocardiogram, interpretation and report only",,Surgery,free,2025
+93040,CPT,"Rhythm electrocardiogram, 1-3 leads with interpretation and report",,Surgery,free,2025
+93041,CPT,"Rhythm electrocardiogram, 1-3 leads, tracing only",,Surgery,free,2025
+93042,CPT,"Rhythm electrocardiogram, 1-3 leads, interpretation and report only",,Surgery,free,2025
+93224,CPT,External electrocardiographic recording for 24 hours,,Surgery,free,2025
+93225,CPT,External electrocardiographic recording for 24 hours with scanning analysis,,Surgery,free,2025
+93226,CPT,External electrocardiographic recording for 24 hours with scanning analysis and report,,Surgery,free,2025
+93227,CPT,External electrocardiographic recording for 24 hours with report,,Surgery,free,2025
+93228,CPT,External electrocardiographic recording for 24 hours with analysis,,Surgery,free,2025
+93229,CPT,External electrocardiographic recording for 24 hours with interpretation and report,,Surgery,free,2025
+93260,CPT,"Pacemaker or pacing cardioverter-defibrillator programming, single chamber",,Surgery,free,2025
+93261,CPT,"Pacemaker or pacing cardioverter-defibrillator programming, dual chamber",,Surgery,free,2025
+93264,CPT,Remote monitoring of pacemaker or pacing cardioverter-defibrillator,,Surgery,free,2025
+93279,CPT,Programming of implantable cardioverter-defibrillator,,Surgery,free,2025
+93280,CPT,Programming of implantable cardioverter-defibrillator with testing,,Surgery,free,2025
+93281,CPT,Programming of implantable cardioverter-defibrillator with testing and analysis,,Surgery,free,2025
+93282,CPT,"Programming of implantable cardioverter-defibrillator with testing, analysis, and report",,Surgery,free,2025
+93283,CPT,Programming of implantable cardioverter-defibrillator with testing and electrophysiologic evaluation,,Surgery,free,2025
+93284,CPT,Programming of subcutaneous implantable cardioverter-defibrillator,,Surgery,free,2025
+93285,CPT,Programming of implantable loop recorder,,Surgery,free,2025
+93286,CPT,Peri-procedural device evaluation of cardiovascular physiologic monitor,,Surgery,free,2025
+93287,CPT,Interrogation device evaluation of cardiovascular physiologic monitor with analysis and report,,Surgery,free,2025
+93288,CPT,Interrogation device evaluation of implantable cardioverter-defibrillator with analysis,,Surgery,free,2025
+93289,CPT,Interrogation device evaluation of implantable cardioverter-defibrillator with analysis and report,,Surgery,free,2025
+93290,CPT,Interrogation device evaluation of implantable cardioverter-defibrillator with programming,,Surgery,free,2025
+93291,CPT,Interrogation device evaluation of implantable loop recorder,,Surgery,free,2025
+93292,CPT,Interrogation device evaluation of wearable defibrillator,,Surgery,free,2025
+93293,CPT,Interrogation device evaluation of dual chamber pacemaker,,Surgery,free,2025
+93294,CPT,Interrogation device evaluation of single chamber pacemaker,,Surgery,free,2025
+93295,CPT,Interrogation device evaluation of single lead pacemaker,,Surgery,free,2025
+93296,CPT,Interrogation device evaluation of dual chamber pacemaker or pacing cardioverter-defibrillator,,Surgery,free,2025
+93297,CPT,Interrogation device evaluation of single chamber pacemaker or pacing cardioverter-defibrillator,,Surgery,free,2025
+93298,CPT,Interrogation device evaluation of single or dual chamber pacemaker or subcutaneous cardiac rhythm monitor,,Surgery,free,2025
+93303,CPT,Transthoracic echocardiography,,Surgery,free,2025
+93304,CPT,Transthoracic echocardiography with Doppler,,Surgery,free,2025
+93306,CPT,"Transthoracic echocardiography, complete",,Surgery,free,2025
+93307,CPT,"Transthoracic echocardiography, complete with spectral and color Doppler",,Surgery,free,2025
+93308,CPT,"Transthoracic echocardiography, follow-up or limited study",,Surgery,free,2025
+93312,CPT,Transesophageal echocardiography,,Surgery,free,2025
+93313,CPT,Transesophageal echocardiography with probe placement,,Surgery,free,2025
+93314,CPT,Transesophageal echocardiography with image acquisition,,Surgery,free,2025
+93315,CPT,Transesophageal echocardiography with interpretation and report,,Surgery,free,2025
+93316,CPT,Transesophageal echocardiography with color Doppler,,Surgery,free,2025
+93317,CPT,Transesophageal echocardiography with pulsed wave Doppler,,Surgery,free,2025
+93318,CPT,Transesophageal echocardiography with spectral Doppler,,Surgery,free,2025
+93320,CPT,"Doppler echocardiography, pulsed wave",,Surgery,free,2025
+93321,CPT,"Doppler echocardiography, pulsed wave with spectral display",,Surgery,free,2025
+93325,CPT,"Doppler echocardiography, color flow velocity mapping",,Surgery,free,2025
+93350,CPT,Echocardiography with stress test,,Surgery,free,2025
+93351,CPT,"Echocardiography with stress test, including ECG",,Surgery,free,2025
+93352,CPT,"Echocardiography with stress test, including interpretation and report",,Surgery,free,2025
+93355,CPT,"Echocardiography, transesophageal, for congenital cardiac anomalies",,Surgery,free,2025
+93356,CPT,"Echocardiography, transesophageal, for congenital cardiac anomalies with probe placement",,Surgery,free,2025
+90630,CPT,"Influenza virus vaccine, quadrivalent, intramuscular, preservative-free",,Medicine,free,2025
+90658,CPT,"Influenza virus vaccine, trivalent, intramuscular, age 3 and above",,Medicine,free,2025
+90662,CPT,"Influenza virus vaccine, high-dose, intramuscular",,Medicine,free,2025
+90670,CPT,"Pneumococcal conjugate vaccine (PCV13), intramuscular",,Medicine,free,2025
+90732,CPT,"Pneumococcal polysaccharide vaccine (PPSV23), subcutaneous or intramuscular",,Medicine,free,2025
+90715,CPT,"Tetanus, diphtheria toxoids, acellular pertussis (Tdap) vaccine",,Medicine,free,2025
+90714,CPT,"Tetanus and diphtheria (Td) vaccine, age 7 and above",,Medicine,free,2025
+90471,CPT,"Immunization administration, first vaccine/toxoid",,Medicine,free,2025
+90472,CPT,"Immunization administration, each additional vaccine/toxoid",,Medicine,free,2025
+90460,CPT,"Immunization counseling and administration, first component",,Medicine,free,2025
+90461,CPT,"Immunization counseling and administration, each additional component",,Medicine,free,2025
+91300,CPT,"COVID-19 vaccine administration, first dose",,Medicine,free,2025
+91301,CPT,"COVID-19 vaccine administration, second dose",,Medicine,free,2025
+91302,CPT,"COVID-19 vaccine administration, third dose",,Medicine,free,2025
+91303,CPT,"COVID-19 vaccine administration, booster dose",,Medicine,free,2025
+96372,CPT,"Therapeutic, prophylactic, or diagnostic injection, subcutaneous or intramuscular",,Medicine,free,2025
+96374,CPT,"Therapeutic, prophylactic, or diagnostic injection, intravenous push",,Medicine,free,2025
+96365,CPT,"Intravenous infusion for therapy, first hour",,Medicine,free,2025
+96366,CPT,"Intravenous infusion for therapy, each additional hour",,Medicine,free,2025
+96401,CPT,"Chemotherapy administration, subcutaneous or intramuscular",,Medicine,free,2025
+96409,CPT,"Chemotherapy administration, intravenous push",,Medicine,free,2025
+96413,CPT,"Chemotherapy administration, intravenous infusion, first hour",,Medicine,free,2025
+97110,CPT,"Therapeutic exercise, each 15 minutes",,Medicine,free,2025
+97112,CPT,"Neuromuscular reeducation, each 15 minutes",,Medicine,free,2025
+97116,CPT,"Gait training, each 15 minutes",,Medicine,free,2025
+97140,CPT,"Manual therapy techniques, each 15 minutes",,Medicine,free,2025
+97530,CPT,"Therapeutic activities for functional performance, each 15 minutes",,Medicine,free,2025
+97010,CPT,Hot or cold packs therapy,,Medicine,free,2025
+97012,CPT,Mechanical traction therapy,,Medicine,free,2025
+97014,CPT,Electrical stimulation therapy,,Medicine,free,2025
+97016,CPT,Vasopneumatic devices therapy,,Medicine,free,2025
+97032,CPT,"Electrical stimulation, manual, each 15 minutes",,Medicine,free,2025
+97035,CPT,"Ultrasound therapy, each 15 minutes",,Medicine,free,2025
+97165,CPT,"Occupational therapy evaluation, low complexity",,Medicine,free,2025
+97166,CPT,"Occupational therapy evaluation, moderate complexity",,Medicine,free,2025
+97167,CPT,"Occupational therapy evaluation, high complexity",,Medicine,free,2025
+97161,CPT,"Physical therapy evaluation, low complexity",,Medicine,free,2025
+97162,CPT,"Physical therapy evaluation, moderate complexity",,Medicine,free,2025
+97163,CPT,"Physical therapy evaluation, high complexity",,Medicine,free,2025
+93000,CPT,"Electrocardiogram (ECG), complete with interpretation and report",,Medicine,free,2025
+93005,CPT,"Electrocardiogram (ECG), tracing only",,Medicine,free,2025
+93010,CPT,"Electrocardiogram (ECG), interpretation and report only",,Medicine,free,2025
+93015,CPT,"Cardiovascular stress test with ECG monitoring, physician supervision",,Medicine,free,2025
+93306,CPT,"Echocardiography, complete transthoracic",,Medicine,free,2025
+93350,CPT,Echocardiography with stress test,,Medicine,free,2025
+94010,CPT,Spirometry with graphic record,,Medicine,free,2025
+94060,CPT,"Bronchodilation responsiveness, spirometry before and after bronchodilator",,Medicine,free,2025
+95810,CPT,"Polysomnography, sleep staging with respiratory effort, oxygen saturation, and heart rate",,Medicine,free,2025
+95811,CPT,"Polysomnography, extended parameters with CPAP or BiPAP titration",,Medicine,free,2025
+94640,CPT,Inhalation treatment for airway obstruction with nebulizer,,Medicine,free,2025
+90633,CPT,"Hepatitis A vaccine, pediatric/adolescent dosage, 2-dose schedule",,Medicine,free,2025
+90636,CPT,"Hepatitis A and hepatitis B vaccine (HepA-HepB), adult dosage",,Medicine,free,2025
+90644,CPT,"Meningococcal conjugate vaccine, serogroups C & Y and Haemophilus b",,Medicine,free,2025
+90649,CPT,"Human Papillomavirus vaccine, types 6, 11, 16, 18 (quadrivalent)",,Medicine,free,2025
+90650,CPT,"Human Papillomavirus vaccine, types 16, 18, bivalent",,Medicine,free,2025
+90651,CPT,"Human Papillomavirus vaccine, types 6, 11, 16, 18, 31, 33, 45, 52, 58 (9-valent)",,Medicine,free,2025
+90672,CPT,"Influenza virus vaccine, quadrivalent, live, for intranasal use",,Medicine,free,2025
+90675,CPT,"Rabies vaccine, for intramuscular use",,Medicine,free,2025
+90676,CPT,"Rabies vaccine, for intradermal use",,Medicine,free,2025
+90680,CPT,"Rotavirus vaccine, pentavalent, 3-dose schedule",,Medicine,free,2025
+90681,CPT,"Rotavirus vaccine, human, attenuated, 2-dose schedule",,Medicine,free,2025
+90687,CPT,"Influenza virus vaccine, quadrivalent, split virus, when administered to children",,Medicine,free,2025
+90696,CPT,"Diphtheria, tetanus toxoids, acellular pertussis vaccine and inactivated poliovirus vaccine (DTaP-IPV)",,Medicine,free,2025
+90697,CPT,"Diphtheria, tetanus toxoids, acellular pertussis vaccine, inactivated poliovirus vaccine, Haemophilus influenzae type b PRP-OMP conjugate vaccine, and hepatitis B vaccine (DTaP-IPV-Hib-HepB)",,Medicine,free,2025
+90698,CPT,"Diphtheria, tetanus toxoids, acellular pertussis vaccine, Haemophilus influenzae type b, and inactivated poliovirus vaccine (DTaP-IPV/Hib)",,Medicine,free,2025
+90700,CPT,"Diphtheria, tetanus toxoids, and acellular pertussis vaccine (DTaP)",,Medicine,free,2025
+90702,CPT,"Diphtheria and tetanus toxoids adsorbed (DT), pediatric",,Medicine,free,2025
+90707,CPT,"Measles, mumps and rubella virus vaccine (MMR), live",,Medicine,free,2025
+90710,CPT,"Measles, mumps, rubella, and varicella vaccine (MMRV), live",,Medicine,free,2025
+90712,CPT,"Poliovirus vaccine, live, oral",,Medicine,free,2025
+90713,CPT,"Poliovirus vaccine, inactivated (IPV), for subcutaneous or intramuscular use",,Medicine,free,2025
+90716,CPT,"Varicella virus vaccine (VAR), live",,Medicine,free,2025
+90723,CPT,"Diphtheria, tetanus toxoids, acellular pertussis vaccine, hepatitis B, and inactivated poliovirus vaccine (DTaP-HepB-IPV)",,Medicine,free,2025
+90733,CPT,"Meningococcal polysaccharide vaccine, serogroups A, C, Y, W-135",,Medicine,free,2025
+90734,CPT,"Meningococcal conjugate vaccine, serogroups A, C, W-135, Y",,Medicine,free,2025
+90736,CPT,"Zoster (shingles) vaccine, live, for subcutaneous injection",,Medicine,free,2025
+90738,CPT,Japanese encephalitis virus vaccine,,Medicine,free,2025
+90739,CPT,"Hepatitis B vaccine (HepB), adult dosage",,Medicine,free,2025
+90740,CPT,"Hepatitis B vaccine (HepB), dialysis or immunosuppressed patient dosage",,Medicine,free,2025
+90743,CPT,"Hepatitis B vaccine (HepB), adolescent dosage",,Medicine,free,2025
+90744,CPT,"Hepatitis B vaccine (HepB), pediatric/adolescent dosage",,Medicine,free,2025
+90746,CPT,"Hepatitis B vaccine (HepB), adult dosage",,Medicine,free,2025
+90747,CPT,"Hepatitis B vaccine (HepB), dialysis or immunosuppressed patient dosage",,Medicine,free,2025
+90748,CPT,Hepatitis B and Haemophilus influenzae b vaccine (Hib-HepB),,Medicine,free,2025
+90750,CPT,"Zoster (shingles) vaccine, recombinant",,Medicine,free,2025
+90756,CPT,"Influenza virus vaccine, quadrivalent, intradermal",,Medicine,free,2025
+90785,CPT,Interactive complexity psychotherapy add-on,,Medicine,free,2025
+90791,CPT,Psychiatric diagnostic evaluation,,Medicine,free,2025
+90792,CPT,Psychiatric diagnostic evaluation with medical services,,Medicine,free,2025
+90832,CPT,"Psychotherapy, 30 minutes with patient",,Medicine,free,2025
+90834,CPT,"Psychotherapy, 45 minutes with patient",,Medicine,free,2025
+90837,CPT,"Psychotherapy, 60 minutes with patient",,Medicine,free,2025
+90839,CPT,"Psychotherapy for crisis, first 60 minutes",,Medicine,free,2025
+90840,CPT,"Psychotherapy for crisis, each additional 30 minutes",,Medicine,free,2025
+90845,CPT,Psychoanalysis,,Medicine,free,2025
+90846,CPT,Family psychotherapy without patient present,,Medicine,free,2025
+90847,CPT,Family psychotherapy with patient present,,Medicine,free,2025
+90849,CPT,Multiple-family group psychotherapy,,Medicine,free,2025
+90853,CPT,Group psychotherapy,,Medicine,free,2025
+92002,CPT,"Ophthalmological services, medical examination and evaluation, intermediate, new patient",,Medicine,free,2025
+92004,CPT,"Ophthalmological services, medical examination and evaluation, comprehensive, new patient",,Medicine,free,2025
+92012,CPT,"Ophthalmological services, medical examination and evaluation, intermediate, established patient",,Medicine,free,2025
+92014,CPT,"Ophthalmological services, medical examination and evaluation, comprehensive, established patient",,Medicine,free,2025
+92015,CPT,Determination of refractive state,,Medicine,free,2025
+92018,CPT,"Ophthalmological examination and evaluation, under general anesthesia",,Medicine,free,2025
+92019,CPT,"Ophthalmological examination and evaluation, under general anesthesia, with manipulation of globe",,Medicine,free,2025
+92025,CPT,"Computerized corneal topography, unilateral or bilateral",,Medicine,free,2025
+92060,CPT,Sensorimotor examination with multiple measurements of ocular deviation,,Medicine,free,2025
+92065,CPT,Orthoptic training,,Medicine,free,2025
+92071,CPT,Fitting of contact lens for treatment of ocular surface disease,,Medicine,free,2025
+92072,CPT,"Fitting of contact lens for management of keratoconus, initial fitting",,Medicine,free,2025
+92081,CPT,"Visual field examination, unilateral or bilateral",,Medicine,free,2025
+92082,CPT,"Visual field examination, unilateral or bilateral, with interpretation and report",,Medicine,free,2025
+92083,CPT,"Visual field examination, unilateral or bilateral, extended",,Medicine,free,2025
+92100,CPT,Serial tonometry with multiple measurements,,Medicine,free,2025
+92132,CPT,"Scanning computerized ophthalmic diagnostic imaging, anterior segment",,Medicine,free,2025
+92133,CPT,"Scanning computerized ophthalmic diagnostic imaging, posterior segment",,Medicine,free,2025
+92134,CPT,"Scanning computerized ophthalmic diagnostic imaging, posterior segment, with interpretation and report",,Medicine,free,2025
+92136,CPT,Ophthalmic biometry by partial coherence interferometry with intraocular lens power calculation,,Medicine,free,2025
+92145,CPT,"Corneal hysteresis determination, by air impulse stimulation",,Medicine,free,2025
+92201,CPT,"Ophthalmoscopy, extended, with retinal drawing",,Medicine,free,2025
+92202,CPT,"Ophthalmoscopy, extended, with drawing of optic nerve or macula",,Medicine,free,2025
+92225,CPT,"Ophthalmoscopy, extended, with retinal drawing and scleral depression",,Medicine,free,2025
+92226,CPT,"Ophthalmoscopy, extended, with drawing of optic nerve or macula and scleral depression",,Medicine,free,2025
+92227,CPT,Remote imaging for detection of retinal disease,,Medicine,free,2025
+92228,CPT,Remote imaging for monitoring and management of active retinal disease,,Medicine,free,2025
+92229,CPT,Imaging of retina for detection or monitoring of disease,,Medicine,free,2025
+92230,CPT,Fluorescein angioscopy,,Medicine,free,2025
+92235,CPT,Fluorescein angiography,,Medicine,free,2025
+92240,CPT,Indocyanine-green angiography,,Medicine,free,2025
+92250,CPT,Fundus photography with interpretation and report,,Medicine,free,2025
+92260,CPT,Ophthalmodynamometry,,Medicine,free,2025
+92265,CPT,"Needle oculoelectromyography, 1 or more extraocular muscles",,Medicine,free,2025
+92270,CPT,Electro-oculography with interpretation and report,,Medicine,free,2025
+92273,CPT,"Electroretinography (ERG), with interpretation and report",,Medicine,free,2025
+92274,CPT,"Electroretinography (ERG), with interpretation and report, photo stress",,Medicine,free,2025
+92283,CPT,"Color vision examination, extended",,Medicine,free,2025
+92284,CPT,Dark adaptation examination with interpretation and report,,Medicine,free,2025
+92502,CPT,Otolaryngologic examination under general anesthesia,,Medicine,free,2025
+92504,CPT,"Binocular microscopy, separate diagnostic examination",,Medicine,free,2025
+92507,CPT,"Treatment of speech, language, voice, communication disorders",,Medicine,free,2025
+92508,CPT,"Treatment of speech, language, voice, communication disorders, group",,Medicine,free,2025
+92511,CPT,Nasopharyngoscopy with endoscope,,Medicine,free,2025
+92512,CPT,Nasal function studies,,Medicine,free,2025
+92520,CPT,Laryngeal function studies,,Medicine,free,2025
+92526,CPT,Treatment of swallowing dysfunction,,Medicine,free,2025
+92537,CPT,"Caloric vestibular test with recording, bilateral",,Medicine,free,2025
+92540,CPT,Basic vestibular evaluation,,Medicine,free,2025
+92541,CPT,Spontaneous nystagmus test with recording,,Medicine,free,2025
+92542,CPT,Positional nystagmus test,,Medicine,free,2025
+92543,CPT,"Caloric vestibular test, each irrigation",,Medicine,free,2025
+92544,CPT,Optokinetic nystagmus test,,Medicine,free,2025
+92545,CPT,Oscillating tracking test,,Medicine,free,2025
+92546,CPT,Sinusoidal vertical axis rotational testing,,Medicine,free,2025
+92547,CPT,Use of vertical electrodes in nystagmus testing,,Medicine,free,2025
+92548,CPT,Computerized dynamic posturography,,Medicine,free,2025
+92550,CPT,Tympanometry,,Medicine,free,2025
+92551,CPT,"Pure tone audiometry (threshold), air only",,Medicine,free,2025
+92552,CPT,"Pure tone audiometry (threshold), air and bone",,Medicine,free,2025
+92553,CPT,"Pure tone audiometry (threshold), air only, automated",,Medicine,free,2025
+92555,CPT,Speech audiometry threshold,,Medicine,free,2025
+92556,CPT,Speech audiometry threshold with speech recognition,,Medicine,free,2025
+92557,CPT,"Comprehensive audiometry, air and bone",,Medicine,free,2025
+92558,CPT,"Evoked otoacoustic emissions, screening",,Medicine,free,2025
+92559,CPT,Audiometric testing of groups,,Medicine,free,2025
+92560,CPT,"Bekesy audiometry, screening",,Medicine,free,2025
+92561,CPT,"Bekesy audiometry, diagnostic",,Medicine,free,2025
+92562,CPT,"Loudness balance test, alternate binaural or monaural",,Medicine,free,2025
+92563,CPT,Tone decay test,,Medicine,free,2025
+92564,CPT,Short increment sensitivity index (SISI),,Medicine,free,2025
+92565,CPT,"Stenger test, pure tone",,Medicine,free,2025
+92567,CPT,Tympanometry,,Medicine,free,2025
+92568,CPT,"Acoustic reflex testing, threshold",,Medicine,free,2025
+92570,CPT,Acoustic immittance testing,,Medicine,free,2025
+92571,CPT,Filtered speech test,,Medicine,free,2025
+92572,CPT,Staggered spondaic word test,,Medicine,free,2025
+92575,CPT,Sensorineural acuity level test,,Medicine,free,2025
+92576,CPT,Synthetic sentence identification test,,Medicine,free,2025
+92577,CPT,"Stenger test, speech",,Medicine,free,2025
+92579,CPT,Visual reinforcement audiometry,,Medicine,free,2025
+92582,CPT,Conditioning play audiometry,,Medicine,free,2025
+92583,CPT,Select picture audiometry,,Medicine,free,2025
+92584,CPT,Electrocochleography,,Medicine,free,2025
+92585,CPT,Auditory evoked potentials for evoked response audiometry,,Medicine,free,2025
+92586,CPT,"Auditory evoked potentials for evoked response audiometry, limited",,Medicine,free,2025
+92587,CPT,"Distortion product evoked otoacoustic emissions, limited",,Medicine,free,2025
+92588,CPT,"Distortion product evoked otoacoustic emissions, comprehensive",,Medicine,free,2025
+92601,CPT,"Diagnostic analysis of cochlear implant, first hour",,Medicine,free,2025
+92602,CPT,"Diagnostic analysis of cochlear implant, subsequent hour",,Medicine,free,2025
+92603,CPT,"Diagnostic analysis of auditory brainstem implant, first hour",,Medicine,free,2025
+92604,CPT,"Diagnostic analysis of auditory brainstem implant, subsequent hour",,Medicine,free,2025
+96360,CPT,"Intravenous infusion for therapy/diagnosis, initial hour",,Medicine,free,2025
+96361,CPT,"Intravenous infusion for therapy/diagnosis, each additional hour",,Medicine,free,2025
+96365,CPT,"Intravenous infusion for therapy/prophylaxis/diagnosis, initial hour",,Medicine,free,2025
+96366,CPT,"Intravenous infusion for therapy/prophylaxis/diagnosis, each additional hour",,Medicine,free,2025
+96367,CPT,"Intravenous infusion for therapy/prophylaxis/diagnosis, additional sequential infusion",,Medicine,free,2025
+96368,CPT,"Intravenous infusion for therapy/prophylaxis/diagnosis, concurrent infusion",,Medicine,free,2025
+96369,CPT,"Subcutaneous infusion for therapy/prophylaxis/diagnosis, initial hour",,Medicine,free,2025
+96370,CPT,"Subcutaneous infusion for therapy/prophylaxis/diagnosis, each additional hour",,Medicine,free,2025
+96371,CPT,"Subcutaneous infusion for therapy/prophylaxis/diagnosis, additional pump setup",,Medicine,free,2025
+96372,CPT,"Therapeutic, prophylactic, or diagnostic injection, subcutaneous or intramuscular",,Medicine,free,2025
+96373,CPT,"Therapeutic, prophylactic, or diagnostic injection, intra-arterial",,Medicine,free,2025
+96374,CPT,"Therapeutic, prophylactic, or diagnostic injection, intravenous push",,Medicine,free,2025
+96375,CPT,"Therapeutic, prophylactic, or diagnostic injection, each additional sequential push",,Medicine,free,2025
+96376,CPT,"Therapeutic, prophylactic, or diagnostic injection, each additional sequential push of new substance",,Medicine,free,2025
+96377,CPT,Application of on-body injector for timed subcutaneous injection,,Medicine,free,2025
+96379,CPT,"Unlisted therapeutic, prophylactic, or diagnostic intravenous or intra-arterial injection or infusion",,Medicine,free,2025
+96401,CPT,"Chemotherapy administration, subcutaneous or intramuscular, non-hormonal anti-neoplastic",,Medicine,free,2025
+96402,CPT,"Chemotherapy administration, subcutaneous or intramuscular, hormonal anti-neoplastic",,Medicine,free,2025
+96405,CPT,"Chemotherapy administration, intralesional, up to and including 7 lesions",,Medicine,free,2025
+96406,CPT,"Chemotherapy administration, intralesional, more than 7 lesions",,Medicine,free,2025
+96409,CPT,"Chemotherapy administration, intravenous, push technique, single or initial substance",,Medicine,free,2025
+96411,CPT,"Chemotherapy administration, intravenous, push technique, each additional substance",,Medicine,free,2025
+96413,CPT,"Chemotherapy administration, intravenous infusion, up to 1 hour",,Medicine,free,2025
+96415,CPT,"Chemotherapy administration, intravenous infusion, each additional hour",,Medicine,free,2025
+96416,CPT,"Chemotherapy administration, intravenous infusion, prolonged, initiation",,Medicine,free,2025
+96417,CPT,"Chemotherapy administration, intravenous infusion, each additional sequential infusion",,Medicine,free,2025
+96420,CPT,"Chemotherapy administration, intra-arterial, push technique",,Medicine,free,2025
+96422,CPT,"Chemotherapy administration, intra-arterial infusion, up to 1 hour",,Medicine,free,2025
+96423,CPT,"Chemotherapy administration, intra-arterial infusion, each additional hour",,Medicine,free,2025
+96425,CPT,"Chemotherapy administration, intraperitoneal, via implanted port or catheter",,Medicine,free,2025
+96440,CPT,Chemotherapy administration into pleural cavity,,Medicine,free,2025
+96446,CPT,Chemotherapy administration into peritoneal cavity,,Medicine,free,2025
+96450,CPT,Chemotherapy administration into CNS,,Medicine,free,2025
+96521,CPT,Refilling and maintenance of portable pump,,Medicine,free,2025
+96522,CPT,Refilling and maintenance of implantable pump or reservoir for systemic drug delivery,,Medicine,free,2025
+96523,CPT,Irrigation of implanted venous access port for drug delivery,,Medicine,free,2025
+96542,CPT,"Chemotherapy injection, subarachnoid or intraventricular",,Medicine,free,2025
+90935,CPT,Hemodialysis procedure with single physician evaluation,,Medicine,free,2025
+90937,CPT,Hemodialysis procedure requiring repeated physician evaluations,,Medicine,free,2025
+90940,CPT,Hemodialysis access flow study to determine blood flow,,Medicine,free,2025
+90945,CPT,Dialysis procedure other than hemodialysis,,Medicine,free,2025
+90947,CPT,"Dialysis procedure other than hemodialysis, requiring repeated evaluations",,Medicine,free,2025
+90951,CPT,End-stage renal disease services per day for patients younger than 2 years,,Medicine,free,2025
+90952,CPT,End-stage renal disease services per day for patients 2-11 years,,Medicine,free,2025
+90953,CPT,End-stage renal disease services per day for patients 12-19 years,,Medicine,free,2025
+90954,CPT,End-stage renal disease services per day for patients 20 years and older,,Medicine,free,2025
+00100,CPT,Anesthesia for procedures on salivary glands,,Anesthesia,free,2025
+00102,CPT,Anesthesia for procedures involving plastic repair of cleft lip,,Anesthesia,free,2025
+00103,CPT,Anesthesia for reconstructive procedures of eyelid,,Anesthesia,free,2025
+00104,CPT,Anesthesia for electroconvulsive therapy,,Anesthesia,free,2025
+00120,CPT,"Anesthesia for procedures on external, middle, and inner ear",,Anesthesia,free,2025
+00140,CPT,Anesthesia for procedures on eye,,Anesthesia,free,2025
+00160,CPT,Anesthesia for procedures on nose and accessory sinuses,,Anesthesia,free,2025
+00300,CPT,"Anesthesia for all procedures on the integumentary system, muscles and nerves of head, neck, and posterior trunk",,Anesthesia,free,2025
+00320,CPT,Anesthesia for all procedures on esophagus,,Anesthesia,free,2025
+00350,CPT,Anesthesia for procedures on major vessels of neck,,Anesthesia,free,2025
+00400,CPT,"Anesthesia for procedures on the integumentary system on the extremities, anterior trunk and perineum",,Anesthesia,free,2025
+00410,CPT,"Anesthesia for procedures on the integumentary system on the extremities, anterior trunk and perineum, radical or modified",,Anesthesia,free,2025
+00500,CPT,Anesthesia for all procedures on esophagus,,Anesthesia,free,2025
+00520,CPT,Anesthesia for closed chest procedures,,Anesthesia,free,2025
+00540,CPT,"Anesthesia for thoracotomy procedures involving lungs, pleura, thymus or mediastinum",,Anesthesia,free,2025
+00600,CPT,Anesthesia for procedures on cervical spine and cord,,Anesthesia,free,2025
+00620,CPT,Anesthesia for procedures on thoracic spine and cord,,Anesthesia,free,2025
+00630,CPT,Anesthesia for procedures in lumbar region,,Anesthesia,free,2025
+00700,CPT,Anesthesia for procedures on upper abdominal anterior wall,,Anesthesia,free,2025
+00730,CPT,"Anesthesia for procedures on upper abdomen, involving stomach",,Anesthesia,free,2025
+00740,CPT,Anesthesia for upper gastrointestinal endoscopic procedures,,Anesthesia,free,2025
+00790,CPT,Anesthesia for intraperitoneal procedures in upper abdomen,,Anesthesia,free,2025
+00800,CPT,Anesthesia for procedures on lower anterior abdominal wall,,Anesthesia,free,2025
+00810,CPT,Anesthesia for lower intestinal endoscopic procedures,,Anesthesia,free,2025
+00840,CPT,Anesthesia for intraperitoneal procedures in lower abdomen,,Anesthesia,free,2025
+00860,CPT,Anesthesia for extraperitoneal procedures in lower abdomen,,Anesthesia,free,2025
+00902,CPT,Anesthesia for anorectal procedure,,Anesthesia,free,2025
+00940,CPT,Anesthesia for vaginal procedures,,Anesthesia,free,2025
+00944,CPT,Anesthesia for vaginal hysterectomy,,Anesthesia,free,2025
+01112,CPT,"Anesthesia for bone marrow aspiration and/or biopsy, anterior or posterior iliac crest",,Anesthesia,free,2025
+01120,CPT,Anesthesia for procedures on bony pelvis,,Anesthesia,free,2025
+01150,CPT,Anesthesia for radical procedures for tumor of pelvis,,Anesthesia,free,2025
+01200,CPT,Anesthesia for all closed procedures involving hip joint,,Anesthesia,free,2025
+01202,CPT,Anesthesia for arthroscopic procedures of hip joint,,Anesthesia,free,2025
+01210,CPT,Anesthesia for open procedures involving hip joint,,Anesthesia,free,2025
+01214,CPT,Anesthesia for total hip arthroplasty,,Anesthesia,free,2025
+01220,CPT,Anesthesia for all closed procedures involving upper two-thirds of femur,,Anesthesia,free,2025
+01230,CPT,Anesthesia for open procedures involving upper two-thirds of femur,,Anesthesia,free,2025
+01320,CPT,"Anesthesia for all procedures on nerves, muscles, tendons, fascia, and bursae of knee and/or popliteal area",,Anesthesia,free,2025
+01382,CPT,Anesthesia for diagnostic arthroscopic procedures of knee joint,,Anesthesia,free,2025
+01400,CPT,Anesthesia for open or surgical arthroscopic procedures on knee joint,,Anesthesia,free,2025
+01402,CPT,Anesthesia for total knee arthroplasty,,Anesthesia,free,2025
+01462,CPT,"Anesthesia for all closed procedures on lower leg, ankle, and foot",,Anesthesia,free,2025
+01464,CPT,Anesthesia for arthroscopic procedures of ankle and/or foot,,Anesthesia,free,2025
+01470,CPT,"Anesthesia for procedures on nerves, muscles, tendons, and fascia of lower leg, ankle, and foot",,Anesthesia,free,2025
+01480,CPT,"Anesthesia for open procedures on bones of lower leg, ankle, and foot",,Anesthesia,free,2025
+01610,CPT,"Anesthesia for all procedures on nerves, muscles, tendons, fascia, and bursae of shoulder and axilla",,Anesthesia,free,2025
+01620,CPT,"Anesthesia for all closed procedures on humeral head and neck, sternoclavicular joint, acromioclavicular joint, and shoulder joint",,Anesthesia,free,2025
+01630,CPT,"Anesthesia for open or surgical arthroscopic procedures on humeral head and neck, sternoclavicular joint, acromioclavicular joint, and shoulder joint",,Anesthesia,free,2025
+01638,CPT,Anesthesia for total shoulder replacement,,Anesthesia,free,2025
+01710,CPT,"Anesthesia for procedures on nerves, muscles, tendons, fascia, and bursae of upper arm and elbow",,Anesthesia,free,2025
+01730,CPT,Anesthesia for all closed procedures on humerus and elbow,,Anesthesia,free,2025
+01740,CPT,Anesthesia for open or surgical arthroscopic procedures of the elbow,,Anesthesia,free,2025
+01742,CPT,Anesthesia for total elbow replacement,,Anesthesia,free,2025
+01810,CPT,"Anesthesia for all procedures on nerves, muscles, tendons, fascia, and bursae of forearm, wrist, and hand",,Anesthesia,free,2025
+01820,CPT,"Anesthesia for all closed procedures on radius, ulna, wrist, or hand bones",,Anesthesia,free,2025
+01830,CPT,"Anesthesia for open or surgical arthroscopic/endoscopic procedures on distal radius, ulna, wrist, or hand",,Anesthesia,free,2025
+01960,CPT,Anesthesia for vaginal delivery only,,Anesthesia,free,2025
+01961,CPT,Anesthesia for cesarean delivery only,,Anesthesia,free,2025
+01962,CPT,Anesthesia for urgent hysterectomy following delivery,,Anesthesia,free,2025
+01963,CPT,Anesthesia for cesarean hysterectomy without any labor analgesia/anesthesia care,,Anesthesia,free,2025
+01967,CPT,Neuraxial labor analgesia/anesthesia for planned vaginal delivery,,Anesthesia,free,2025
+01968,CPT,Anesthesia for cesarean delivery following neuraxial labor analgesia/anesthesia,,Anesthesia,free,2025
