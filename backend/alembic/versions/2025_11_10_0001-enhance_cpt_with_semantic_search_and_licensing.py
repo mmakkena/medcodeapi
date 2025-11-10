@@ -19,6 +19,15 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 import uuid
 
+# Import pgvector type for vector embeddings
+try:
+    from pgvector.sqlalchemy import Vector
+    PGVECTOR_AVAILABLE = True
+except ImportError:
+    # Fallback if pgvector not installed
+    Vector = None
+    PGVECTOR_AVAILABLE = False
+
 # revision identifiers, used by Alembic
 revision = '2025_11_10_0001'
 down_revision = '4b4e517c47de'
@@ -82,7 +91,7 @@ def upgrade() -> None:
                   comment='Whether code is exempt from multiple procedure reduction'),
 
         # Semantic search
-        sa.Column('embedding', postgresql.VECTOR(768), nullable=True,
+        sa.Column('embedding', Vector(768) if PGVECTOR_AVAILABLE else sa.Text(), nullable=True,
                   comment='MedCPT 768-dimensional embedding for semantic search'),
 
         # Timestamps
