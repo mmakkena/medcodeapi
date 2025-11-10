@@ -1,5 +1,6 @@
 """Procedure code (CPT/HCPCS) search endpoints"""
 
+import logging
 from fastapi import APIRouter, Depends, Query, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
@@ -26,6 +27,8 @@ from app.services.procedure_search_service import (
     suggest_codes_from_text
 )
 import time
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -548,7 +551,8 @@ async def get_procedure_code(
     except HTTPException:
         raise
     except Exception as e:
-        # Log error
+        # Log error with details
+        logger.error(f"Error getting procedure code {code}: {str(e)}", exc_info=True)
         response_time_ms = int((time.time() - start_time) * 1000)
         await log_api_request(
             db=db,
@@ -561,7 +565,7 @@ async def get_procedure_code(
             response_time_ms=response_time_ms,
             ip_address=None
         )
-        raise HTTPException(status_code=500, detail="Internal server error")
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
 @router.post("/suggest", response_model=ProcedureSemanticSearchResponse)
