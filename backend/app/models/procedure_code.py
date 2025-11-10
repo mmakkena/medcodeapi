@@ -86,15 +86,13 @@ class ProcedureCode(Base):
         # Full-text search indexes (GIN trigram)
         Index("ix_procedure_text_gin", "paraphrased_desc", "short_desc",
               postgresql_ops={"paraphrased_desc": "gin_trgm_ops", "short_desc": "gin_trgm_ops"},
-              postgresql_using="gin",
-              comment="Trigram index for fuzzy text search"),
+              postgresql_using="gin"),
 
         # Vector similarity search index (IVFFlat with cosine distance)
         Index("ix_procedure_embedding_ivfflat", "embedding",
               postgresql_using="ivfflat",
               postgresql_with={"lists": 100},
-              postgresql_ops={"embedding": "vector_cosine_ops"},
-              comment="IVFFlat index for fast vector similarity search"),
+              postgresql_ops={"embedding": "vector_cosine_ops"}),
 
         # Full-text search vector index
         Index("ix_procedure_search_vector", "search_vector",
