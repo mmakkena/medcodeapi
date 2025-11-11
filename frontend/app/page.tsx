@@ -35,7 +35,7 @@ export default function Home() {
             <Link href="#about" className="text-gray-700 hover:text-gray-900">
               About
             </Link>
-            <Link href="mailto:support@nuvii.ai" className="text-gray-700 hover:text-gray-900">
+            <Link href="/contact" className="text-gray-700 hover:text-gray-900">
               Contact
             </Link>
           </nav>
@@ -425,7 +425,7 @@ export default function Home() {
             </Link>
 
             {/* Enterprise Tier */}
-            <Link href="mailto:support@nuvii.ai" className="block">
+            <Link href="/contact" className="block">
               <div className="border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-gray-300 transition-all bg-white cursor-pointer h-full">
                 <h3 className="text-xl font-semibold mb-2">Enterprise</h3>
                 <div className="text-4xl font-bold mb-4">Custom</div>
@@ -492,7 +492,7 @@ export default function Home() {
               <h3 className="font-semibold text-gray-900 mb-4">Company</h3>
               <ul className="space-y-2">
                 <li><Link href="#about" className="text-gray-600 hover:text-gray-900">About</Link></li>
-                <li><Link href="mailto:support@nuvii.ai" className="text-gray-600 hover:text-gray-900">Contact</Link></li>
+                <li><Link href="/contact" className="text-gray-600 hover:text-gray-900">Contact</Link></li>
               </ul>
             </div>
             <div>
@@ -507,7 +507,7 @@ export default function Home() {
               <h3 className="font-semibold text-gray-900 mb-4">Support</h3>
               <ul className="space-y-2">
                 <li><Link href="/docs" className="text-gray-600 hover:text-gray-900">Help Center</Link></li>
-                <li><Link href="mailto:support@nuvii.ai" className="text-gray-600 hover:text-gray-900">Email Support</Link></li>
+                <li><Link href="/contact" className="text-gray-600 hover:text-gray-900">Contact Support</Link></li>
               </ul>
             </div>
           </div>
@@ -526,9 +526,9 @@ export default function Home() {
                   <a href="https://github.com/nuvii" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-nuvii-blue transition-colors">
                     <Github className="w-5 h-5" />
                   </a>
-                  <a href="mailto:support@nuvii.ai" className="text-gray-600 hover:text-nuvii-blue transition-colors">
+                  <Link href="/contact" className="text-gray-600 hover:text-nuvii-blue transition-colors">
                     <Mail className="w-5 h-5" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
