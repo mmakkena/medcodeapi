@@ -284,23 +284,6 @@ export default function PlaygroundPage() {
           Generate Random Note
         </button>
         <button
-          onClick={searchCodes}
-          disabled={loading || !currentNote || !apiKey}
-          className="px-6 py-3 bg-nuvii-teal text-white rounded-md hover:bg-green-700 transition-colors font-medium flex items-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
-        >
-          {loading ? (
-            <>
-              <Loader2 className="w-5 h-5 animate-spin" />
-              Searching...
-            </>
-          ) : (
-            <>
-              <Code2 className="w-5 h-5" />
-              Get Suggested Codes
-            </>
-          )}
-        </button>
-        <button
           onClick={clearAll}
           className="px-6 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors font-medium"
         >
@@ -328,6 +311,27 @@ export default function PlaygroundPage() {
           </h2>
           <div className="bg-white border-l-4 border-nuvii-blue p-4 rounded whitespace-pre-wrap text-sm text-gray-700 max-h-96 overflow-y-auto">
             {currentNote}
+          </div>
+
+          {/* Get Codes Button */}
+          <div className="mt-4">
+            <button
+              onClick={searchCodes}
+              disabled={loading || !apiKey}
+              className="px-6 py-3 bg-nuvii-teal text-white rounded-md hover:bg-green-700 transition-colors font-medium flex items-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  Searching...
+                </>
+              ) : (
+                <>
+                  <Code2 className="w-5 h-5" />
+                  Get Suggested Codes
+                </>
+              )}
+            </button>
           </div>
         </div>
       )}
