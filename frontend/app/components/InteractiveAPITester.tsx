@@ -4,40 +4,41 @@ import { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
 
 export default function InteractiveAPITester() {
-  const [query, setQuery] = useState('diabetes');
+  const [codeQuery, setCodeQuery] = useState('29881');
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<any>(null);
   const [copied, setCopied] = useState(false);
 
-  const curlCommand = `curl -X GET "https://api.nuvii.ai/api/v1/icd10/search?query=${encodeURIComponent(query)}" \\
+  const curlCommand = `curl -X GET "https://api.nuvii.ai/api/v1/procedure/${codeQuery}?code_system=CPT&include_facets=true" \\
   -H "Authorization: Bearer YOUR_API_KEY"`;
 
   const handleTest = async () => {
     setLoading(true);
     setResponse(null);
 
-    // Simulate API call with demo data
+    // Simulate API call with demo data showing rich metadata
     setTimeout(() => {
       setResponse({
-        results: [
-          {
-            code: 'E11.9',
-            description: 'Type 2 diabetes mellitus without complications',
-            category: 'Endocrine, nutritional and metabolic diseases'
-          },
-          {
-            code: 'E11.65',
-            description: 'Type 2 diabetes mellitus with hyperglycemia',
-            category: 'Endocrine, nutritional and metabolic diseases'
-          },
-          {
-            code: 'E10.9',
-            description: 'Type 1 diabetes mellitus without complications',
-            category: 'Endocrine, nutritional and metabolic diseases'
-          }
-        ],
-        total: 3,
-        query: query
+        code_info: {
+          code: '29881',
+          code_system: 'CPT',
+          description: 'Knee arthroscopy with meniscectomy (removal of torn cartilage)',
+          category: 'Surgery',
+          version_year: 2025,
+          license_status: 'free'
+        },
+        facets: {
+          body_region: 'lower_extremity',
+          body_system: 'musculoskeletal',
+          procedure_category: 'surgical',
+          complexity_level: 'moderate',
+          surgical_approach: 'endoscopic',
+          service_location: 'hospital_outpatient',
+          is_major_surgery: false,
+          is_bilateral: false,
+          requires_modifier: false
+        },
+        mappings: []
       });
       setLoading(false);
     }, 1000);
@@ -55,14 +56,14 @@ export default function InteractiveAPITester() {
       <div className="flex gap-3">
         <input
           type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Enter search term (e.g., diabetes)"
+          value={codeQuery}
+          onChange={(e) => setCodeQuery(e.target.value)}
+          placeholder="Enter CPT code (e.g., 29881, 99213)"
           className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
           onClick={handleTest}
-          disabled={loading || !query}
+          disabled={loading || !codeQuery}
           className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-colors"
         >
           {loading ? (
