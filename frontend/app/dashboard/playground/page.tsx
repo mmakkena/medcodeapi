@@ -206,8 +206,8 @@ export default function PlaygroundPage() {
       // Use first 500 chars to avoid overly long queries
       const searchQuery = currentNote.substring(0, 500);
 
-      const icd10Url = `${baseUrl}/icd10/hybrid-search?query=${encodeURIComponent(searchQuery)}&limit=5&semantic_weight=0.5`;
-      const procedureUrl = `${baseUrl}/procedure/hybrid-search?query=${encodeURIComponent(searchQuery)}&limit=5&semantic_weight=0.5`;
+      const icd10Url = `${baseUrl}/icd10/hybrid-search?query=${encodeURIComponent(searchQuery)}&limit=5&semantic_weight=0.5&year=2026`;
+      const procedureUrl = `${baseUrl}/procedure/hybrid-search?query=${encodeURIComponent(searchQuery)}&limit=5&semantic_weight=0.5&year=2025`;
 
       const trimmedKey = apiKey.trim();
       console.log('Calling APIs:', {
