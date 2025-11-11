@@ -179,7 +179,7 @@ export default function DocsPage() {
               <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
               <h4 className="font-semibold">Semantic Search (AI-Powered)</h4>
             </div>
-            <p className="text-sm text-gray-600 mb-2">Natural language search - "blood sugar test" finds glucose testing codes</p>
+            <p className="text-sm text-gray-600 mb-2">Natural language search - &ldquo;blood sugar test&rdquo; finds glucose testing codes</p>
             <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block">GET /api/v1/procedure/semantic-search?query=knee%20surgery&min_similarity=0.6</code>
           </div>
 
