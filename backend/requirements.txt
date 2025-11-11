@@ -37,6 +37,9 @@ sentence-transformers==2.3.1
 torch==2.2.0
 numpy==1.24.3
 
+# LLM APIs
+anthropic==0.39.0
+
 # PDF processing
 pdfplumber==0.11.0
 

@@ -118,13 +118,14 @@ if os.path.exists(static_dir):
 
 
 # Import and include routers
-from app.api.v1 import auth, icd10, cpt, procedure, suggest, api_keys, usage, billing
+from app.api.v1 import auth, icd10, cpt, procedure, suggest, api_keys, usage, billing, clinical_coding
 
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
 app.include_router(icd10.router, prefix="/api/v1/icd10", tags=["ICD-10 Codes"])
 app.include_router(cpt.router, prefix="/api/v1/cpt", tags=["CPT Codes"])
 app.include_router(procedure.router, prefix="/api/v1/procedure", tags=["Procedure Codes (CPT/HCPCS)"])
 app.include_router(suggest.router, prefix="/api/v1", tags=["Code Suggestions"])
+app.include_router(clinical_coding.router, prefix="/api/v1", tags=["AI Clinical Coding"])
 app.include_router(api_keys.router, prefix="/api/v1/api-keys", tags=["API Keys"])
 app.include_router(usage.router, prefix="/api/v1/usage", tags=["Usage Tracking"])
 app.include_router(billing.router, prefix="/api/v1/billing", tags=["Billing"])
