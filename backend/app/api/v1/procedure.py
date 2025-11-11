@@ -188,6 +188,7 @@ async def semantic_search_procedures(
                 "id": code.id,
                 "code": code.code,
                 "code_system": code.code_system,
+                "description": code.get_display_description(),  # Add description for UI (uses paraphrased for license safety)
                 "paraphrased_desc": code.paraphrased_desc,
                 "short_desc": code.short_desc if code.license_status == 'AMA_licensed' else None,
                 "long_desc": code.long_desc if code.license_status == 'AMA_licensed' else None,
@@ -296,6 +297,7 @@ async def hybrid_search_procedures(
                 "id": code.id,
                 "code": code.code,
                 "code_system": code.code_system,
+                "description": code.get_display_description(),  # Add description for UI (uses paraphrased for license safety)
                 "paraphrased_desc": code.paraphrased_desc,
                 "short_desc": code.short_desc if code.license_status == 'AMA_licensed' else None,
                 "long_desc": code.long_desc if code.license_status == 'AMA_licensed' else None,
@@ -510,6 +512,7 @@ async def get_procedure_code(
             "id": procedure_code.id,
             "code": procedure_code.code,
             "code_system": procedure_code.code_system,
+            "description": procedure_code.get_display_description(),  # Add description for UI (uses paraphrased for license safety)
             "paraphrased_desc": procedure_code.paraphrased_desc,
             "short_desc": procedure_code.short_desc if procedure_code.license_status == 'AMA_licensed' else None,
             "long_desc": procedure_code.long_desc if procedure_code.license_status == 'AMA_licensed' else None,
@@ -616,6 +619,7 @@ async def suggest_procedure_codes(
                 "id": code.id,
                 "code": code.code,
                 "code_system": code.code_system,
+                "description": code.get_display_description(),  # Add description for UI (uses paraphrased for license safety)
                 "paraphrased_desc": code.paraphrased_desc,
                 "short_desc": code.short_desc if code.license_status == 'AMA_licensed' else None,
                 "long_desc": code.long_desc if code.license_status == 'AMA_licensed' else None,
