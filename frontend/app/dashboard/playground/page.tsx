@@ -20,147 +20,36 @@ interface SearchResults {
 
 const SAMPLE_NOTES = [
   {
-    title: 'Type 2 Diabetes Follow-up',
-    note: `Chief Complaint: Type 2 diabetes follow-up
-
-History of Present Illness:
-Patient is a 58-year-old male with a history of type 2 diabetes mellitus, presenting for routine follow-up. Reports good compliance with metformin 1000mg BID. Blood glucose readings have been mostly within target range (120-180 mg/dL). Denies polyuria, polydipsia, or recent weight changes.
-
-Physical Examination:
-Vital Signs: BP 138/82, HR 76, BMI 29.3
-General: Alert and oriented, no acute distress
-HEENT: Pupils equal, round, reactive to light
-CV: Regular rate and rhythm, no murmurs
-Resp: Clear to auscultation bilaterally
-Extremities: No edema, pedal pulses intact
-
-Assessment & Plan:
-1. Type 2 diabetes mellitus - well controlled on current regimen
-   - Continue metformin 1000mg BID
-   - HbA1c ordered
-   - Referral to ophthalmology for annual diabetic eye exam
-2. Hypertension - borderline elevated
-   - Discussed lifestyle modifications
-   - Will monitor, may need medication if persistently elevated
-3. Overweight (BMI 29.3)
-   - Discussed diet and exercise
-   - Nutrition consultation offered
-
-Follow-up in 3 months.`
+    title: 'Type 2 Diabetes',
+    note: `Patient with type 2 diabetes mellitus. Currently taking metformin. Blood sugar levels have been elevated. Complains of increased thirst and frequent urination.`
   },
   {
-    title: 'Acute Myocardial Infarction',
-    note: `Chief Complaint: Acute chest pain
-
-History of Present Illness:
-68-year-old female presents to ED with sudden onset chest pain that started 2 hours ago. Pain is substernal, pressure-like, 8/10 severity, radiating to left arm. Associated with shortness of breath and diaphoresis. Patient has history of hypertension and hyperlipidemia.
-
-Physical Examination:
-Vital Signs: BP 165/95, HR 102, RR 22, O2 sat 94% on room air
-General: Anxious, diaphoretic
-CV: Tachycardic, regular rhythm, no murmurs
-Resp: Tachypneic, clear lung sounds bilaterally
-
-Diagnostic Results:
-- ECG: ST elevation in leads V2-V4
-- Troponin I: Elevated at 2.5 ng/mL
-- CXR: No acute findings
-
-Assessment & Plan:
-1. STEMI (ST-elevation myocardial infarction) - anterior wall
-   - Cardiology consulted
-   - Prepared for emergent cardiac catheterization
-   - Aspirin 325mg, clopidogrel 600mg given
-   - IV heparin initiated
-2. Acute coronary syndrome
-   - Admitted to CCU
-   - Serial cardiac enzymes
-
-Patient transferred to cath lab emergently.`
+    title: 'Chest Pain',
+    note: `Patient presents with acute chest pain radiating to left arm. Shortness of breath and sweating. History of hypertension. EKG shows ST elevation.`
   },
   {
-    title: 'Knee Meniscus Tear',
-    note: `Chief Complaint: Right knee pain
-
-History of Present Illness:
-45-year-old male construction worker presents with right knee pain for the past 2 weeks. Pain is worse with weight-bearing and climbing stairs. No history of trauma. Reports occasional swelling and stiffness, especially in the morning.
-
-Physical Examination:
-Right Knee:
-- Inspection: Mild effusion noted
-- Palpation: Tenderness over medial joint line
-- ROM: Full flexion/extension with pain at extremes
-- McMurray test: Positive medial meniscus
-- Lachman test: Negative
-
-Imaging:
-X-ray right knee: Mild degenerative changes, no fracture
-
-Assessment & Plan:
-1. Right knee medial meniscus tear
-   - MRI ordered for confirmation
-   - Orthopedic referral
-2. Osteoarthritis of right knee
-   - NSAIDs: Ibuprofen 600mg TID with food
-   - Physical therapy referral
-
-Follow-up in 2 weeks with MRI results.`
+    title: 'Knee Pain',
+    note: `Right knee pain with swelling for 2 weeks. Pain worse with movement. Possible meniscus tear. X-ray shows mild arthritis.`
   },
   {
-    title: 'Annual Wellness Visit',
-    note: `Chief Complaint: Annual wellness visit
-
-History of Present Illness:
-42-year-old female here for annual wellness examination. Overall feels well. No acute complaints. Regular menstrual cycles. Non-smoker, occasional alcohol use. Exercises 3-4 times per week. Family history significant for breast cancer (mother, age 52).
-
-Physical Examination:
-Vital Signs: BP 118/76, HR 68, BMI 24.2
-General: Well-appearing, no acute distress
-CV: Regular rate and rhythm
-Resp: Clear to auscultation bilaterally
-Breast: No masses, no nipple discharge
-Abdomen: Soft, non-tender
-
-Screening & Preventive Care:
-- Pap smear performed
-- Mammogram ordered (family history of breast cancer)
-- Lipid panel ordered
-- Updated TDAP vaccination
-
-Assessment & Plan:
-1. Health maintenance examination - comprehensive
-2. Family history of breast cancer
-   - Will start annual mammography
-   - Discussed genetic counseling
-3. Preventive care up to date
-
-Follow-up in 1 year or as needed.`
+    title: 'Hypertension',
+    note: `High blood pressure at 160/95. Patient not taking medications. Complains of headaches. Will start antihypertensive therapy.`
   },
   {
-    title: 'Pediatric Pneumonia',
-    note: `Chief Complaint: Cough and fever
-
-History of Present Illness:
-6-year-old boy brought in by mother with cough and fever for 3 days. Fever up to 102.5°F. Productive cough with yellow-green sputum. Decreased appetite. Some difficulty breathing noted. Immunizations up to date.
-
-Physical Examination:
-Vital Signs: Temp 101.8°F, HR 110, RR 28, O2 sat 95%
-General: Ill-appearing child, mild respiratory distress
-Resp: Increased work of breathing, crackles in right lower lung field
-
-Diagnostic Results:
-- Rapid flu: Negative
-- CXR: Right lower lobe infiltrate consistent with pneumonia
-
-Assessment & Plan:
-1. Community-acquired pneumonia, right lower lobe
-   - Azithromycin 10mg/kg/day x 5 days
-   - Supportive care: fluids, rest
-   - Ibuprofen for fever
-2. Respiratory distress - mild
-   - Monitoring at home appropriate
-
-Follow-up in 48-72 hours or sooner if worsening.`
+    title: 'Pneumonia',
+    note: `Cough with fever for 3 days. Difficulty breathing. Chest X-ray shows right lower lobe infiltrate. Diagnosed with community-acquired pneumonia.`
+  },
+  {
+    title: 'Asthma',
+    note: `Wheezing and shortness of breath. Using albuterol inhaler frequently. History of asthma. Lung sounds with expiratory wheezes.`
+  },
+  {
+    title: 'Urinary Tract Infection',
+    note: `Painful urination with increased frequency. Fever and lower abdominal pain. Urinalysis positive for bacteria. UTI diagnosis.`
+  },
+  {
+    title: 'Migraine Headache',
+    note: `Severe throbbing headache with nausea and light sensitivity. History of migraines. Pain on left side of head.`
   }
 ];
 
