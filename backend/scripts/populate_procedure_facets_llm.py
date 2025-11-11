@@ -553,6 +553,11 @@ def main():
         metavar="N",
         help="Test mode: only process N codes"
     )
+    parser.add_argument(
+        "--yes",
+        action="store_true",
+        help="Auto-confirm without prompting (for non-interactive environments)"
+    )
 
     args = parser.parse_args()
 
@@ -607,8 +612,8 @@ def main():
         if args.test:
             logger.warning(f"\n⚠️  TEST MODE: Will only process {args.test} codes")
 
-        # Confirm before proceeding
-        if not args.test:
+        # Confirm before proceeding (skip if --yes or --test)
+        if not args.test and not args.yes:
             response = input("\nProceed with LLM facet generation? (y/n): ")
             if response.lower() != 'y':
                 logger.info("Cancelled")
