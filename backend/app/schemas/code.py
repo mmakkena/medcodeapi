@@ -195,6 +195,7 @@ class ProcedureCodeEnhancedResponse(BaseModel):
     code_system: str  # CPT or HCPCS
 
     # Dual description strategy
+    description: Optional[str] = None  # Auto-selected based on license_status (for UI display)
     paraphrased_desc: Optional[str] = None
     short_desc: Optional[str] = None  # AMA licensed for CPT
     long_desc: Optional[str] = None   # AMA licensed for CPT
