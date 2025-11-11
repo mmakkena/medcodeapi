@@ -17,7 +17,7 @@ interface AuthContextType {
   token: string | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  signup: (email: string, password: string) => Promise<void>;
+  signup: (email: string, password: string, fullName?: string, companyName?: string, role?: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -83,8 +83,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     router.push('/dashboard');
   };
 
-  const signup = async (email: string, password: string) => {
-    await authAPI.signup(email, password);
+  const signup = async (email: string, password: string, fullName?: string, companyName?: string, role?: string) => {
+    await authAPI.signup(email, password, fullName, companyName, role);
     // Auto-login after signup
     await login(email, password);
   };

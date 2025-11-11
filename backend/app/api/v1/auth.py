@@ -31,7 +31,10 @@ async def signup(user_data: UserCreate, db: Session = Depends(get_db)):
         email=user_data.email,
         password_hash=hashed_password,
         is_active=True,
-        auth_provider='email'
+        auth_provider='email',
+        full_name=user_data.full_name,
+        company_name=user_data.company_name,
+        role=user_data.role
     )
 
     db.add(new_user)

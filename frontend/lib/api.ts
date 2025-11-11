@@ -20,12 +20,18 @@ api.interceptors.request.use((config) => {
 
 // Auth API
 export const authAPI = {
-  signup: (email: string, password: string) =>
-    api.post('/api/v1/auth/signup', { email, password }),
-  
+  signup: (email: string, password: string, fullName?: string, companyName?: string, role?: string) =>
+    api.post('/api/v1/auth/signup', {
+      email,
+      password,
+      full_name: fullName,
+      company_name: companyName,
+      role
+    }),
+
   login: (email: string, password: string) =>
     api.post('/api/v1/auth/login', { email, password }),
-  
+
   getMe: () => api.get('/api/v1/auth/me'),
 };
 

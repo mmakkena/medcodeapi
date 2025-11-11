@@ -9,6 +9,9 @@ class UserCreate(BaseModel):
     """Schema for user registration"""
     email: EmailStr
     password: str
+    full_name: str | None = None
+    company_name: str | None = None
+    role: str | None = None
 
 
 class UserLogin(BaseModel):

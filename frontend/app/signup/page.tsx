@@ -18,6 +18,10 @@ const planDetails: Record<string, { name: string; price: string; color: string }
 function SignupForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [role, setRole] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { signup } = useAuth();
@@ -29,10 +33,29 @@ function SignupForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    // Validate password match
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    // Validate password strength
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters long');
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await signup(email, password);
+      await signup(
+        email,
+        password,
+        fullName || undefined,
+        companyName || undefined,
+        role || undefined
+      );
 
       // If a paid plan was selected, redirect to checkout
       if (plan && plan !== 'free') {
@@ -121,35 +144,104 @@ function SignupForm() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
             <div>
+              <label htmlFor="fullName" className="block text-sm font-medium">
+                Full Name <span className="text-gray-400">(optional)</span>
+              </label>
+              <input
+                id="fullName"
+                type="text"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-nuvii-blue focus:border-transparent"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="John Doe"
+              />
+            </div>
+
+            <div>
               <label htmlFor="email" className="block text-sm font-medium">
-                Email address
+                Email address <span className="text-red-500">*</span>
               </label>
               <input
                 id="email"
                 type="email"
                 required
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-nuvii-blue focus:border-transparent"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="john@company.com"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="companyName" className="block text-sm font-medium">
+                Company Name <span className="text-gray-400">(optional)</span>
+              </label>
+              <input
+                id="companyName"
+                type="text"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-nuvii-blue focus:border-transparent"
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
+                placeholder="Acme Healthcare"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="role" className="block text-sm font-medium">
+                Role <span className="text-gray-400">(optional)</span>
+              </label>
+              <input
+                id="role"
+                type="text"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-nuvii-blue focus:border-transparent"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                placeholder="Software Developer"
               />
             </div>
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium">
-                Password
+                Password <span className="text-red-500">*</span>
               </label>
               <input
                 id="password"
                 type="password"
                 required
                 minLength={8}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-nuvii-blue focus:border-transparent"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
               />
               <p className="mt-1 text-xs text-gray-500">
                 Must be at least 8 characters
               </p>
+            </div>
+
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium">
+                Confirm Password <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="confirmPassword"
+                type="password"
+                required
+                minLength={8}
+                className={`mt-1 block w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-nuvii-blue focus:border-transparent ${
+                  confirmPassword && password !== confirmPassword
+                    ? 'border-red-500'
+                    : 'border-gray-300'
+                }`}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="••••••••"
+              />
+              {confirmPassword && password !== confirmPassword && (
+                <p className="mt-1 text-xs text-red-500">
+                  Passwords do not match
+                </p>
+              )}
             </div>
           </div>
 
