@@ -79,8 +79,31 @@ export default function PrivacyPolicy() {
             <p className="text-gray-700 mb-4">
               <strong>We do not store or retain any Protected Health Information (PHI) or clinical data.</strong> Our API processes medical coding requests in real-time and does not persist any patient data or clinical notes. All API responses are generated on-demand and not stored on our servers.
             </p>
+
+            <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-6">3.1 Your Responsibilities</h3>
             <p className="text-gray-700 mb-4">
-              While we are HIPAA-ready, you are responsible for ensuring that any data you send through our API is properly de-identified or that you have the necessary authorizations and agreements in place.
+              When using our services, including the MedCode Playground and API endpoints, you are responsible for:
+            </p>
+            <ul className="list-disc pl-6 text-gray-700 mb-4 space-y-2">
+              <li><strong>De-identifying all data:</strong> You must remove all Protected Health Information before submitting clinical text to our services</li>
+              <li><strong>Removing patient identifiers:</strong> Including but not limited to names, dates (birth dates, admission dates, etc.), addresses, phone numbers, email addresses, social security numbers, medical record numbers, and any other unique identifying information</li>
+              <li><strong>HIPAA compliance:</strong> Ensuring that your use of our services complies with HIPAA regulations and any other applicable healthcare privacy laws</li>
+              <li><strong>Business Associate Agreements (BAA):</strong> Contacting us at support@nuvii.ai if you require a BAA for your use case</li>
+            </ul>
+
+            <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-6">3.2 MedCode Playground</h3>
+            <p className="text-gray-700 mb-4">
+              Our MedCode Playground is a testing and demonstration tool. <strong className="text-red-600">Do not enter real patient data or Protected Health Information</strong> in the playground. The playground is intended for:
+            </p>
+            <ul className="list-disc pl-6 text-gray-700 mb-4 space-y-2">
+              <li>Testing API functionality with sample or synthetic clinical notes</li>
+              <li>Demonstrating medical code suggestions with de-identified scenarios</li>
+              <li>Educational and training purposes using fictional patient cases</li>
+            </ul>
+
+            <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-6">3.3 HIPAA Readiness</h3>
+            <p className="text-gray-700 mb-4">
+              While we maintain HIPAA-ready infrastructure with appropriate technical, physical, and administrative safeguards, you are ultimately responsible for ensuring that any data you send through our API is properly de-identified or that you have the necessary authorizations and Business Associate Agreements in place before transmitting any PHI.
             </p>
           </section>
 
