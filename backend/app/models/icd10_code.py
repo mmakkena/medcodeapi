@@ -56,5 +56,16 @@ class ICD10Code(Base):
                        name="ck_icd10_code_system"),
     )
 
+    def get_display_description(self) -> str:
+        """Return appropriate description for display
+
+        Returns:
+            - short_desc if available
+            - long_desc if short_desc not available
+            - description (legacy field) as fallback
+            - Empty string if none available
+        """
+        return self.short_desc or self.long_desc or self.description or ''
+
     def __repr__(self):
         return f"<ICD10Code {self.code} ({self.code_system}) - {self.short_desc or self.description or ''}>"
