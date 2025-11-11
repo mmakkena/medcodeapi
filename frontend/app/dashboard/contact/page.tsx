@@ -46,7 +46,7 @@ export default function DashboardContactPage() {
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Contact Support</h1>
         <p className="mt-2 text-gray-600">
-          Have a question or need assistance? Send us a message and we'll get back to you as soon as possible.
+          Have a question or need assistance? Send us a message and we&apos;ll get back to you as soon as possible.
         </p>
       </div>
 
@@ -147,7 +147,7 @@ export default function DashboardContactPage() {
             {submitStatus === 'success' && (
               <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-md flex items-center gap-2">
                 <CheckCircle className="w-5 h-5" />
-                <span>Thank you! Your message has been sent. We'll get back to you soon.</span>
+                <span>Thank you! Your message has been sent. We&apos;ll get back to you soon.</span>
               </div>
             )}
 
