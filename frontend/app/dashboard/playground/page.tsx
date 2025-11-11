@@ -95,8 +95,8 @@ export default function PlaygroundPage() {
       // Use first 200 chars for faster search
       const searchQuery = currentNote.substring(0, 200);
 
-      const icd10Url = `${baseUrl}/icd10/hybrid-search?query=${encodeURIComponent(searchQuery)}&limit=3&semantic_weight=0.5&year=2026`;
-      const procedureUrl = `${baseUrl}/procedure/hybrid-search?query=${encodeURIComponent(searchQuery)}&limit=3&semantic_weight=0.5&year=2025`;
+      const icd10Url = `${baseUrl}/icd10/semantic-search?query=${encodeURIComponent(searchQuery)}&limit=3&year=2026`;
+      const procedureUrl = `${baseUrl}/procedure/semantic-search?query=${encodeURIComponent(searchQuery)}&limit=3&year=2025`;
 
       const trimmedKey = apiKey.trim();
       console.log('Calling APIs:', {
@@ -175,7 +175,7 @@ export default function PlaygroundPage() {
           MedCode Playground
         </h1>
         <p className="text-gray-600 mt-2">
-          Generate sample clinical notes and automatically suggest ICD-10 and CPT/HCPCS codes using hybrid search
+          Generate sample clinical notes and automatically suggest ICD-10 and CPT/HCPCS codes using semantic search
         </p>
       </div>
 
