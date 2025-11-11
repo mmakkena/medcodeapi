@@ -23,38 +23,25 @@ export default function DocsPage() {
         </p>
       </div>
 
-      {/* Documentation Links */}
+      {/* Interactive API Testing */}
       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-3">
-          Complete API Reference
+          Interactive API Testing
         </h2>
         <p className="text-gray-700 mb-4">
-          For detailed documentation with request/response examples, authentication flows, code samples, and best practices, see our comprehensive API reference.
+          Try out the API endpoints interactively with our Swagger UI interface. Test requests, view responses, and explore all available endpoints.
         </p>
-        <div className="flex flex-wrap gap-3">
-          <a
-            href="https://github.com/mmakkena/medcodeapi/blob/main/docs/API_REFERENCE.md"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-semibold transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            Full API Reference
-          </a>
-          <a
-            href={`${apiUrl}/docs`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border-2 border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 font-semibold transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            Interactive Swagger UI
-          </a>
-        </div>
+        <a
+          href={`${apiUrl}/docs`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-semibold transition-colors"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Open Interactive Swagger UI
+        </a>
       </div>
 
       {/* Authentication */}
@@ -270,23 +257,6 @@ export default function DocsPage() {
         </div>
       </div>
 
-      {/* Interactive Docs */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-blue-900 mb-2">
-          Interactive API Documentation
-        </h3>
-        <p className="text-blue-800 mb-4">
-          Try out the API endpoints interactively with Swagger UI:
-        </p>
-        <a
-          href={`${apiUrl}/docs`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-        >
-          Open Swagger Docs →
-        </a>
-      </div>
     </div>
   );
 }

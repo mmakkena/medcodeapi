@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function DocsPage() {
   const [copiedEndpoint, setCopiedEndpoint] = useState<string | null>(null);
@@ -15,46 +17,57 @@ export default function DocsPage() {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900">API Documentation</h1>
-        <p className="mt-2 text-gray-600">
-          Complete reference for the Nuvii API endpoints and authentication.
-        </p>
-      </div>
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="border-b sticky top-0 bg-white z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+          <Link href="/">
+            <Image
+              src="/nuvii_logo.png"
+              alt="Nuvii AI"
+              width={720}
+              height={192}
+              className="h-48 w-auto"
+            />
+          </Link>
+          <Link
+            href="/"
+            className="text-gray-700 hover:text-gray-900"
+          >
+            Back to Home
+          </Link>
+        </div>
+      </header>
 
-      {/* Documentation Links */}
+      {/* API Documentation Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">API Documentation</h1>
+            <p className="text-gray-600">
+              Complete reference for the Nuvii API endpoints and authentication.
+            </p>
+          </div>
+
+      {/* Interactive API Testing */}
       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-3">
-          Complete API Reference
+          Interactive API Testing
         </h2>
         <p className="text-gray-700 mb-4">
-          For detailed documentation with request/response examples, authentication flows, code samples, and best practices, see our comprehensive API reference.
+          Try out the API endpoints interactively with our Swagger UI interface. Test requests, view responses, and explore all available endpoints.
         </p>
-        <div className="flex flex-wrap gap-3">
-          <a
-            href="https://github.com/mmakkena/medcodeapi/blob/main/docs/API_REFERENCE.md"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-semibold transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            Full API Reference
-          </a>
-          <a
-            href={`${apiUrl}/docs`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border-2 border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 font-semibold transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            Interactive Swagger UI
-          </a>
-        </div>
+        <a
+          href={`${apiUrl}/docs`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-semibold transition-colors"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Open Interactive Swagger UI
+        </a>
       </div>
 
       {/* Authentication */}
@@ -270,23 +283,15 @@ export default function DocsPage() {
         </div>
       </div>
 
-      {/* Interactive Docs */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-blue-900 mb-2">
-          Interactive API Documentation
-        </h3>
-        <p className="text-blue-800 mb-4">
-          Try out the API endpoints interactively with Swagger UI:
-        </p>
-        <a
-          href={`${apiUrl}/docs`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-        >
-          Open Swagger Docs →
-        </a>
+        </div>
       </div>
+
+      {/* Footer */}
+      <footer className="py-8 bg-gray-50 px-4 sm:px-6 lg:px-8 border-t mt-12">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-gray-600">&copy; 2025 Nuvii API. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 }
