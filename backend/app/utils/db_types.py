@@ -106,51 +106,48 @@ class TSVECTOR(TypeDecorator):
             return dialect.type_descriptor(Text)
 
 
-class VECTOR(TypeDecorator):
-    """
-    Platform-independent VECTOR type for pgvector embeddings.
+# Export pgvector's Vector type directly for PostgreSQL
+# This preserves all pgvector methods (cosine_distance, l2_distance, etc.)
+if PGVECTOR_AVAILABLE:
+    # Use pgvector's Vector type directly - it has all the distance methods
+    # This is critical for semantic search to work properly
+    VECTOR = PostgreSQL_VECTOR
+else:
+    # Fallback for SQLite/testing when pgvector not available
+    class VECTOR(TypeDecorator):
+        """
+        Fallback VECTOR type for non-PostgreSQL databases (SQLite, testing).
 
-    Uses PostgreSQL's vector type from pgvector extension when available,
-    otherwise uses Text with JSON serialization for SQLite/testing.
+        Uses Text with JSON serialization for SQLite/testing.
+        For PostgreSQL with pgvector, use the native Vector type above.
 
-    Usage:
-        embedding = Column(VECTOR(768))  # 768-dimensional vector
-    """
+        Usage:
+            embedding = Column(VECTOR(768))  # 768-dimensional vector
+        """
 
-    impl = Text
-    cache_ok = True
+        impl = Text
+        cache_ok = True
 
-    def __init__(self, dim=768):
-        """Initialize with vector dimension (default 768 for MedCPT)"""
-        self.dim = dim
-        super().__init__()
+        def __init__(self, dim=768):
+            """Initialize with vector dimension (default 768 for MedCPT)"""
+            self.dim = dim
+            super().__init__()
 
-    def load_dialect_impl(self, dialect):
-        if dialect.name == 'postgresql' and PGVECTOR_AVAILABLE:
-            return dialect.type_descriptor(PostgreSQL_VECTOR(self.dim))
-        else:
-            # For SQLite/testing or when pgvector not installed, store as JSON text
+        def load_dialect_impl(self, dialect):
+            # For SQLite/testing when pgvector not installed, store as JSON text
             return dialect.type_descriptor(Text)
 
-    def process_bind_param(self, value, dialect):
-        if value is None:
-            return value
-        elif dialect.name == 'postgresql' and PGVECTOR_AVAILABLE:
-            # pgvector handles the conversion
-            return value
-        else:
+        def process_bind_param(self, value, dialect):
+            if value is None:
+                return value
             # Store as JSON string for SQLite
             if isinstance(value, (list, tuple)):
                 return json.dumps(value)
             return value
 
-    def process_result_value(self, value, dialect):
-        if value is None:
-            return value
-        elif dialect.name == 'postgresql' and PGVECTOR_AVAILABLE:
-            # pgvector returns as list
-            return value
-        else:
+        def process_result_value(self, value, dialect):
+            if value is None:
+                return value
             # Parse JSON for SQLite
             if isinstance(value, str):
                 return json.loads(value)
