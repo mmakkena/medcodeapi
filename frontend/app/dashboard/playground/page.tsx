@@ -218,6 +218,14 @@ export default function PlaygroundPage() {
           placeholder="Enter or paste clinical note text here... or click 'Random Example' to try a sample."
         />
 
+        {/* Privacy Notice */}
+        <div className="mt-3 flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 rounded-md">
+          <AlertCircle className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+          <p className="text-xs text-blue-800">
+            <strong>Privacy Notice:</strong> Do not enter Protected Health Information (PHI). Remove all patient identifiers including names, dates, addresses, and other identifying information before testing.
+          </p>
+        </div>
+
         {/* Action Buttons */}
         <div className="mt-4 flex gap-3">
           <button
