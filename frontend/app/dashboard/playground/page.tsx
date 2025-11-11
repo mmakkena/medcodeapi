@@ -11,6 +11,21 @@ interface CodeSuggestion {
   similarity_score: number;
   suggestion_type: string;
   explanation?: string;
+  facets?: {
+    body_region?: string;
+    body_system?: string;
+    procedure_category?: string;
+    complexity_level?: string;
+    service_location?: string;
+    em_level?: string;
+    em_patient_type?: string;
+    imaging_modality?: string;
+    surgical_approach?: string;
+    is_major_surgery?: boolean;
+    uses_contrast?: boolean;
+    is_bilateral?: boolean;
+    requires_modifier?: boolean;
+  };
 }
 
 interface ClinicalCodingResponse {
@@ -102,7 +117,7 @@ export default function PlaygroundPage() {
         },
         body: JSON.stringify({
           clinical_note: currentNote,
-          max_codes_per_type: 5,
+          max_codes_per_type: 3,
           include_explanations: true,
           use_llm: useLLM
         })
@@ -139,6 +154,33 @@ export default function PlaygroundPage() {
     setError('');
   };
 
+  // Format facet values for display
+  const formatFacetValue = (value: string | boolean | undefined): string => {
+    if (value === undefined) return '';
+    if (typeof value === 'boolean') return value ? 'Yes' : 'No';
+
+    // Convert snake_case to Title Case
+    return value
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
+
+  // Get facet badge color based on type
+  const getFacetColor = (facetType: string): string => {
+    const colorMap: Record<string, string> = {
+      procedure_category: 'bg-purple-100 text-purple-700 border-purple-200',
+      complexity_level: 'bg-orange-100 text-orange-700 border-orange-200',
+      service_location: 'bg-blue-100 text-blue-700 border-blue-200',
+      body_region: 'bg-green-100 text-green-700 border-green-200',
+      body_system: 'bg-cyan-100 text-cyan-700 border-cyan-200',
+      em_level: 'bg-indigo-100 text-indigo-700 border-indigo-200',
+      imaging_modality: 'bg-pink-100 text-pink-700 border-pink-200',
+      surgical_approach: 'bg-red-100 text-red-700 border-red-200'
+    };
+    return colorMap[facetType] || 'bg-gray-100 text-gray-700 border-gray-200';
+  };
+
   const CodeCard = ({ code, type }: { code: CodeSuggestion; type: 'primary' | 'secondary' | 'procedure' }) => {
     const colorClasses = {
       primary: 'border-blue-500 bg-blue-50',
@@ -166,6 +208,70 @@ export default function PlaygroundPage() {
           </span>
         </div>
         <p className="text-gray-700 text-sm mb-2">{code.description}</p>
+
+        {/* Facets Display for Procedures */}
+        {type === 'procedure' && code.facets && (
+          <div className="mt-3 pt-3 border-t border-gray-200">
+            <div className="flex flex-wrap gap-1.5">
+              {code.facets.procedure_category && (
+                <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${getFacetColor('procedure_category')}`}>
+                  {formatFacetValue(code.facets.procedure_category)}
+                </span>
+              )}
+              {code.facets.complexity_level && (
+                <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${getFacetColor('complexity_level')}`}>
+                  {formatFacetValue(code.facets.complexity_level)}
+                </span>
+              )}
+              {code.facets.service_location && (
+                <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${getFacetColor('service_location')}`}>
+                  {formatFacetValue(code.facets.service_location)}
+                </span>
+              )}
+              {code.facets.body_region && (
+                <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${getFacetColor('body_region')}`}>
+                  {formatFacetValue(code.facets.body_region)}
+                </span>
+              )}
+              {code.facets.body_system && code.facets.body_system !== 'not_applicable' && (
+                <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${getFacetColor('body_system')}`}>
+                  {formatFacetValue(code.facets.body_system)}
+                </span>
+              )}
+              {code.facets.em_level && (
+                <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${getFacetColor('em_level')}`}>
+                  E/M: {formatFacetValue(code.facets.em_level)}
+                </span>
+              )}
+              {code.facets.em_patient_type && (
+                <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${getFacetColor('em_level')}`}>
+                  {formatFacetValue(code.facets.em_patient_type)}
+                </span>
+              )}
+              {code.facets.imaging_modality && (
+                <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${getFacetColor('imaging_modality')}`}>
+                  {formatFacetValue(code.facets.imaging_modality).toUpperCase()}
+                </span>
+              )}
+              {code.facets.surgical_approach && (
+                <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${getFacetColor('surgical_approach')}`}>
+                  {formatFacetValue(code.facets.surgical_approach)}
+                </span>
+              )}
+              {code.facets.is_major_surgery && (
+                <span className="px-2 py-0.5 rounded-full text-xs font-medium border bg-red-100 text-red-700 border-red-200">
+                  Major Surgery
+                </span>
+              )}
+              {code.facets.uses_contrast && (
+                <span className="px-2 py-0.5 rounded-full text-xs font-medium border bg-yellow-100 text-yellow-700 border-yellow-200">
+                  With Contrast
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+
         {code.explanation && (
           <p className="text-xs text-gray-600 italic flex items-start gap-1 mt-2 pt-2 border-t border-gray-200">
             <span className="flex-shrink-0">💡</span>

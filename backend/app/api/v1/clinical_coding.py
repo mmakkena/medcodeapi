@@ -43,6 +43,7 @@ class CodeSuggestion(BaseModel):
     similarity_score: float  # 0-1 from semantic search
     suggestion_type: str  # primary_diagnosis, secondary_diagnosis, procedure
     explanation: Optional[str] = None  # Why this code was suggested
+    facets: Optional[dict] = None  # Procedure code facets (only for procedures)
 
 
 class ClinicalCodingResponse(BaseModel):
@@ -417,7 +418,22 @@ async def code_clinical_note(
                 confidence_score=similarity * 0.95,
                 similarity_score=similarity,
                 suggestion_type="procedure",
-                explanation=f"Matched from: {entities.get('procedures', [''])[0]}" if request.include_explanations else None
+                explanation=f"Matched from: {entities.get('procedures', [''])[0]}" if request.include_explanations else None,
+                facets={
+                    "body_region": code.body_region,
+                    "body_system": code.body_system,
+                    "procedure_category": code.procedure_category,
+                    "complexity_level": code.complexity_level,
+                    "service_location": code.service_location,
+                    "em_level": code.em_level,
+                    "em_patient_type": code.em_patient_type,
+                    "imaging_modality": code.imaging_modality,
+                    "surgical_approach": code.surgical_approach,
+                    "is_major_surgery": code.is_major_surgery,
+                    "uses_contrast": code.uses_contrast,
+                    "is_bilateral": code.is_bilateral,
+                    "requires_modifier": code.requires_modifier
+                } if hasattr(code, 'body_region') else None
             )
             for code, similarity in procedure_results
         ]
