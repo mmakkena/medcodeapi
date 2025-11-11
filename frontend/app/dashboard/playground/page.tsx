@@ -4,18 +4,18 @@ import { useState } from 'react';
 import { Sparkles, Loader2, Code2, Stethoscope, AlertCircle } from 'lucide-react';
 
 interface CodeResult {
-  code: string;
-  description: string;
-  similarity_score: number;
-  code_system?: string;
+  code_info: {
+    code: string;
+    description: string;
+    code_system?: string;
+  };
+  similarity: number;
 }
 
 interface SearchResults {
   results: CodeResult[];
-  stats?: {
-    search_time_ms: number;
-    total_results: number;
-  };
+  total_results?: number;
+  search_time_ms?: number;
 }
 
 const SAMPLE_NOTES = [
@@ -213,7 +213,14 @@ export default function PlaygroundPage() {
       ]);
 
       if (!icd10Response.ok || !procedureResponse.ok) {
-        throw new Error('API request failed. Please check your API key.');
+        const failedEndpoint = !icd10Response.ok ? 'ICD-10' : 'Procedure';
+        const statusCode = !icd10Response.ok ? icd10Response.status : procedureResponse.status;
+        const errorBody = !icd10Response.ok
+          ? await icd10Response.text()
+          : await procedureResponse.text();
+
+        console.error(`${failedEndpoint} API failed:`, { statusCode, errorBody });
+        throw new Error(`API request failed (${statusCode}): ${errorBody || 'Please check your API key.'}`);
       }
 
       const icd10Data = await icd10Response.json();
@@ -345,18 +352,22 @@ export default function PlaygroundPage() {
                   className="border-l-4 border-nuvii-blue bg-gray-50 p-3 rounded hover:bg-gray-100 transition-colors"
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-bold text-nuvii-blue text-lg">{code.code}</span>
+                    <span className="font-bold text-nuvii-blue text-lg">{code.code_info.code}</span>
                     <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
-                      {(code.similarity_score * 100).toFixed(1)}% match
+                      {(code.similarity * 100).toFixed(1)}% match
                     </span>
                   </div>
-                  <p className="text-gray-700 text-sm">{code.description}</p>
+                  <p className="text-gray-700 text-sm">{code.code_info.description}</p>
                 </div>
               ))}
-              {icd10Results?.stats && (
+              {(icd10Results?.search_time_ms || icd10Results?.total_results) && (
                 <div className="flex gap-4 pt-3 border-t text-xs text-gray-600">
-                  <span>Search time: <strong>{icd10Results.stats.search_time_ms.toFixed(0)}ms</strong></span>
-                  <span>Total results: <strong>{icd10Results.stats.total_results}</strong></span>
+                  {icd10Results.search_time_ms && (
+                    <span>Search time: <strong>{icd10Results.search_time_ms.toFixed(0)}ms</strong></span>
+                  )}
+                  {icd10Results.total_results && (
+                    <span>Total results: <strong>{icd10Results.total_results}</strong></span>
+                  )}
                 </div>
               )}
             </div>
@@ -380,22 +391,26 @@ export default function PlaygroundPage() {
                 >
                   <div className="flex items-center justify-between mb-2">
                     <div>
-                      <span className="font-bold text-nuvii-teal text-lg">{code.code}</span>
-                      {code.code_system && (
-                        <span className="ml-2 text-xs text-gray-500">({code.code_system})</span>
+                      <span className="font-bold text-nuvii-teal text-lg">{code.code_info.code}</span>
+                      {code.code_info.code_system && (
+                        <span className="ml-2 text-xs text-gray-500">({code.code_info.code_system})</span>
                       )}
                     </div>
                     <span className="bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-xs font-semibold">
-                      {(code.similarity_score * 100).toFixed(1)}% match
+                      {(code.similarity * 100).toFixed(1)}% match
                     </span>
                   </div>
-                  <p className="text-gray-700 text-sm">{code.description}</p>
+                  <p className="text-gray-700 text-sm">{code.code_info.description}</p>
                 </div>
               ))}
-              {procedureResults?.stats && (
+              {(procedureResults?.search_time_ms || procedureResults?.total_results) && (
                 <div className="flex gap-4 pt-3 border-t text-xs text-gray-600">
-                  <span>Search time: <strong>{procedureResults.stats.search_time_ms.toFixed(0)}ms</strong></span>
-                  <span>Total results: <strong>{procedureResults.stats.total_results}</strong></span>
+                  {procedureResults.search_time_ms && (
+                    <span>Search time: <strong>{procedureResults.search_time_ms.toFixed(0)}ms</strong></span>
+                  )}
+                  {procedureResults.total_results && (
+                    <span>Total results: <strong>{procedureResults.total_results}</strong></span>
+                  )}
                 </div>
               )}
             </div>
