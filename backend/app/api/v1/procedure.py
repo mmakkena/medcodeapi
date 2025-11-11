@@ -180,9 +180,19 @@ async def semantic_search_procedures(
             min_similarity=min_similarity
         )
 
-        # Build response with similarity scores
+        # Build response with similarity scores and facets
         response_items = []
         for code, similarity in results:
+            # Get facets for this code
+            from app.models.procedure_code_facet import ProcedureCodeFacet
+            from sqlalchemy import and_
+            facets = db.query(ProcedureCodeFacet).filter(
+                and_(
+                    ProcedureCodeFacet.code == code.code,
+                    ProcedureCodeFacet.code_system == code.code_system
+                )
+            ).first()
+
             # Create enhanced response
             code_dict = {
                 "id": code.id,
@@ -207,7 +217,7 @@ async def semantic_search_procedures(
             }
             response_items.append({
                 "code_info": code_dict,
-                "facets": None,
+                "facets": facets,
                 "mappings": [],
                 "similarity": similarity
             })
@@ -290,9 +300,19 @@ async def hybrid_search_procedures(
             limit=limit
         )
 
-        # Build response with combined scores
+        # Build response with combined scores and facets
         response_items = []
         for code, score in results:
+            # Get facets for this code
+            from app.models.procedure_code_facet import ProcedureCodeFacet
+            from sqlalchemy import and_
+            facets = db.query(ProcedureCodeFacet).filter(
+                and_(
+                    ProcedureCodeFacet.code == code.code,
+                    ProcedureCodeFacet.code_system == code.code_system
+                )
+            ).first()
+
             code_dict = {
                 "id": code.id,
                 "code": code.code,
@@ -316,7 +336,7 @@ async def hybrid_search_procedures(
             }
             response_items.append({
                 "code_info": code_dict,
-                "facets": None,
+                "facets": facets,
                 "mappings": [],
                 "similarity": score
             })
@@ -612,9 +632,19 @@ async def suggest_procedure_codes(
             min_similarity=min_similarity
         )
 
-        # Build response
+        # Build response with facets
         response_items = []
         for code, similarity in results:
+            # Get facets for this code
+            from app.models.procedure_code_facet import ProcedureCodeFacet
+            from sqlalchemy import and_
+            facets = db.query(ProcedureCodeFacet).filter(
+                and_(
+                    ProcedureCodeFacet.code == code.code,
+                    ProcedureCodeFacet.code_system == code.code_system
+                )
+            ).first()
+
             code_dict = {
                 "id": code.id,
                 "code": code.code,
@@ -638,7 +668,7 @@ async def suggest_procedure_codes(
             }
             response_items.append({
                 "code_info": code_dict,
-                "facets": None,
+                "facets": facets,
                 "mappings": [],
                 "similarity": similarity
             })
