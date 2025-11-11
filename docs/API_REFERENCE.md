@@ -11,8 +11,19 @@
 - [Rate Limiting](#rate-limiting)
 - [Endpoints](#endpoints)
   - [Authentication](#authentication-endpoints)
-  - [Code Search](#code-search-endpoints)
-  - [Code Suggestions](#code-suggestion-endpoint)
+  - [ICD-10 Code Search](#icd-10-code-search-endpoints)
+    - [Basic Search](#get-apiv1icd10search)
+    - [Semantic Search](#get-apiv1icd10semantic-search)
+    - [Hybrid Search](#get-apiv1icd10hybrid-search)
+    - [Faceted Search](#get-apiv1icd10faceted-search)
+  - [Procedure Code Search](#procedure-code-search-endpoints)
+    - [Basic Search](#get-apiv1proceduresearch)
+    - [Semantic Search](#get-apiv1proceduresemantic-search)
+    - [Hybrid Search](#get-apiv1procedurehybrid-search)
+    - [Faceted Search](#get-apiv1procedurefaceted-search)
+    - [Get Code Details](#get-apiv1procedurecode)
+    - [Suggest Codes](#post-apiv1proceduresuggest)
+  - [Legacy Code Suggestions](#code-suggestion-endpoint)
   - [API Key Management](#api-key-management-endpoints)
   - [Usage Tracking](#usage-tracking-endpoints)
   - [Billing](#billing-endpoints)
@@ -243,7 +254,7 @@ Sign in or register using OAuth (Google/Microsoft).
 
 ---
 
-### Code Search Endpoints
+### ICD-10 Code Search Endpoints
 
 #### GET /api/v1/icd10/search
 
@@ -298,22 +309,26 @@ curl -X GET "https://api.nuvii.ai/api/v1/icd10/search?query=hypertension&limit=5
 
 ---
 
-#### GET /api/v1/cpt/search
+### Procedure Code Search Endpoints
 
-Search CPT procedure codes by code or description.
+#### GET /api/v1/procedure/search
+
+Search procedure codes (CPT/HCPCS) by code or description using keyword matching.
 
 **Authentication**: API Key (required)
 **Query Parameters**:
 
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| `query` | string | Yes | - | Search term (code or description keyword) |
-| `limit` | integer | No | 10 | Maximum results (1-100) |
+| Parameter | Type | Required | Default | Range | Description |
+|-----------|------|----------|---------|-------|-------------|
+| `query` | string | Yes | - | Min length: 1 | Search term - can be code (e.g., "99213") or description keywords (e.g., "office visit") |
+| `code_system` | string | No | null | CPT, HCPCS | Filter by code system type |
+| `version_year` | integer | No | null | 2024-2026 | Filter by version year (e.g., 2025 for current codes) |
+| `limit` | integer | No | 10 | 1-100 | Maximum number of results to return |
 
 **Example Request**:
 
 ```bash
-curl -X GET "https://api.nuvii.ai/api/v1/cpt/search?query=office visit&limit=5" \
+curl -X GET "https://api.nuvii.ai/api/v1/procedure/search?query=office%20visit&code_system=CPT&version_year=2025&limit=5" \
   -H "Authorization: Bearer your_api_key_here"
 ```
 
@@ -322,31 +337,620 @@ curl -X GET "https://api.nuvii.ai/api/v1/cpt/search?query=office visit&limit=5" 
 ```json
 [
   {
+    "id": "abc-123",
     "code": "99213",
-    "description": "Office or other outpatient visit, established patient, 20-29 minutes",
-    "category": "Evaluation and Management"
+    "code_system": "CPT",
+    "description": "Office or other outpatient visit for the evaluation and management of an established patient",
+    "category": "Evaluation and Management",
+    "license_status": "paraphrased",
+    "version_year": 2025
   },
   {
+    "id": "abc-124",
     "code": "99214",
-    "description": "Office or other outpatient visit, established patient, 30-39 minutes",
-    "category": "Evaluation and Management"
-  },
-  {
-    "code": "99203",
-    "description": "Office or other outpatient visit, new patient, 30-44 minutes",
-    "category": "Evaluation and Management"
+    "description": "Office or other outpatient visit for established patient, moderate complexity",
+    "category": "Evaluation and Management",
+    "version_year": 2025
   }
 ]
 ```
 
 **Search Behavior**:
-- Same search logic as ICD-10 search
-- Exact code match first, then fuzzy description search
+1. First tries exact code prefix match (e.g., "992" matches all 992xx codes)
+2. If no matches, performs fuzzy text search on descriptions and categories
+3. Results include paraphrased descriptions (license-compliant)
+
+---
+
+#### GET /api/v1/procedure/semantic-search
+
+Semantic search using AI embeddings for natural language queries. Returns procedure codes most similar to the query text based on clinical meaning.
+
+**Authentication**: API Key (required)
+**Query Parameters**:
+
+| Parameter | Type | Required | Default | Range | Description |
+|-----------|------|----------|---------|-------|-------------|
+| `query` | string | Yes | - | Min length: 1 | Natural language clinical text (e.g., "routine diabetes follow-up visit") |
+| `code_system` | string | No | null | CPT, HCPCS | Filter by code system |
+| `version_year` | integer | No | null | 2024-2026 | Filter by version year (e.g., 2025) |
+| `limit` | integer | No | 10 | 1-100 | Maximum number of results to return |
+| `min_similarity` | float | No | 0.0 | 0.0-1.0 | Minimum similarity threshold (higher = more strict matching) |
+
+**Example Request**:
+
+```bash
+curl -X GET "https://api.nuvii.ai/api/v1/procedure/semantic-search?query=blood%20sugar%20test&limit=5&min_similarity=0.6&year=2025" \
+  -H "Authorization: Bearer your_api_key_here"
+```
+
+**Response** (200 OK):
+
+```json
+{
+  "query": "blood sugar test",
+  "results": [
+    {
+      "code_info": {
+        "code": "82947",
+        "code_system": "CPT",
+        "paraphrased_desc": "Blood test measuring glucose (sugar) levels",
+        "category": "Laboratory",
+        "procedure_type": "Laboratory",
+        "version_year": 2025
+      },
+      "facets": null,
+      "mappings": [],
+      "similarity": 0.91
+    },
+    {
+      "code_info": {
+        "code": "82950",
+        "paraphrased_desc": "Glucose tolerance test",
+        "category": "Laboratory",
+        "version_year": 2025
+      },
+      "similarity": 0.85
+    }
+  ],
+  "total_results": 2
+}
+```
+
+**Use Cases**:
+- Natural language queries: "knee surgery", "chest x-ray", "remove skin lesion"
+- Clinical documentation: "patient needs diabetic supplies"
+- Treatment descriptions: "inject steroid into joint"
+
+---
+
+#### GET /api/v1/procedure/hybrid-search
+
+Hybrid search combining semantic (AI embeddings) and keyword matching for procedure codes. Best of both worlds.
+
+**Authentication**: API Key (required)
+**Query Parameters**:
+
+| Parameter | Type | Required | Default | Range | Description |
+|-----------|------|----------|---------|-------|-------------|
+| `query` | string | Yes | - | Min length: 1 | Search text - natural language, keywords, or codes |
+| `code_system` | string | No | null | CPT, HCPCS | Filter by CPT or HCPCS codes only |
+| `version_year` | integer | No | null | 2024-2026 | Filter by version year (e.g., 2025) |
+| `semantic_weight` | float | No | 0.7 | 0.0-1.0 | Balance between semantic vs keyword. 1.0=pure semantic, 0.0=pure keyword |
+| `limit` | integer | No | 10 | 1-100 | Maximum number of results to return |
+
+**Semantic Weight Recommendations**:
+- **1.0**: Pure semantic - "patient needs oxygen equipment" → HCPCS codes for oxygen
+- **0.7**: Default (recommended) - Balanced approach for most clinical queries
+- **0.5**: Equal weight - Good when query has both clinical language and specific terms
+- **0.3**: Mostly keyword - When searching for specific procedure names
+- **0.0**: Pure keyword - Exact code or term lookup ("99213", "CPT office visit")
+
+**Example Request**:
+
+```bash
+curl -X GET "https://api.nuvii.ai/api/v1/procedure/hybrid-search?query=knee%20arthroscopy&semantic_weight=0.7&limit=3&year=2025" \
+  -H "Authorization: Bearer your_api_key_here"
+```
+
+**Response** (200 OK):
+
+```json
+{
+  "query": "knee arthroscopy",
+  "results": [
+    {
+      "code_info": {
+        "code": "29881",
+        "code_system": "CPT",
+        "paraphrased_desc": "Arthroscopic surgery of the knee with meniscectomy",
+        "category": "Surgery",
+        "procedure_type": "Surgical",
+        "version_year": 2025
+      },
+      "similarity": 0.94
+    },
+    {
+      "code_info": {
+        "code": "29880",
+        "paraphrased_desc": "Arthroscopic examination of the knee joint",
+        "category": "Surgery",
+        "version_year": 2025
+      },
+      "similarity": 0.90
+    }
+  ],
+  "total_results": 2
+}
+```
+
+---
+
+#### GET /api/v1/procedure/faceted-search
+
+Search procedure codes by AI-generated clinical facets. Filter by procedure characteristics like body region, complexity, service location, etc.
+
+**Authentication**: API Key (required)
+**Query Parameters**:
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `body_region` | string | No | null | Anatomical region (see options below) |
+| `body_system` | string | No | null | Body system (see options below) |
+| `procedure_category` | string | No | null | Procedure type category (see options below) |
+| `complexity_level` | string | No | null | Complexity level (see options below) |
+| `service_location` | string | No | null | Where procedure is performed (see options below) |
+| `em_level` | string | No | null | E/M level for evaluation codes (see options below) |
+| `em_patient_type` | string | No | null | Patient type for E/M codes (see options below) |
+| `is_major_surgery` | boolean | No | null | Filter for major surgical procedures (true/false) |
+| `imaging_modality` | string | No | null | Type of imaging (see options below) |
+| `code_system` | string | No | null | Filter by CPT or HCPCS |
+| `limit` | integer | No | 50 | Maximum results (1-100) |
+
+**Facet Value Options**:
+
+**Body Region**:
+- `head_neck` - Head, neck, face, skull
+- `thorax` - Chest, ribs, thoracic cavity
+- `abdomen` - Abdominal cavity, stomach area
+- `pelvis` - Pelvic region
+- `spine` - Spinal column, vertebrae
+- `upper_extremity` - Arm, shoulder, hand, elbow, wrist
+- `lower_extremity` - Leg, hip, knee, ankle, foot
+
+**Body System**:
+- `cardiovascular` - Heart, blood vessels
+- `respiratory` - Lungs, airways
+- `digestive` - GI tract, liver, pancreas
+- `musculoskeletal` - Bones, muscles, joints
+- `nervous` - Brain, nerves
+- `genitourinary` - Kidneys, bladder, reproductive
+- `integumentary` - Skin, subcutaneous tissue
+- `eye` - Ophthalmologic procedures
+- `ear` - Otologic procedures
+
+**Procedure Category**:
+- `evaluation` - E/M, consultations, visits
+- `surgical` - Surgical procedures
+- `diagnostic_imaging` - X-ray, CT, MRI, ultrasound
+- `laboratory` - Lab tests, pathology
+- `therapeutic` - Treatments, injections, infusions
+- `preventive` - Preventive care, screenings
+- `anesthesia` - Anesthesia services
+
+**Complexity Level**:
+- `simple` - Simple, straightforward procedures
+- `moderate` - Moderate complexity
+- `complex` - Complex procedures
+- `highly_complex` - Highly complex, extensive procedures
+
+**Service Location**:
+- `office` - Office or outpatient clinic
+- `hospital_inpatient` - Inpatient hospital setting
+- `hospital_outpatient` - Hospital outpatient department
+- `emergency` - Emergency department
+- `ambulatory` - Ambulatory surgery center
+
+**E/M Level** (for Evaluation & Management codes):
+- `level_1` - Level 1 (straightforward)
+- `level_2` - Level 2 (straightforward to low complexity)
+- `level_3` - Level 3 (low to moderate complexity)
+- `level_4` - Level 4 (moderate to high complexity)
+- `level_5` - Level 5 (high complexity)
+
+**E/M Patient Type**:
+- `new_patient` - New patient visit
+- `established_patient` - Established patient visit
+
+**Imaging Modality**:
+- `xray` - X-ray radiography
+- `ct` - CT scan (computed tomography)
+- `mri` - MRI (magnetic resonance imaging)
+- `ultrasound` - Ultrasound/sonography
+- `nuclear_medicine` - PET, SPECT scans
+- `fluoroscopy` - Fluoroscopic imaging
+
+**Example Request**:
+
+```bash
+curl -X GET "https://api.nuvii.ai/api/v1/procedure/faceted-search?procedure_category=evaluation&em_level=level_3&service_location=office&limit=10" \
+  -H "Authorization: Bearer your_api_key_here"
+```
+
+**Response** (200 OK):
+
+```json
+[
+  {
+    "id": "abc-123",
+    "code": "99213",
+    "code_system": "CPT",
+    "description": "Office visit, established patient, level 3",
+    "category": "Evaluation and Management",
+    "license_status": "paraphrased",
+    "version_year": 2025
+  },
+  {
+    "id": "abc-124",
+    "code": "99203",
+    "description": "Office visit, new patient, level 3",
+    "category": "Evaluation and Management",
+    "version_year": 2025
+  }
+]
+```
+
+**Use Cases**:
+- Find all office-based E/M level 3-4 codes
+- Get all MRI imaging codes for spine
+- List all major surgical procedures for cardiovascular system
+- Find simple office procedures for skin lesions
+
+---
+
+#### GET /api/v1/procedure/{code}
+
+Get detailed information about a specific procedure code including facets and cross-system mappings.
+
+**Authentication**: API Key (required)
+**Path Parameters**:
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `code` | string | Yes | The procedure code to retrieve (e.g., "99213", "J0585") |
+
+**Query Parameters**:
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `code_system` | string | No | CPT | Code system - CPT or HCPCS |
+| `version_year` | integer | No | null | Version year (defaults to most recent if not specified) |
+
+**Example Request**:
+
+```bash
+curl -X GET "https://api.nuvii.ai/api/v1/procedure/99213?code_system=CPT&version_year=2025" \
+  -H "Authorization: Bearer your_api_key_here"
+```
+
+**Response** (200 OK):
+
+```json
+{
+  "code_info": {
+    "id": "abc-123",
+    "code": "99213",
+    "code_system": "CPT",
+    "paraphrased_desc": "Office or other outpatient visit for the evaluation and management of an established patient",
+    "category": "Evaluation and Management",
+    "procedure_type": "Evaluation",
+    "version_year": 2025,
+    "is_active": true,
+    "relative_value_units": 1.3,
+    "global_period": 0,
+    "modifier_51_exempt": false
+  },
+  "facets": {
+    "body_region": null,
+    "body_system": null,
+    "procedure_category": "evaluation",
+    "complexity_level": "moderate",
+    "service_location": "office",
+    "em_level": "level_3",
+    "em_patient_type": "established_patient",
+    "is_major_surgery": false
+  },
+  "mappings": [],
+  "similarity": null
+}
+```
+
+**Error Responses**:
+- `404`: Code not found
+- `401`: Missing or invalid API key
+
+---
+
+#### POST /api/v1/procedure/suggest
+
+Suggest procedure codes based on clinical documentation text. Optimized for coding assistance and automated code suggestions.
+
+**Authentication**: API Key (required)
+**Query Parameters**:
+
+| Parameter | Type | Required | Default | Range | Description |
+|-----------|------|----------|---------|-------|-------------|
+| `clinical_text` | string | Yes | - | Min length: 10 | Clinical documentation text to analyze |
+| `code_system` | string | No | null | CPT, HCPCS | Filter suggestions by code system |
+| `limit` | integer | No | 5 | 1-20 | Maximum number of suggestions to return |
+| `min_similarity` | float | No | 0.6 | 0.0-1.0 | Minimum similarity threshold (higher = more strict) |
+
+**Example Request**:
+
+```bash
+curl -X POST "https://api.nuvii.ai/api/v1/procedure/suggest?clinical_text=Patient%20presents%20for%20annual%20wellness%20exam.%20Reviewed%20medications%2C%20performed%20comprehensive%20history%20and%20exam.&limit=3&min_similarity=0.7" \
+  -H "Authorization: Bearer your_api_key_here"
+```
+
+**Response** (200 OK):
+
+```json
+{
+  "query": "Patient presents for annual wellness exam. Reviewed medications, performed comprehensive...",
+  "results": [
+    {
+      "code_info": {
+        "code": "99397",
+        "code_system": "CPT",
+        "paraphrased_desc": "Periodic comprehensive preventive medicine evaluation and management, established patient, age 65 years and older",
+        "category": "Preventive Medicine",
+        "procedure_type": "Evaluation",
+        "version_year": 2025
+      },
+      "similarity": 0.88
+    },
+    {
+      "code_info": {
+        "code": "99214",
+        "paraphrased_desc": "Office visit, established patient, moderate to high complexity",
+        "category": "Evaluation and Management",
+        "version_year": 2025
+      },
+      "similarity": 0.75
+    }
+  ],
+  "total_results": 2
+}
+```
+
+**Use Cases**:
+- Automated coding suggestions from clinical notes
+- Coding assistance tools for healthcare providers
+- Quality assurance and coding compliance checking
+- Integration with EHR systems for real-time code suggestions
 
 **Error Responses**:
 - `401`: Missing or invalid API key
 - `429`: Rate limit exceeded
 - `500`: Internal server error
+
+---
+
+#### GET /api/v1/icd10/semantic-search
+
+Semantic search using AI embeddings for natural language queries. Returns ICD-10 codes most similar to the query text based on clinical meaning, not just keywords.
+
+**Authentication**: API Key (required)
+**Query Parameters**:
+
+| Parameter | Type | Required | Default | Range | Description |
+|-----------|------|----------|---------|-------|-------------|
+| `query` | string | Yes | - | Min length: 1 | Natural language clinical text to search (e.g., "patient with chest pain and difficulty breathing") |
+| `code_system` | string | No | null | ICD10-CM, ICD10-PCS | Filter by specific ICD-10 code system |
+| `version_year` | integer | No | null | 2024-2026 | Filter by version year (e.g., 2026 for latest codes) |
+| `limit` | integer | No | 10 | 1-100 | Maximum number of results to return |
+| `min_similarity` | float | No | 0.0 | 0.0-1.0 | Minimum similarity threshold (0=all results, 1.0=exact match) |
+
+**Example Request**:
+
+```bash
+curl -X GET "https://api.nuvii.ai/api/v1/icd10/semantic-search?query=patient%20with%20chest%20pain%20and%20shortness%20of%20breath&limit=5&min_similarity=0.7&year=2026" \
+  -H "Authorization: Bearer your_api_key_here"
+```
+
+**Response** (200 OK):
+
+```json
+{
+  "query": "patient with chest pain and shortness of breath",
+  "results": [
+    {
+      "code_info": {
+        "code": "R07.9",
+        "code_system": "ICD10-CM",
+        "short_desc": "Chest pain, unspecified",
+        "long_desc": "Chest pain, unspecified",
+        "chapter": "Symptoms, signs and abnormal clinical and laboratory findings",
+        "category": "Symptoms and signs involving the circulatory and respiratory systems",
+        "is_active": true,
+        "version_year": 2026
+      },
+      "facets": null,
+      "mappings": [],
+      "similarity": 0.89
+    },
+    {
+      "code_info": {
+        "code": "R06.02",
+        "code_system": "ICD10-CM",
+        "short_desc": "Shortness of breath",
+        "long_desc": "Shortness of breath",
+        "chapter": "Symptoms, signs and abnormal clinical and laboratory findings",
+        "version_year": 2026
+      },
+      "facets": null,
+      "mappings": [],
+      "similarity": 0.85
+    }
+  ],
+  "total_results": 2
+}
+```
+
+**How it works**:
+- Uses MedCPT embeddings (768-dimensional vectors) to understand clinical meaning
+- Returns codes semantically similar to your query, even if exact keywords don't match
+- Ideal for natural language queries and clinical note snippets
+- Similarity score ranges from 0.0 (no match) to 1.0 (perfect match)
+
+---
+
+#### GET /api/v1/icd10/hybrid-search
+
+Hybrid search combining semantic (AI embeddings) and keyword matching. Provides the best of both worlds - finds semantically similar codes AND exact keyword matches.
+
+**Authentication**: API Key (required)
+**Query Parameters**:
+
+| Parameter | Type | Required | Default | Range | Description |
+|-----------|------|----------|---------|-------|-------------|
+| `query` | string | Yes | - | Min length: 1 | Search text - can be clinical language, keywords, or codes |
+| `code_system` | string | No | null | ICD10-CM, ICD10-PCS | Filter by specific ICD-10 code system |
+| `version_year` | integer | No | null | 2024-2026 | Filter by version year (e.g., 2026) |
+| `semantic_weight` | float | No | 0.7 | 0.0-1.0 | Balance between semantic vs keyword search. 1.0=pure semantic, 0.5=equal weight, 0.0=pure keyword |
+| `limit` | integer | No | 10 | 1-100 | Maximum number of results to return |
+
+**Semantic Weight Guide**:
+- **1.0**: Pure semantic search - Best for natural language queries like "elderly patient fell and hurt hip"
+- **0.7**: Default - 70% semantic, 30% keyword - Recommended for most use cases
+- **0.5**: Equal balance - Good for mixed queries
+- **0.3**: Mostly keyword - When you know specific medical terms
+- **0.0**: Pure keyword search - Best for exact code or term lookups
+
+**Example Request**:
+
+```bash
+curl -X GET "https://api.nuvii.ai/api/v1/icd10/hybrid-search?query=diabetes%20with%20kidney%20complications&semantic_weight=0.7&limit=5&year=2026" \
+  -H "Authorization: Bearer your_api_key_here"
+```
+
+**Response** (200 OK):
+
+```json
+{
+  "query": "diabetes with kidney complications",
+  "results": [
+    {
+      "code_info": {
+        "code": "E11.22",
+        "code_system": "ICD10-CM",
+        "short_desc": "Type 2 diabetes mellitus with diabetic chronic kidney disease",
+        "chapter": "Endocrine, nutritional and metabolic diseases",
+        "version_year": 2026
+      },
+      "similarity": 0.92
+    },
+    {
+      "code_info": {
+        "code": "E11.21",
+        "short_desc": "Type 2 diabetes mellitus with diabetic nephropathy",
+        "version_year": 2026
+      },
+      "similarity": 0.88
+    }
+  ],
+  "total_results": 2
+}
+```
+
+---
+
+#### GET /api/v1/icd10/faceted-search
+
+Search ICD-10 codes by AI-generated clinical facets (metadata). Filter codes by clinical characteristics like body system, severity, chronicity, etc.
+
+**Authentication**: API Key (required)
+**Query Parameters**:
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `body_system` | string | No | null | Body system affected (see options below) |
+| `concept_type` | string | No | null | Type of medical concept (see options below) |
+| `chronicity` | string | No | null | Time-based classification (see options below) |
+| `severity` | string | No | null | Severity level (see options below) |
+| `acuity` | string | No | null | Urgency level (see options below) |
+| `risk_flag` | boolean | No | null | High-risk condition flag (true/false) |
+| `limit` | integer | No | 50 | Maximum number of results (1-100) |
+
+**Facet Value Options**:
+
+**Body System**:
+- `Cardiovascular` - Heart, blood vessels, circulation
+- `Respiratory` - Lungs, airways, breathing
+- `Neurological` - Brain, nerves, nervous system
+- `Gastrointestinal` - Digestive system
+- `Musculoskeletal` - Bones, muscles, joints
+- `Endocrine` - Hormones, metabolism
+- `Genitourinary` - Kidneys, urinary, reproductive
+- `Integumentary` - Skin, hair, nails
+- `Hematologic` - Blood, lymphatic
+- `Immunologic` - Immune system
+- `Psychiatric` - Mental health
+- `Ophthalmologic` - Eyes, vision
+- `Otolaryngologic` - Ear, nose, throat
+
+**Concept Type**:
+- `Disease` - Established medical condition
+- `Symptom` - Clinical symptom or sign
+- `Injury` - Trauma or injury
+- `Complication` - Complication of condition or treatment
+- `Screening` - Preventive screening code
+
+**Chronicity**:
+- `Acute` - Sudden onset, short duration
+- `Chronic` - Long-term, persistent condition
+- `Subacute` - Between acute and chronic
+
+**Severity**:
+- `Mild` - Minor severity
+- `Moderate` - Moderate severity
+- `Severe` - Serious severity
+- `Unspecified` - Severity not specified
+
+**Acuity**:
+- `Emergent` - Life-threatening, immediate care needed
+- `Urgent` - Serious, prompt care needed
+- `Non-urgent` - Routine care appropriate
+
+**Example Request**:
+
+```bash
+curl -X GET "https://api.nuvii.ai/api/v1/icd10/faceted-search?body_system=Cardiovascular&severity=Severe&limit=10" \
+  -H "Authorization: Bearer your_api_key_here"
+```
+
+**Response** (200 OK):
+
+```json
+[
+  {
+    "code": "I21.09",
+    "description": "ST elevation (STEMI) myocardial infarction involving other coronary artery of anterior wall",
+    "category": "Diseases of the circulatory system"
+  },
+  {
+    "code": "I21.19",
+    "description": "ST elevation (STEMI) myocardial infarction involving other coronary artery of inferior wall",
+    "category": "Diseases of the circulatory system"
+  }
+]
+```
+
+**Use Cases**:
+- Find all severe cardiovascular conditions
+- Get all acute respiratory symptoms
+- List chronic endocrine diseases
+- Identify high-risk conditions requiring special attention
 
 ---
 

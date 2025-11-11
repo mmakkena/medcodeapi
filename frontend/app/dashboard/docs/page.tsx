@@ -100,166 +100,132 @@ export default function DocsPage() {
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
         <h2 className="text-2xl font-semibold mb-6">Endpoints</h2>
 
-        {/* ICD-10 Search */}
-        <div className="mb-8">
-          <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
-            <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
-            Search ICD-10 Codes
-          </h3>
-          <p className="text-gray-600 mb-3">Search for ICD-10 codes by code or description.</p>
+        {/* ICD-10 Endpoints */}
+        <div className="mb-10">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">ICD-10 Diagnosis Codes</h3>
 
-          <div className="mb-3">
-            <div className="text-sm font-semibold text-gray-700 mb-2">Endpoint:</div>
-            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm relative">
-              <code>GET /api/v1/icd10/search?query=diabetes&amp;limit=10</code>
-              <button
-                onClick={() => copyToClipboard('GET /api/v1/icd10/search?query=diabetes&limit=10', 'icd10')}
-                className="absolute top-2 right-2 p-2 hover:bg-gray-800 rounded"
-              >
-                {copiedEndpoint === 'icd10' ? (
-                  <Check className="w-4 h-4 text-green-400" />
-                ) : (
-                  <Copy className="w-4 h-4" />
-                )}
-              </button>
+          {/* ICD-10 Keyword Search */}
+          <div className="mb-6 p-4 border-l-4 border-blue-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">Keyword Search</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Search by code or description using exact keyword matching</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded">GET /api/v1/icd10/search?query=diabetes&limit=10</code>
+          </div>
+
+          {/* ICD-10 Semantic Search */}
+          <div className="mb-6 p-4 border-l-4 border-purple-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">Semantic Search (AI-Powered)</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Search using natural language - finds codes based on clinical meaning, not just keywords</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block mb-2">GET /api/v1/icd10/semantic-search?query=patient%20with%20chest%20pain&min_similarity=0.7&year=2026</code>
+            <div className="text-xs text-gray-600 mt-2">
+              <strong>Parameters:</strong> query, code_system, version_year, limit, min_similarity
             </div>
           </div>
 
-          <div className="mb-3">
-            <div className="text-sm font-semibold text-gray-700 mb-2">Example Request:</div>
-            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm overflow-x-auto">
-              <pre>{`curl -X GET "${apiUrl}/api/v1/icd10/search?query=diabetes" \\
-  -H "Authorization: Bearer YOUR_API_KEY"`}</pre>
+          {/* ICD-10 Hybrid Search */}
+          <div className="mb-6 p-4 border-l-4 border-indigo-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">Hybrid Search (Recommended)</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Combines semantic AI and keyword matching - best of both worlds</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block mb-2">GET /api/v1/icd10/hybrid-search?query=diabetes%20kidney%20complications&semantic_weight=0.7&year=2026</code>
+            <div className="text-xs text-gray-600 mt-2">
+              <strong>Parameters:</strong> query, code_system, version_year, semantic_weight (0-1), limit
+              <br/>
+              <strong>Tip:</strong> semantic_weight=0.7 (default) balances AI understanding with keyword precision
             </div>
           </div>
 
-          <div>
-            <div className="text-sm font-semibold text-gray-700 mb-2">Response:</div>
-            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm overflow-x-auto">
-              <pre>{`{
-  "codes": [
-    {
-      "code": "E11.9",
-      "description": "Type 2 diabetes mellitus without complications",
-      "category": "Endocrine"
-    }
-  ],
-  "count": 1
-}`}</pre>
+          {/* ICD-10 Faceted Search */}
+          <div className="mb-6 p-4 border-l-4 border-teal-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">Faceted Search (Filter by Clinical Attributes)</h4>
             </div>
-          </div>
-        </div>
-
-        {/* CPT Search */}
-        <div className="mb-8">
-          <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
-            <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
-            Search CPT Codes
-          </h3>
-          <p className="text-gray-600 mb-3">Search for CPT codes by code or description.</p>
-
-          <div className="mb-3">
-            <div className="text-sm font-semibold text-gray-700 mb-2">Endpoint:</div>
-            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm relative">
-              <code>GET /api/v1/cpt/search?query=office visit&amp;limit=10</code>
-              <button
-                onClick={() => copyToClipboard('GET /api/v1/cpt/search?query=office visit&limit=10', 'cpt')}
-                className="absolute top-2 right-2 p-2 hover:bg-gray-800 rounded"
-              >
-                {copiedEndpoint === 'cpt' ? (
-                  <Check className="w-4 h-4 text-green-400" />
-                ) : (
-                  <Copy className="w-4 h-4" />
-                )}
-              </button>
-            </div>
-          </div>
-
-          <div className="mb-3">
-            <div className="text-sm font-semibold text-gray-700 mb-2">Example Request:</div>
-            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm overflow-x-auto">
-              <pre>{`curl -X GET "${apiUrl}/api/v1/cpt/search?query=office visit" \\
-  -H "Authorization: Bearer YOUR_API_KEY"`}</pre>
-            </div>
-          </div>
-
-          <div>
-            <div className="text-sm font-semibold text-gray-700 mb-2">Response:</div>
-            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm overflow-x-auto">
-              <pre>{`{
-  "codes": [
-    {
-      "code": "99213",
-      "description": "Office or other outpatient visit, established patient, 20-29 minutes",
-      "category": "Evaluation & Management"
-    }
-  ],
-  "count": 1
-}`}</pre>
+            <p className="text-sm text-gray-600 mb-2">Filter codes by body system, severity, chronicity, and other clinical facets</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block mb-2">GET /api/v1/icd10/faceted-search?body_system=Cardiovascular&severity=Severe</code>
+            <div className="text-xs text-gray-600 mt-2">
+              <strong>Facets:</strong> body_system, concept_type, chronicity, severity, acuity, risk_flag
             </div>
           </div>
         </div>
 
-        {/* Code Suggestions */}
-        <div className="mb-8">
-          <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
-            <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded">POST</span>
-            Get Code Suggestions
-          </h3>
-          <p className="text-gray-600 mb-3">Get intelligent code suggestions from clinical text.</p>
+        {/* Procedure Code Endpoints */}
+        <div className="mb-10">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Procedure Codes (CPT/HCPCS)</h3>
 
-          <div className="mb-3">
-            <div className="text-sm font-semibold text-gray-700 mb-2">Endpoint:</div>
-            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm relative">
-              <code>POST /api/v1/suggest</code>
-              <button
-                onClick={() => copyToClipboard('POST /api/v1/suggest', 'suggest')}
-                className="absolute top-2 right-2 p-2 hover:bg-gray-800 rounded"
-              >
-                {copiedEndpoint === 'suggest' ? (
-                  <Check className="w-4 h-4 text-green-400" />
-                ) : (
-                  <Copy className="w-4 h-4" />
-                )}
-              </button>
+          {/* Procedure Keyword Search */}
+          <div className="mb-6 p-4 border-l-4 border-green-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">Keyword Search</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Search procedure codes by code or description</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block">GET /api/v1/procedure/search?query=office%20visit&code_system=CPT&year=2025</code>
+            <div className="text-xs text-gray-600 mt-2">
+              <strong>Parameters:</strong> query, code_system (CPT/HCPCS), version_year, limit
             </div>
           </div>
 
-          <div className="mb-3">
-            <div className="text-sm font-semibold text-gray-700 mb-2">Example Request:</div>
-            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm overflow-x-auto">
-              <pre>{`curl -X POST "${apiUrl}/api/v1/suggest" \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "text": "Patient presents with chronic hypertension and type 2 diabetes",
-    "max_results": 5
-  }'`}</pre>
+          {/* Procedure Semantic Search */}
+          <div className="mb-6 p-4 border-l-4 border-purple-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">Semantic Search (AI-Powered)</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Natural language search - "blood sugar test" finds glucose testing codes</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block">GET /api/v1/procedure/semantic-search?query=knee%20surgery&min_similarity=0.6</code>
+          </div>
+
+          {/* Procedure Hybrid Search */}
+          <div className="mb-6 p-4 border-l-4 border-indigo-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">Hybrid Search (Recommended)</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Combines AI and keyword matching for best results</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block">GET /api/v1/procedure/hybrid-search?query=knee%20arthroscopy&semantic_weight=0.7</code>
+          </div>
+
+          {/* Procedure Faceted Search */}
+          <div className="mb-6 p-4 border-l-4 border-teal-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">Faceted Search</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Filter by body region, complexity, service location, E/M level, imaging type, etc.</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block">GET /api/v1/procedure/faceted-search?procedure_category=evaluation&em_level=level_3</code>
+            <div className="text-xs text-gray-600 mt-2">
+              <strong>Facets:</strong> body_region, body_system, procedure_category, complexity_level, service_location, em_level, imaging_modality
             </div>
           </div>
 
-          <div>
-            <div className="text-sm font-semibold text-gray-700 mb-2">Response:</div>
-            <div className="bg-gray-900 text-gray-100 p-3 rounded-md font-mono text-sm overflow-x-auto">
-              <pre>{`{
-  "suggestions": [
-    {
-      "code": "I10",
-      "description": "Essential (primary) hypertension",
-      "category": "Cardiovascular",
-      "type": "ICD10",
-      "confidence": 0.95
-    },
-    {
-      "code": "E11.9",
-      "description": "Type 2 diabetes mellitus without complications",
-      "category": "Endocrine",
-      "type": "ICD10",
-      "confidence": 0.92
-    }
-  ],
-  "count": 2
-}`}</pre>
+          {/* Get Code Details */}
+          <div className="mb-6 p-4 border-l-4 border-orange-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">Get Code Details</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Get detailed information, facets, and mappings for a specific code</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block">GET /api/v1/procedure/99213?code_system=CPT&version_year=2025</code>
+          </div>
+
+          {/* Procedure Code Suggestions */}
+          <div className="mb-6 p-4 border-l-4 border-pink-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded">POST</span>
+              <h4 className="font-semibold">Suggest Codes from Clinical Text</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Analyze clinical documentation and suggest appropriate procedure codes</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block">POST /api/v1/procedure/suggest?clinical_text=Patient%20for%20wellness%20exam&min_similarity=0.7</code>
+            <div className="text-xs text-gray-600 mt-2">
+              <strong>Use Case:</strong> Automated coding assistance, EHR integration, compliance checking
             </div>
           </div>
         </div>
