@@ -197,7 +197,11 @@ export default function PlaygroundPage() {
     setError('');
 
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.nuvii.ai/api/v1';
+      // Ensure API URL has /api/v1 path
+      let baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.nuvii.ai';
+      if (!baseUrl.endsWith('/api/v1')) {
+        baseUrl = `${baseUrl}/api/v1`;
+      }
 
       const [icd10Response, procedureResponse] = await Promise.all([
         fetch(`${baseUrl}/icd10/hybrid-search?query=${encodeURIComponent(currentNote)}&limit=5&semantic_weight=0.7`, {
