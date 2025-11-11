@@ -203,13 +203,18 @@ export default function PlaygroundPage() {
         baseUrl = `${baseUrl}/api/v1`;
       }
 
+      const icd10Url = `${baseUrl}/icd10/hybrid-search?query=${encodeURIComponent(currentNote)}&limit=5&semantic_weight=0.7`;
+      const procedureUrl = `${baseUrl}/procedure/hybrid-search?query=${encodeURIComponent(currentNote)}&limit=5&semantic_weight=0.7`;
+
+      console.log('Calling APIs:', { icd10Url, procedureUrl });
+
       const [icd10Response, procedureResponse] = await Promise.all([
-        fetch(`${baseUrl}/icd10/hybrid-search?query=${encodeURIComponent(currentNote)}&limit=5&semantic_weight=0.7`, {
+        fetch(icd10Url, {
           headers: {
             'Authorization': `Bearer ${apiKey.trim()}`
           }
         }),
-        fetch(`${baseUrl}/procedure/hybrid-search?query=${encodeURIComponent(currentNote)}&limit=5&semantic_weight=0.7`, {
+        fetch(procedureUrl, {
           headers: {
             'Authorization': `Bearer ${apiKey.trim()}`
           }
@@ -218,13 +223,14 @@ export default function PlaygroundPage() {
 
       if (!icd10Response.ok || !procedureResponse.ok) {
         const failedEndpoint = !icd10Response.ok ? 'ICD-10' : 'Procedure';
+        const failedUrl = !icd10Response.ok ? icd10Url : procedureUrl;
         const statusCode = !icd10Response.ok ? icd10Response.status : procedureResponse.status;
         const errorBody = !icd10Response.ok
           ? await icd10Response.text()
           : await procedureResponse.text();
 
-        console.error(`${failedEndpoint} API failed:`, { statusCode, errorBody });
-        throw new Error(`API request failed (${statusCode}): ${errorBody || 'Please check your API key.'}`);
+        console.error(`${failedEndpoint} API failed:`, { statusCode, errorBody, url: failedUrl });
+        throw new Error(`${failedEndpoint} API request failed (${statusCode}): ${errorBody}. URL: ${failedUrl}`);
       }
 
       const icd10Data = await icd10Response.json();
