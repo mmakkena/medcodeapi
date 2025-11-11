@@ -196,21 +196,54 @@ export default function PlaygroundPage() {
         </p>
       </div>
 
-      {/* Action Buttons */}
-      <div className="flex gap-3">
-        <button
-          onClick={generateRandomNote}
-          className="px-6 py-3 bg-nuvii-blue text-white rounded-md hover:bg-blue-700 transition-colors font-medium flex items-center gap-2"
-        >
-          <Sparkles className="w-5 h-5" />
-          Generate Random Note
-        </button>
-        <button
-          onClick={clearAll}
-          className="px-6 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors font-medium"
-        >
-          Clear
-        </button>
+      {/* Clinical Note Input */}
+      <div className="bg-gray-50 rounded-lg p-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-xl font-semibold flex items-center gap-2">
+            <Stethoscope className="w-5 h-5 text-nuvii-blue" />
+            {noteTitle || 'Clinical Note'}
+          </h2>
+          <button
+            onClick={generateRandomNote}
+            className="px-4 py-2 bg-nuvii-blue text-white rounded-md hover:bg-blue-700 transition-colors text-sm font-medium flex items-center gap-2"
+          >
+            <Sparkles className="w-4 h-4" />
+            Random Example
+          </button>
+        </div>
+        <textarea
+          value={currentNote}
+          onChange={(e) => setCurrentNote(e.target.value)}
+          className="w-full bg-white border-l-4 border-nuvii-blue p-4 rounded text-sm text-gray-700 min-h-[200px] max-h-96 resize-y focus:outline-none focus:ring-2 focus:ring-nuvii-blue"
+          placeholder="Enter or paste clinical note text here... or click 'Random Example' to try a sample."
+        />
+
+        {/* Action Buttons */}
+        <div className="mt-4 flex gap-3">
+          <button
+            onClick={searchCodes}
+            disabled={loading || !apiKey || !currentNote.trim()}
+            className="px-6 py-3 bg-nuvii-blue text-white rounded-md hover:bg-blue-700 transition-colors font-medium flex items-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                Searching...
+              </>
+            ) : (
+              <>
+                <Code2 className="w-5 h-5" />
+                Get Suggested Codes
+              </>
+            )}
+          </button>
+          <button
+            onClick={clearAll}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors font-medium"
+          >
+            Clear
+          </button>
+        </div>
       </div>
 
       {/* Error Message */}
@@ -224,39 +257,6 @@ export default function PlaygroundPage() {
         </div>
       )}
 
-      {/* Clinical Note */}
-      {currentNote && (
-        <div className="bg-gray-50 rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-            <Stethoscope className="w-5 h-5 text-nuvii-blue" />
-            {noteTitle || 'Clinical Note'}
-          </h2>
-          <div className="bg-white border-l-4 border-nuvii-blue p-4 rounded whitespace-pre-wrap text-sm text-gray-700 max-h-96 overflow-y-auto">
-            {currentNote}
-          </div>
-
-          {/* Get Codes Button */}
-          <div className="mt-4">
-            <button
-              onClick={searchCodes}
-              disabled={loading || !apiKey}
-              className="px-6 py-3 bg-nuvii-teal text-white rounded-md hover:bg-green-700 transition-colors font-medium flex items-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  Searching...
-                </>
-              ) : (
-                <>
-                  <Code2 className="w-5 h-5" />
-                  Get Suggested Codes
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* Results */}
       {(icd10Results || procedureResults) && (
