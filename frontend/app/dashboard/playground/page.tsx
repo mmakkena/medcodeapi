@@ -203,8 +203,11 @@ export default function PlaygroundPage() {
         baseUrl = `${baseUrl}/api/v1`;
       }
 
-      const icd10Url = `${baseUrl}/icd10/hybrid-search?query=${encodeURIComponent(currentNote)}&limit=5&semantic_weight=0.7`;
-      const procedureUrl = `${baseUrl}/procedure/hybrid-search?query=${encodeURIComponent(currentNote)}&limit=5&semantic_weight=0.7`;
+      // Use first 500 chars to avoid overly long queries
+      const searchQuery = currentNote.substring(0, 500);
+
+      const icd10Url = `${baseUrl}/icd10/hybrid-search?query=${encodeURIComponent(searchQuery)}&limit=5&semantic_weight=0.5`;
+      const procedureUrl = `${baseUrl}/procedure/hybrid-search?query=${encodeURIComponent(searchQuery)}&limit=5&semantic_weight=0.5`;
 
       const trimmedKey = apiKey.trim();
       console.log('Calling APIs:', {
@@ -242,6 +245,19 @@ export default function PlaygroundPage() {
 
       const icd10Data = await icd10Response.json();
       const procedureData = await procedureResponse.json();
+
+      console.log('API Responses:', {
+        icd10: {
+          total_results: icd10Data.total_results,
+          results_count: icd10Data.results?.length || 0,
+          first_result: icd10Data.results?.[0]
+        },
+        procedure: {
+          total_results: procedureData.total_results,
+          results_count: procedureData.results?.length || 0,
+          first_result: procedureData.results?.[0]
+        }
+      });
 
       setIcd10Results(icd10Data);
       setProcedureResults(procedureData);
