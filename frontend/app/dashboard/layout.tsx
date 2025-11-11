@@ -56,11 +56,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <NavLink href="/dashboard" icon={<LayoutDashboard className="w-5 h-5" />}>
               Dashboard
             </NavLink>
-            <NavLink href="/dashboard/playground" icon={<Sparkles className="w-5 h-5" />}>
-              MedCode Playground
-            </NavLink>
             <NavLink href="/dashboard/api-keys" icon={<Key className="w-5 h-5" />}>
               API Keys
+            </NavLink>
+            <NavLink href="/dashboard/playground" icon={<Sparkles className="w-5 h-5" />}>
+              MedCode Playground
             </NavLink>
             <NavLink href="/dashboard/docs" icon={<FileText className="w-5 h-5" />}>
               Documentation
