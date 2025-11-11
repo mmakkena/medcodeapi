@@ -29,7 +29,7 @@ export default function Home() {
             <Link href="#pricing" className="text-gray-700 hover:text-gray-900">
               Pricing
             </Link>
-            <Link href="https://api.nuvii.ai/docs" target="_blank" className="text-gray-700 hover:text-gray-900">
+            <Link href="/docs" className="text-gray-700 hover:text-gray-900">
               Docs
             </Link>
             <Link href="#about" className="text-gray-700 hover:text-gray-900">
@@ -92,8 +92,7 @@ export default function Home() {
                 Start with Free Tier
               </Link>
               <Link
-                href="https://api.nuvii.ai/docs"
-                target="_blank"
+                href="/docs"
                 className="btn-secondary text-lg px-8 py-3"
               >
                 View Documentation
@@ -485,7 +484,7 @@ export default function Home() {
               <ul className="space-y-2">
                 <li><Link href="#features" className="text-gray-600 hover:text-gray-900">Features</Link></li>
                 <li><Link href="#pricing" className="text-gray-600 hover:text-gray-900">Pricing</Link></li>
-                <li><Link href="https://api.nuvii.ai/docs" target="_blank" className="text-gray-600 hover:text-gray-900">Documentation</Link></li>
+                <li><Link href="/docs" className="text-gray-600 hover:text-gray-900">Documentation</Link></li>
                 <li><Link href="https://api.nuvii.ai" target="_blank" className="text-gray-600 hover:text-gray-900">API Status</Link></li>
               </ul>
             </div>
@@ -507,7 +506,7 @@ export default function Home() {
             <div>
               <h3 className="font-semibold text-gray-900 mb-4">Support</h3>
               <ul className="space-y-2">
-                <li><Link href="https://api.nuvii.ai/docs" target="_blank" className="text-gray-600 hover:text-gray-900">Help Center</Link></li>
+                <li><Link href="/docs" className="text-gray-600 hover:text-gray-900">Help Center</Link></li>
                 <li><Link href="mailto:support@nuvii.ai" className="text-gray-600 hover:text-gray-900">Email Support</Link></li>
               </ul>
             </div>
