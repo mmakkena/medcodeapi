@@ -206,7 +206,14 @@ export default function PlaygroundPage() {
       const icd10Url = `${baseUrl}/icd10/hybrid-search?query=${encodeURIComponent(currentNote)}&limit=5&semantic_weight=0.7`;
       const procedureUrl = `${baseUrl}/procedure/hybrid-search?query=${encodeURIComponent(currentNote)}&limit=5&semantic_weight=0.7`;
 
-      console.log('Calling APIs:', { icd10Url, procedureUrl });
+      const trimmedKey = apiKey.trim();
+      console.log('Calling APIs:', {
+        icd10Url,
+        procedureUrl,
+        apiKeyLength: trimmedKey.length,
+        apiKeyPrefix: trimmedKey.substring(0, 5),
+        apiKeySuffix: trimmedKey.substring(trimmedKey.length - 5)
+      });
 
       const [icd10Response, procedureResponse] = await Promise.all([
         fetch(icd10Url, {
@@ -273,7 +280,7 @@ export default function PlaygroundPage() {
           API Key
         </label>
         <input
-          type="password"
+          type="text"
           value={apiKey}
           onChange={(e) => setApiKey(e.target.value)}
           placeholder="Enter your API key (mk_...)"
