@@ -65,13 +65,7 @@ export const codeAPI = {
       params: { query, limit },
       headers: { Authorization: `Bearer ${apiKey}` },
     }),
-  
-  searchCPT: (query: string, apiKey: string, limit = 10) =>
-    axios.get(`${API_URL}/api/v1/cpt/search`, {
-      params: { query, limit },
-      headers: { Authorization: `Bearer ${apiKey}` },
-    }),
-  
+
   suggest: (text: string, apiKey: string, maxResults = 5) =>
     axios.post(
       `${API_URL}/api/v1/suggest`,

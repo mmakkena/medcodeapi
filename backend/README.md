@@ -140,7 +140,9 @@ For complete API documentation with detailed request/response formats, authentic
 - `GET /api/v1/icd10/semantic-search` - AI-powered semantic search using clinical embeddings
 - `GET /api/v1/icd10/hybrid-search` - Hybrid search (combines semantic + keyword matching)
 - `GET /api/v1/icd10/faceted-search` - Search by clinical facets (body system, severity, etc.)
-- `GET /api/v1/cpt/search` - Search CPT procedure codes
+- `GET /api/v1/procedure/search` - Search procedure codes (CPT/HCPCS)
+- `GET /api/v1/procedure/semantic-search` - AI-powered semantic search for procedures
+- `GET /api/v1/procedure/hybrid-search` - Hybrid search for procedures
 - `POST /api/v1/suggest` - AI-powered code suggestions from clinical text
 
 #### API Key Management (JWT Required)

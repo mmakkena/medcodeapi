@@ -137,7 +137,6 @@ billingAPI.getPortal()
 
 // Code Search (with API key)
 codeAPI.searchICD10(query, apiKey, limit)
-codeAPI.searchCPT(query, apiKey, limit)
 codeAPI.suggest(text, apiKey, maxResults)
 ```
 

@@ -119,7 +119,9 @@ curl -X POST http://localhost:8000/api/v1/suggest \
 | `GET /api/v1/icd10/semantic-search` | API Key | AI semantic search (MedCPT) |
 | `GET /api/v1/icd10/hybrid-search` | API Key | Hybrid (semantic + keyword) |
 | `GET /api/v1/icd10/faceted-search` | API Key | Filter by clinical facets |
-| `GET /api/v1/cpt/search` | API Key | Search CPT codes |
+| `GET /api/v1/procedure/search` | API Key | Search procedure codes (CPT/HCPCS) |
+| `GET /api/v1/procedure/semantic-search` | API Key | AI semantic search for procedures |
+| `GET /api/v1/procedure/hybrid-search` | API Key | Hybrid search for procedures |
 | `POST /api/v1/suggest` | API Key | Get code suggestions |
 | `GET /api/v1/api-keys` | JWT | List API keys |
 | `POST /api/v1/api-keys` | JWT | Create API key |
