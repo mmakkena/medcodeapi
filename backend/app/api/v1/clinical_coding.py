@@ -7,11 +7,13 @@ from typing import List, Optional
 from app.database import get_db
 from app.models.api_key import APIKey
 from app.models.user import User
+from app.models.procedure_code_facet import ProcedureCodeFacet
 from app.middleware.api_key import verify_api_key_with_usage
 from app.middleware.rate_limit import check_rate_limit
 from app.services.usage_service import log_api_request
 from app.services.icd10_search_service import semantic_search as icd10_semantic_search
 from app.services.procedure_search_service import semantic_search as procedure_semantic_search
+from sqlalchemy import and_, or_
 import time
 import logging
 import os
@@ -410,6 +412,26 @@ async def code_clinical_note(
             for code, similarity in secondary_dx_results
         ]
 
+        # Fetch facets for procedure codes
+        facets_map = {}
+        if procedure_results:
+            # Get unique (code, code_system) pairs
+            code_pairs = [(code.code, code.code_system) for code, _ in procedure_results]
+
+            # Query facets for these codes
+            facets_query = db.query(ProcedureCodeFacet).filter(
+                or_(*[
+                    and_(
+                        ProcedureCodeFacet.code == code,
+                        ProcedureCodeFacet.code_system == code_system
+                    )
+                    for code, code_system in code_pairs
+                ])
+            ).all()
+
+            # Create mapping (code, code_system) -> facet
+            facets_map = {(f.code, f.code_system): f for f in facets_query}
+
         procedures = [
             CodeSuggestion(
                 code=code.code,
@@ -420,20 +442,20 @@ async def code_clinical_note(
                 suggestion_type="procedure",
                 explanation=f"Matched from: {entities.get('procedures', [''])[0]}" if request.include_explanations else None,
                 facets={
-                    "body_region": code.body_region,
-                    "body_system": code.body_system,
-                    "procedure_category": code.procedure_category,
-                    "complexity_level": code.complexity_level,
-                    "service_location": code.service_location,
-                    "em_level": code.em_level,
-                    "em_patient_type": code.em_patient_type,
-                    "imaging_modality": code.imaging_modality,
-                    "surgical_approach": code.surgical_approach,
-                    "is_major_surgery": code.is_major_surgery,
-                    "uses_contrast": code.uses_contrast,
-                    "is_bilateral": code.is_bilateral,
-                    "requires_modifier": code.requires_modifier
-                } if hasattr(code, 'body_region') else None
+                    "body_region": facet.body_region,
+                    "body_system": facet.body_system,
+                    "procedure_category": facet.procedure_category,
+                    "complexity_level": facet.complexity_level,
+                    "service_location": facet.service_location,
+                    "em_level": facet.em_level,
+                    "em_patient_type": facet.em_patient_type,
+                    "imaging_modality": facet.imaging_modality,
+                    "surgical_approach": facet.surgical_approach,
+                    "is_major_surgery": facet.is_major_surgery,
+                    "uses_contrast": facet.uses_contrast,
+                    "is_bilateral": facet.is_bilateral,
+                    "requires_modifier": facet.requires_modifier
+                } if (facet := facets_map.get((code.code, code.code_system))) is not None else None
             )
             for code, similarity in procedure_results
         ]
