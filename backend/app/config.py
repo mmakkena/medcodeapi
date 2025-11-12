@@ -45,6 +45,21 @@ class Settings(BaseSettings):
     # API Keys
     API_KEY_PREFIX: str = "mk_"
 
+    # Code Version Defaults
+    DEFAULT_ICD10_VERSION_YEAR: int = 2026
+    DEFAULT_PROCEDURE_VERSION_YEAR: int = 2025
+
+    # Clinical Coding Configuration
+    MAX_CODES_PER_TYPE: int = 20
+    DEFAULT_CODES_PER_TYPE: int = 5
+    DEFAULT_MIN_SIMILARITY: float = 0.7
+    DEFAULT_SEMANTIC_WEIGHT: float = 0.7
+
+    # LLM Configuration
+    ANTHROPIC_API_KEY: Optional[str] = None
+    CLAUDE_MODEL: str = "claude-3-5-sonnet-20241022"
+    CLAUDE_MAX_TOKENS: int = 1024
+
     def __init__(self, **kwargs):
         """Initialize settings with Parameter Store support"""
         super().__init__(**kwargs)
@@ -74,8 +89,12 @@ class Settings(BaseSettings):
                         # Convert string values to appropriate types
                         if attr_name in ['DEBUG', 'USE_PARAMETER_STORE']:
                             value = value.lower() in ('true', '1', 'yes')
-                        elif attr_name in ['ACCESS_TOKEN_EXPIRE_MINUTES', 'RATE_LIMIT_PER_MINUTE', 'RATE_LIMIT_PER_DAY']:
+                        elif attr_name in ['ACCESS_TOKEN_EXPIRE_MINUTES', 'RATE_LIMIT_PER_MINUTE', 'RATE_LIMIT_PER_DAY',
+                                           'DEFAULT_ICD10_VERSION_YEAR', 'DEFAULT_PROCEDURE_VERSION_YEAR',
+                                           'MAX_CODES_PER_TYPE', 'DEFAULT_CODES_PER_TYPE', 'CLAUDE_MAX_TOKENS']:
                             value = int(value)
+                        elif attr_name in ['DEFAULT_MIN_SIMILARITY', 'DEFAULT_SEMANTIC_WEIGHT']:
+                            value = float(value)
                         setattr(self, attr_name, value)
 
             print(f"✅ Loaded configuration from Parameter Store (/{ps.app_name}/{ps.environment})")

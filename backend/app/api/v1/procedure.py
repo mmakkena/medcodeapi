@@ -26,6 +26,7 @@ from app.services.procedure_search_service import (
     get_code_with_details,
     suggest_codes_from_text
 )
+from app.config import settings
 import time
 
 logger = logging.getLogger(__name__)
@@ -61,16 +62,18 @@ async def search_procedures(
     await check_rate_limit(api_key, user)
 
     try:
+        # Use config default for procedures (2025) if not specified
+        year = version_year if version_year is not None else settings.DEFAULT_PROCEDURE_VERSION_YEAR
+
         # Build base query
-        base_query = db.query(ProcedureCode).filter(ProcedureCode.is_active == True)
+        base_query = db.query(ProcedureCode).filter(
+            ProcedureCode.is_active == True,
+            ProcedureCode.version_year == year
+        )
 
         # Add code_system filter if specified
         if code_system:
             base_query = base_query.filter(ProcedureCode.code_system == code_system)
-
-        # Add version_year filter if specified
-        if version_year:
-            base_query = base_query.filter(ProcedureCode.version_year == version_year)
 
         # Search by exact code match first
         results = base_query.filter(
@@ -79,12 +82,13 @@ async def search_procedures(
 
         # If no exact matches, do fuzzy text search on descriptions
         if not results:
-            description_query = db.query(ProcedureCode).filter(ProcedureCode.is_active == True)
+            description_query = db.query(ProcedureCode).filter(
+                ProcedureCode.is_active == True,
+                ProcedureCode.version_year == year
+            )
 
             if code_system:
                 description_query = description_query.filter(ProcedureCode.code_system == code_system)
-            if version_year:
-                description_query = description_query.filter(ProcedureCode.version_year == version_year)
 
             results = description_query.filter(
                 or_(
@@ -170,12 +174,15 @@ async def semantic_search_procedures(
     await check_rate_limit(api_key, user)
 
     try:
+        # Use config default for procedures (2025) if not specified
+        year = version_year if version_year is not None else settings.DEFAULT_PROCEDURE_VERSION_YEAR
+
         # Perform semantic search
         results = await semantic_search(
             db=db,
             query_text=query,
             code_system=code_system,
-            version_year=version_year,
+            version_year=year,
             limit=limit,
             min_similarity=min_similarity
         )
@@ -290,12 +297,15 @@ async def hybrid_search_procedures(
     await check_rate_limit(api_key, user)
 
     try:
+        # Use config default for procedures (2025) if not specified
+        year = version_year if version_year is not None else settings.DEFAULT_PROCEDURE_VERSION_YEAR
+
         # Perform hybrid search
         results = await hybrid_search(
             db=db,
             query_text=query,
             code_system=code_system,
-            version_year=version_year,
+            version_year=year,
             semantic_weight=semantic_weight,
             limit=limit
         )
@@ -512,12 +522,15 @@ async def get_procedure_code(
     await check_rate_limit(api_key, user)
 
     try:
+        # Use config default for procedures (2025) if not specified
+        year = version_year if version_year is not None else settings.DEFAULT_PROCEDURE_VERSION_YEAR
+
         # Get code with details
         result = await get_code_with_details(
             db=db,
             code=code,
             code_system=code_system,
-            version_year=version_year
+            version_year=year
         )
 
         if not result:

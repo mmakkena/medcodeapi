@@ -13,6 +13,7 @@ from app.middleware.rate_limit import check_rate_limit
 from app.services.usage_service import log_api_request
 from app.services.icd10_search_service import semantic_search as icd10_semantic_search
 from app.services.procedure_search_service import semantic_search as procedure_semantic_search
+from app.config import settings
 from sqlalchemy import and_, or_
 import time
 import logging
@@ -85,9 +86,9 @@ async def extract_clinical_entities(clinical_note: str, use_llm: bool = True) ->
         logger.info("LLM disabled by user, using semantic-only extraction")
         return semantic_only_extraction(clinical_note)
 
-    anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
+    anthropic_api_key = settings.ANTHROPIC_API_KEY or os.getenv("ANTHROPIC_API_KEY")
     if not anthropic_api_key:
-        logger.warning("ANTHROPIC_API_KEY not set, using semantic-only extraction")
+        logger.warning("ANTHROPIC_API_KEY not set in config or environment, using semantic-only extraction")
         return semantic_only_extraction(clinical_note)
 
     try:
@@ -116,8 +117,8 @@ Rules:
 - Return ONLY valid JSON, no markdown or extra text"""
 
         message = client.messages.create(
-            model="claude-3-5-sonnet-20241022",
-            max_tokens=1024,
+            model=settings.CLAUDE_MODEL,
+            max_tokens=settings.CLAUDE_MAX_TOKENS,
             messages=[{"role": "user", "content": prompt}]
         )
 
@@ -360,28 +361,34 @@ async def code_clinical_note(
         entities = await extract_clinical_entities(request.clinical_note, use_llm=request.use_llm)
 
         # Step 2: Search for diagnosis codes
-        logger.info(f"Searching diagnosis codes for: {entities.get('primary_diagnoses', [])}")
+        # Use config default for ICD-10 (2026) if not specified by user
+        icd10_version = request.version_year if request.version_year is not None else settings.DEFAULT_ICD10_VERSION_YEAR
+
+        logger.info(f"Searching diagnosis codes for: {entities.get('primary_diagnoses', [])} (ICD-10 version: {icd10_version})")
         primary_dx_results = await search_diagnosis_codes(
             query_texts=entities.get('primary_diagnoses', []),
             db=db,
-            version_year=request.version_year,
+            version_year=icd10_version,
             limit=request.max_codes_per_type
         )
 
-        logger.info(f"Searching secondary diagnosis codes for: {entities.get('secondary_diagnoses', [])}")
+        logger.info(f"Searching secondary diagnosis codes for: {entities.get('secondary_diagnoses', [])} (ICD-10 version: {icd10_version})")
         secondary_dx_results = await search_diagnosis_codes(
             query_texts=entities.get('secondary_diagnoses', []),
             db=db,
-            version_year=request.version_year,
+            version_year=icd10_version,
             limit=request.max_codes_per_type
         )
 
         # Step 3: Search for procedure codes
-        logger.info(f"Searching procedure codes for: {entities.get('procedures', [])}")
+        # Use config default for procedures (2025) if not specified by user
+        procedure_version = request.version_year if request.version_year is not None else settings.DEFAULT_PROCEDURE_VERSION_YEAR
+
+        logger.info(f"Searching procedure codes for: {entities.get('procedures', [])} (CPT/HCPCS version: {procedure_version})")
         procedure_results = await search_procedure_codes(
             query_texts=entities.get('procedures', []),
             db=db,
-            version_year=request.version_year,
+            version_year=procedure_version,
             limit=request.max_codes_per_type
         )
 

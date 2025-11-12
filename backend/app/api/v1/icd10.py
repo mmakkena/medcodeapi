@@ -24,6 +24,7 @@ from app.services.icd10_search_service import (
     faceted_search,
     get_code_with_details
 )
+from app.config import settings
 import time
 
 router = APIRouter()
@@ -51,12 +52,11 @@ async def search_icd10(
     await check_rate_limit(api_key, user)
 
     try:
-        # Build base query
-        base_query = db.query(ICD10Code)
+        # Use config default for ICD-10 (2026) if not specified
+        year = version_year if version_year is not None else settings.DEFAULT_ICD10_VERSION_YEAR
 
-        # Add version_year filter if specified
-        if version_year:
-            base_query = base_query.filter(ICD10Code.version_year == version_year)
+        # Build base query
+        base_query = db.query(ICD10Code).filter(ICD10Code.version_year == year)
 
         # Search by exact code match first
         results = base_query.filter(
@@ -65,9 +65,7 @@ async def search_icd10(
 
         # If no exact matches, do fuzzy text search on description
         if not results:
-            description_query = db.query(ICD10Code)
-            if version_year:
-                description_query = description_query.filter(ICD10Code.version_year == version_year)
+            description_query = db.query(ICD10Code).filter(ICD10Code.version_year == year)
 
             results = description_query.filter(
                 ICD10Code.description.ilike(f"%{query}%")
@@ -131,12 +129,15 @@ async def semantic_search_icd10(
     await check_rate_limit(api_key, user)
 
     try:
+        # Use config default for ICD-10 (2026) if not specified
+        year = version_year if version_year is not None else settings.DEFAULT_ICD10_VERSION_YEAR
+
         # Perform semantic search
         results = await semantic_search(
             db=db,
             query_text=query,
             code_system=code_system,
-            version_year=version_year,
+            version_year=year,
             limit=limit,
             min_similarity=min_similarity
         )
@@ -236,12 +237,15 @@ async def hybrid_search_icd10(
     await check_rate_limit(api_key, user)
 
     try:
+        # Use config default for ICD-10 (2026) if not specified
+        year = version_year if version_year is not None else settings.DEFAULT_ICD10_VERSION_YEAR
+
         # Perform hybrid search
         results = await hybrid_search(
             db=db,
             query_text=query,
             code_system=code_system,
-            version_year=version_year,
+            version_year=year,
             semantic_weight=semantic_weight,
             limit=limit
         )
