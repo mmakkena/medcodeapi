@@ -342,8 +342,8 @@ export default function PlaygroundPage() {
           </p>
         </div>
 
-        {/* Mode Selection */}
-        <div className="mt-4 p-4 bg-white border border-gray-200 rounded-md">
+        {/* Mode Selection - Hidden for now */}
+        <div className="hidden mt-4 p-4 bg-white border border-gray-200 rounded-md">
           <label className="flex items-start gap-3 cursor-pointer">
             <input
               type="checkbox"
