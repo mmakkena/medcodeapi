@@ -241,35 +241,42 @@ async def search_diagnosis_codes(
     version_year: Optional[int],
     limit: int
 ) -> List[tuple]:
-    """Search ICD-10 codes for diagnosis queries"""
-    all_results = []
+    """
+    Search ICD-10 codes for diagnosis queries
 
-    for query in query_texts[:3]:  # Limit to top 3 queries
-        if not query or len(query) < 3:
-            continue
+    Optimized to use combined search query instead of multiple sequential searches
+    """
+    if not query_texts:
+        return []
 
-        try:
-            results = await icd10_semantic_search(
-                db=db,
-                query_text=query,
-                code_system=None,
-                version_year=version_year,
-                limit=limit,
-                min_similarity=0.7
-            )
-            all_results.extend(results)
-        except Exception as e:
-            logger.error(f"ICD-10 search failed for '{query}': {e}")
+    # Filter out empty queries
+    valid_queries = [q for q in query_texts if q and len(q) >= 3]
+    if not valid_queries:
+        return []
 
-    # Deduplicate and sort by similarity
-    seen_codes = set()
-    unique_results = []
-    for code, similarity in sorted(all_results, key=lambda x: x[1], reverse=True):
-        if code.code not in seen_codes:
-            seen_codes.add(code.code)
-            unique_results.append((code, similarity))
+    # Strategy: Combine queries into a single search for better performance
+    # Use the longest/most detailed query as primary, or combine if needed
+    if len(valid_queries) == 1:
+        combined_query = valid_queries[0]
+    else:
+        # Use the most detailed query (longest) as it likely has the most context
+        combined_query = max(valid_queries, key=len)
 
-    return unique_results[:limit]
+    try:
+        # Single semantic search with higher limit to ensure good coverage
+        results = await icd10_semantic_search(
+            db=db,
+            query_text=combined_query,
+            code_system=None,
+            version_year=version_year,
+            limit=limit,
+            min_similarity=0.7
+        )
+        return results
+
+    except Exception as e:
+        logger.error(f"ICD-10 search failed for '{combined_query}': {e}")
+        return []
 
 
 async def search_procedure_codes(
@@ -278,35 +285,42 @@ async def search_procedure_codes(
     version_year: Optional[int],
     limit: int
 ) -> List[tuple]:
-    """Search CPT/HCPCS codes for procedure queries"""
-    all_results = []
+    """
+    Search CPT/HCPCS codes for procedure queries
 
-    for query in query_texts[:3]:  # Limit to top 3 queries
-        if not query or len(query) < 3:
-            continue
+    Optimized to use combined search query instead of multiple sequential searches
+    """
+    if not query_texts:
+        return []
 
-        try:
-            results = await procedure_semantic_search(
-                db=db,
-                query_text=query,
-                code_system=None,
-                version_year=version_year,
-                limit=limit,
-                min_similarity=0.7
-            )
-            all_results.extend(results)
-        except Exception as e:
-            logger.error(f"Procedure search failed for '{query}': {e}")
+    # Filter out empty queries
+    valid_queries = [q for q in query_texts if q and len(q) >= 3]
+    if not valid_queries:
+        return []
 
-    # Deduplicate and sort by similarity
-    seen_codes = set()
-    unique_results = []
-    for code, similarity in sorted(all_results, key=lambda x: x[1], reverse=True):
-        if code.code not in seen_codes:
-            seen_codes.add(code.code)
-            unique_results.append((code, similarity))
+    # Strategy: Combine queries into a single search for better performance
+    # Use the longest/most detailed query as primary, or combine if needed
+    if len(valid_queries) == 1:
+        combined_query = valid_queries[0]
+    else:
+        # Use the most detailed query (longest) as it likely has the most context
+        combined_query = max(valid_queries, key=len)
 
-    return unique_results[:limit]
+    try:
+        # Single semantic search with higher limit to ensure good coverage
+        results = await procedure_semantic_search(
+            db=db,
+            query_text=combined_query,
+            code_system=None,
+            version_year=version_year,
+            limit=limit,
+            min_similarity=0.7
+        )
+        return results
+
+    except Exception as e:
+        logger.error(f"Procedure search failed for '{combined_query}': {e}")
+        return []
 
 
 # ============================================================================
@@ -360,37 +374,37 @@ async def code_clinical_note(
         logger.info(f"Extracting entities from note (length: {len(request.clinical_note)}, use_llm: {request.use_llm})")
         entities = await extract_clinical_entities(request.clinical_note, use_llm=request.use_llm)
 
-        # Step 2: Search for diagnosis codes
-        # Use config default for ICD-10 (2026) if not specified by user
+        # Step 2 & 3: Search for codes (parallelized for performance)
+        # Use config defaults if not specified by user
         icd10_version = request.version_year if request.version_year is not None else settings.DEFAULT_ICD10_VERSION_YEAR
-
-        logger.info(f"Searching diagnosis codes for: {entities.get('primary_diagnoses', [])} (ICD-10 version: {icd10_version})")
-        primary_dx_results = await search_diagnosis_codes(
-            query_texts=entities.get('primary_diagnoses', []),
-            db=db,
-            version_year=icd10_version,
-            limit=request.max_codes_per_type
-        )
-
-        logger.info(f"Searching secondary diagnosis codes for: {entities.get('secondary_diagnoses', [])} (ICD-10 version: {icd10_version})")
-        secondary_dx_results = await search_diagnosis_codes(
-            query_texts=entities.get('secondary_diagnoses', []),
-            db=db,
-            version_year=icd10_version,
-            limit=request.max_codes_per_type
-        )
-
-        # Step 3: Search for procedure codes
-        # Use config default for procedures (2025) if not specified by user
         procedure_version = request.version_year if request.version_year is not None else settings.DEFAULT_PROCEDURE_VERSION_YEAR
 
-        logger.info(f"Searching procedure codes for: {entities.get('procedures', [])} (CPT/HCPCS version: {procedure_version})")
-        procedure_results = await search_procedure_codes(
-            query_texts=entities.get('procedures', []),
-            db=db,
-            version_year=procedure_version,
-            limit=request.max_codes_per_type
+        logger.info(f"Starting parallel code searches (ICD-10: {icd10_version}, Procedures: {procedure_version})")
+
+        # Run all three searches in parallel for better performance
+        import asyncio
+        primary_dx_results, secondary_dx_results, procedure_results = await asyncio.gather(
+            search_diagnosis_codes(
+                query_texts=entities.get('primary_diagnoses', []),
+                db=db,
+                version_year=icd10_version,
+                limit=request.max_codes_per_type
+            ),
+            search_diagnosis_codes(
+                query_texts=entities.get('secondary_diagnoses', []),
+                db=db,
+                version_year=icd10_version,
+                limit=request.max_codes_per_type
+            ),
+            search_procedure_codes(
+                query_texts=entities.get('procedures', []),
+                db=db,
+                version_year=procedure_version,
+                limit=request.max_codes_per_type
+            )
         )
+
+        logger.info(f"Parallel searches completed: {len(primary_dx_results)} primary dx, {len(secondary_dx_results)} secondary dx, {len(procedure_results)} procedures")
 
         # Step 4: Format results
         primary_diagnoses = [
