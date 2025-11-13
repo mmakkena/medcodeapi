@@ -12,6 +12,8 @@ class UserCreate(BaseModel):
     full_name: str | None = None
     company_name: str | None = None
     role: str | None = None
+    # Honeypot field for bot detection (should always be empty)
+    website: str | None = None
 
 
 class UserLogin(BaseModel):

@@ -151,3 +151,89 @@ async def _check_rate_limit_memory(user_id: str, per_minute: int, per_day: int) 
 
     # Record this request
     _in_memory_store[user_id].append(now)
+
+
+async def check_signup_rate_limit(ip_address: str) -> None:
+    """
+    Check rate limit for signup endpoint based on IP address.
+    More restrictive than regular rate limits to prevent bot signups.
+
+    Limits:
+    - 3 signups per hour per IP
+    - 10 signups per day per IP
+
+    Raises HTTPException if rate limit is exceeded.
+    """
+    # Define stricter limits for signups
+    per_hour_limit = 3
+    per_day_limit = 10
+
+    if redis_client:
+        await _check_signup_rate_limit_redis(ip_address, per_hour_limit, per_day_limit)
+    else:
+        await _check_signup_rate_limit_memory(ip_address, per_hour_limit, per_day_limit)
+
+
+async def _check_signup_rate_limit_redis(ip_address: str, per_hour: int, per_day: int) -> None:
+    """Redis-based signup rate limiting"""
+    hour_key = f"signup_rate_limit:{ip_address}:hour"
+    day_key = f"signup_rate_limit:{ip_address}:day"
+
+    # Increment counters
+    hour_count = await redis_client.incr(hour_key)
+    day_count = await redis_client.incr(day_key)
+
+    # Set expiry on first request
+    if hour_count == 1:
+        await redis_client.expire(hour_key, 3600)  # 1 hour
+    if day_count == 1:
+        await redis_client.expire(day_key, 86400)  # 1 day
+
+    # Check limits
+    if hour_count > per_hour:
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail=f"Too many signup attempts. Please try again later. Limit: {per_hour} signups per hour"
+        )
+
+    if day_count > per_day:
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail=f"Daily signup limit exceeded. Limit: {per_day} signups per day"
+        )
+
+
+async def _check_signup_rate_limit_memory(ip_address: str, per_hour: int, per_day: int) -> None:
+    """In-memory signup rate limiting (fallback)"""
+    now = datetime.utcnow()
+    key = f"signup:{ip_address}"
+
+    # Initialize IP's request history if not exists
+    if key not in _in_memory_store:
+        _in_memory_store[key] = []
+
+    # Clean old requests (keep last 24 hours)
+    _in_memory_store[key] = _clean_old_requests(_in_memory_store[key], 86400)
+
+    # Count requests in last hour and day
+    hour_ago = now - timedelta(hours=1)
+    day_ago = now - timedelta(days=1)
+
+    requests_last_hour = sum(1 for req in _in_memory_store[key] if req > hour_ago)
+    requests_last_day = sum(1 for req in _in_memory_store[key] if req > day_ago)
+
+    # Check limits
+    if requests_last_hour >= per_hour:
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail=f"Too many signup attempts. Please try again later. Limit: {per_hour} signups per hour"
+        )
+
+    if requests_last_day >= per_day:
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail=f"Daily signup limit exceeded. Limit: {per_day} signups per day"
+        )
+
+    # Record this request
+    _in_memory_store[key].append(now)

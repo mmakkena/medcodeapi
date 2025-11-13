@@ -2,7 +2,7 @@
 
 import secrets
 from datetime import datetime
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.user import User
@@ -10,13 +10,27 @@ from app.models.plan import Plan
 from app.schemas.user import UserCreate, UserLogin, UserResponse, Token, OAuthSignIn, TokenWithUser
 from app.utils.security import hash_password, verify_password, create_access_token
 from app.middleware.auth import get_current_user
+from app.middleware.rate_limit import check_signup_rate_limit
 
 router = APIRouter()
 
 
 @router.post("/signup", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
-async def signup(user_data: UserCreate, db: Session = Depends(get_db)):
+async def signup(user_data: UserCreate, request: Request, db: Session = Depends(get_db)):
     """Register a new user"""
+    # Get client IP address
+    client_ip = request.client.host if request.client else "unknown"
+
+    # Check rate limit (3 signups per hour, 10 per day per IP)
+    await check_signup_rate_limit(client_ip)
+
+    # Honeypot check - if website field is filled, it's likely a bot
+    if user_data.website:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid registration request"
+        )
+
     # Check if user already exists
     existing_user = db.query(User).filter(User.email == user_data.email).first()
     if existing_user:

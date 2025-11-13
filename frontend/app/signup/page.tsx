@@ -22,6 +22,7 @@ function SignupForm() {
   const [fullName, setFullName] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [role, setRole] = useState('');
+  const [website, setWebsite] = useState(''); // Honeypot field
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { signup } = useAuth();
@@ -54,7 +55,8 @@ function SignupForm() {
         password,
         fullName || undefined,
         companyName || undefined,
-        role || undefined
+        role || undefined,
+        website || undefined
       );
 
       // If a paid plan was selected, redirect to checkout
@@ -197,6 +199,20 @@ function SignupForm() {
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
                 placeholder="Software Developer"
+              />
+            </div>
+
+            {/* Honeypot field - hidden from humans, visible to bots */}
+            <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
+              <label htmlFor="website">Website</label>
+              <input
+                id="website"
+                name="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
               />
             </div>
 
