@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { LayoutDashboard, Key, FileText, CreditCard, LogOut, Sparkles, Mail } from 'lucide-react';
+import { LayoutDashboard, Key, FileText, CreditCard, LogOut, Sparkles, Mail, Shield } from 'lucide-react';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { user, loading, logout } = useAuth();
@@ -71,6 +71,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <NavLink href="/dashboard/contact" icon={<Mail className="w-5 h-5" />}>
               Contact
             </NavLink>
+            {user.is_admin && (
+              <>
+                <div className="border-t border-gray-200 my-4"></div>
+                <NavLink href="/dashboard/admin" icon={<Shield className="w-5 h-5" />}>
+                  Admin Dashboard
+                </NavLink>
+              </>
+            )}
           </nav>
         </aside>
 

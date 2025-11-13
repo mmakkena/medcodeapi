@@ -9,6 +9,7 @@ interface User {
   id: string;
   email: string;
   is_active: boolean;
+  is_admin: boolean;
   created_at: string;
 }
 
@@ -46,6 +47,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         id: session.user.id as string,
         email: session.user.email as string,
         is_active: true,
+        is_admin: false, // OAuth users are not admin by default
         created_at: new Date().toISOString(),
       });
       setLoading(false);
