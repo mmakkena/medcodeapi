@@ -78,7 +78,7 @@ function SignupForm() {
         <div className="flex flex-col items-center">
           <Image
             src="/nuvii_logo.png"
-            alt="Nuvii AI"
+            alt="Nuvii.ai Sign Up - Get Free Medical Coding API Key"
             width={360}
             height={96}
             className="h-24 w-auto mb-4"

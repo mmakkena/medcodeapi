@@ -10,7 +10,7 @@ export default function TermsOfService() {
           <Link href="/">
             <Image
               src="/nuvii_logo.png"
-              alt="Nuvii AI"
+              alt="Nuvii.ai Terms of Service - Medical Coding API"
               width={720}
               height={192}
               className="h-48 w-auto"

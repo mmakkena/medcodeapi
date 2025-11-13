@@ -51,7 +51,7 @@ export default function ContactPage() {
           <Link href="/">
             <Image
               src="/nuvii_logo.png"
-              alt="Nuvii AI"
+              alt="Nuvii.ai - Contact Medical Coding API Support"
               width={720}
               height={192}
               className="h-48 w-auto"
@@ -98,12 +98,15 @@ export default function ContactPage() {
               <h3 className="font-semibold text-gray-900 mb-3">What can we help with?</h3>
               <ul className="space-y-2 text-gray-700">
                 <li>• Technical support and troubleshooting</li>
-                <li>• API integration questions</li>
+                <li>• <Link href="/docs" className="text-blue-600 hover:underline">API integration</Link> questions</li>
                 <li>• Billing and subscription inquiries</li>
                 <li>• Enterprise and custom solutions</li>
                 <li>• Partnership opportunities</li>
                 <li>• General product feedback</li>
               </ul>
+              <p className="text-sm text-gray-600 mt-4">
+                Don&apos;t have an account yet? <Link href="/signup" className="text-blue-600 hover:underline font-semibold">Sign up for free</Link> to get started.
+              </p>
             </div>
           </div>
 

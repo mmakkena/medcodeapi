@@ -10,7 +10,7 @@ export default function PrivacyPolicy() {
           <Link href="/">
             <Image
               src="/nuvii_logo.png"
-              alt="Nuvii AI"
+              alt="Nuvii.ai Privacy Policy - Healthcare API Data Security"
               width={720}
               height={192}
               className="h-48 w-auto"
@@ -43,7 +43,7 @@ export default function PrivacyPolicy() {
 
             <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-6">2.1 Account Information</h3>
             <p className="text-gray-700 mb-4">
-              When you create an account, we collect:
+              When you <Link href="/signup" className="text-nuvii-blue hover:underline">create an account</Link>, we collect:
             </p>
             <ul className="list-disc pl-6 text-gray-700 mb-4 space-y-2">
               <li>Email address</li>
@@ -54,7 +54,7 @@ export default function PrivacyPolicy() {
 
             <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-6">2.2 API Usage Data</h3>
             <p className="text-gray-700 mb-4">
-              When you use our API services, we collect:
+              When you use our <Link href="/docs" className="text-nuvii-blue hover:underline">API services</Link>, we collect:
             </p>
             <ul className="list-disc pl-6 text-gray-700 mb-4 space-y-2">
               <li>API request logs (timestamps, endpoints, response codes)</li>
@@ -228,11 +228,12 @@ export default function PrivacyPolicy() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">14. Contact Us</h2>
             <p className="text-gray-700 mb-4">
-              If you have any questions or concerns about this Privacy Policy or our privacy practices, please contact us at:
+              If you have any questions or concerns about this Privacy Policy or our privacy practices, please <Link href="/contact" className="text-nuvii-blue hover:underline font-semibold">contact us</Link> at:
             </p>
             <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
               <p className="text-gray-700 mb-2"><strong>Email:</strong> support@nuvii.ai</p>
-              <p className="text-gray-700"><strong>Website:</strong> <Link href="/" className="text-nuvii-blue hover:underline">https://nuvii.ai</Link></p>
+              <p className="text-gray-700 mb-2"><strong>Website:</strong> <Link href="/" className="text-nuvii-blue hover:underline">https://nuvii.ai</Link></p>
+              <p className="text-gray-700"><strong>Contact Form:</strong> <Link href="/contact" className="text-nuvii-blue hover:underline">Submit an inquiry</Link></p>
             </div>
           </section>
         </div>

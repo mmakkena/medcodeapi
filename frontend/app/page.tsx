@@ -44,7 +44,7 @@ export default function Home() {
           <Link href="/">
             <Image
               src="/nuvii_logo.png"
-              alt="Nuvii AI"
+              alt="Nuvii.ai - AI Medical Coding API for ICD-10 and CPT Codes"
               width={720}
               height={192}
               className="h-48 w-auto"
@@ -191,7 +191,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl font-semibold mb-2">Integrate in minutes</h3>
               <p className="text-gray-600">
-                Use our simple REST API with clear documentation and examples
+                Use our simple REST API with <Link href="/docs" className="text-nuvii-blue hover:underline">clear documentation and examples</Link>
               </p>
             </div>
             <div className="text-center">
@@ -254,7 +254,7 @@ export default function Home() {
               <BarChart className="w-12 h-12 mb-4 text-nuvii-blue" />
               <h3 className="text-xl font-semibold mb-2">Usage Analytics</h3>
               <p className="text-gray-600">
-                Track API usage with detailed logs, real-time statistics, and insights for your application.
+                Track API usage with detailed logs, real-time statistics, and insights for your application. <Link href="/signup" className="text-nuvii-blue hover:underline">Get started free</Link>.
               </p>
             </div>
 
@@ -262,7 +262,7 @@ export default function Home() {
               <Code className="w-12 h-12 mb-4 text-nuvii-blue" />
               <h3 className="text-xl font-semibold mb-2">Simple REST API</h3>
               <p className="text-gray-600">
-                Clean, well-documented RESTful API with interactive Swagger docs and ready-to-use code examples.
+                Clean, well-documented RESTful API with <Link href="/docs" className="text-nuvii-blue hover:underline">interactive Swagger docs</Link> and ready-to-use code examples.
               </p>
             </div>
 
@@ -353,7 +353,7 @@ export default function Home() {
             Start free. Scale as you grow. Cancel anytime.
           </p>
           <p className="text-sm text-gray-500 text-center mb-2">
-            No contracts • Pay-as-you-go • Upgrade or downgrade anytime
+            No contracts • Pay-as-you-go • Upgrade or downgrade anytime • Questions? <Link href="/contact" className="text-nuvii-blue hover:underline">Contact us</Link>
           </p>
           <div className="flex items-center justify-center gap-2 text-nuvii-blue font-semibold mb-12">
             <CheckCircle2 className="w-5 h-5" />

@@ -33,7 +33,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <Link href="/dashboard">
             <Image
               src="/nuvii_logo.png"
-              alt="Nuvii AI"
+              alt="Nuvii.ai Dashboard - Medical Coding API Management"
               width={360}
               height={96}
               className="h-24 w-auto"

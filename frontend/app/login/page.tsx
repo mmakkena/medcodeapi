@@ -33,7 +33,7 @@ export default function LoginPage() {
         <div className="flex flex-col items-center">
           <Image
             src="/nuvii_logo.png"
-            alt="Nuvii AI"
+            alt="Nuvii.ai Login - Access Medical Coding API Dashboard"
             width={360}
             height={96}
             className="h-24 w-auto mb-4"

@@ -27,7 +27,7 @@ export default function DocsPage() {
           <Link href="/">
             <Image
               src="/nuvii_logo.png"
-              alt="Nuvii AI"
+              alt="Nuvii.ai Medical Coding API Documentation"
               width={720}
               height={192}
               className="h-48 w-auto"
@@ -48,7 +48,7 @@ export default function DocsPage() {
           <div>
             <h1 className="text-4xl font-bold text-gray-900 mb-4">API Documentation</h1>
             <p className="text-gray-600">
-              Complete reference for the Nuvii API endpoints and authentication.
+              Complete reference for the Nuvii API endpoints and authentication. New to Nuvii? <Link href="/signup" className="text-blue-600 hover:underline font-semibold">Get your free API key</Link> to get started.
             </p>
           </div>
 
@@ -260,6 +260,9 @@ export default function DocsPage() {
           <p className="text-sm text-gray-500">
             Rate limit headers are included in all responses: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
           </p>
+          <p className="text-sm text-gray-700 mt-2">
+            Need higher limits? <Link href="/#pricing" className="text-blue-600 hover:underline font-semibold">View our pricing plans</Link> or <Link href="/contact" className="text-blue-600 hover:underline font-semibold">contact us</Link> for custom enterprise solutions.
+          </p>
         </div>
       </div>
 
@@ -284,6 +287,9 @@ export default function DocsPage() {
             <span className="text-gray-600">Internal Server Error - Something went wrong</span>
           </div>
         </div>
+        <p className="text-sm text-gray-700 mt-4">
+          Need help troubleshooting? <Link href="/contact" className="text-blue-600 hover:underline font-semibold">Contact our support team</Link> for assistance.
+        </p>
       </div>
 
         </div>
