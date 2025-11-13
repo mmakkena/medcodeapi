@@ -58,6 +58,10 @@ app = FastAPI(
         {
             "name": "Billing",
             "description": "Manage subscriptions and billing"
+        },
+        {
+            "name": "Admin Analytics",
+            "description": "Admin-only analytics and user management endpoints"
         }
     ],
     contact={
@@ -118,7 +122,7 @@ if os.path.exists(static_dir):
 
 
 # Import and include routers
-from app.api.v1 import auth, icd10, cpt, procedure, suggest, api_keys, usage, billing, clinical_coding
+from app.api.v1 import auth, icd10, cpt, procedure, suggest, api_keys, usage, billing, clinical_coding, admin
 
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
 app.include_router(icd10.router, prefix="/api/v1/icd10", tags=["ICD-10 Codes"])
@@ -129,6 +133,7 @@ app.include_router(clinical_coding.router, prefix="/api/v1", tags=["AI Clinical 
 app.include_router(api_keys.router, prefix="/api/v1/api-keys", tags=["API Keys"])
 app.include_router(usage.router, prefix="/api/v1/usage", tags=["Usage Tracking"])
 app.include_router(billing.router, prefix="/api/v1/billing", tags=["Billing"])
+app.include_router(admin.router, prefix="/api/v1/admin", tags=["Admin Analytics"])
 
 
 # Custom Swagger UI with logo
