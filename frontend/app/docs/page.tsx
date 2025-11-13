@@ -5,6 +5,9 @@ import { Copy, Check } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+// Note: metadata export doesn't work in 'use client' components
+// We'll add metadata via layout or use next/head
+
 export default function DocsPage() {
   const [copiedEndpoint, setCopiedEndpoint] = useState<string | null>(null);
 

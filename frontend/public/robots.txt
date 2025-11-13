@@ -1,0 +1,10 @@
+# robots.txt for Nuvii.ai
+User-agent: *
+Allow: /
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /login
+Disallow: /signup
+
+# Sitemap
+Sitemap: https://nuvii.ai/sitemap.xml

@@ -3,6 +3,37 @@ import { Search, Zap, Shield, BarChart, Code, Clock, CheckCircle2, Copy, Lock, T
 import Image from 'next/image';
 import InteractiveAPITester from './components/InteractiveAPITester';
 import HeroAnimation from './components/HeroAnimation';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'AI Medical Coding API - ICD-10 & CPT Codes - Nuvii.ai',
+  description: 'Turn clinical notes into ICD-10 & CPT codes instantly. AI-powered medical coding API with free tier. 5-minute setup, no contracts.',
+  keywords: ['AI medical coding API', 'ICD-10 API', 'CPT API', 'clinical coding API', 'AI healthcare API', 'medical coding automation', 'healthcare API', 'HCPCS API'],
+  openGraph: {
+    title: 'AI Medical Coding API - ICD-10 & CPT Codes',
+    description: 'Turn clinical notes into ICD-10 & CPT codes instantly. AI-powered medical coding API with free tier.',
+    url: 'https://nuvii.ai',
+    siteName: 'Nuvii.ai',
+    type: 'website',
+    images: [
+      {
+        url: 'https://nuvii.ai/nuvii_logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Nuvii.ai - AI Medical Coding API',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI Medical Coding API - ICD-10 & CPT Codes',
+    description: 'Turn clinical notes into ICD-10 & CPT codes instantly. AI-powered medical coding API with free tier.',
+    images: ['https://nuvii.ai/nuvii_logo.png'],
+  },
+  alternates: {
+    canonical: 'https://nuvii.ai',
+  },
+};
 
 export default function Home() {
   return (
