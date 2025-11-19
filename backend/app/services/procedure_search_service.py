@@ -9,6 +9,7 @@ from app.models.procedure_code import ProcedureCode
 from app.models.procedure_code_facet import ProcedureCodeFacet
 from app.models.code_mapping import CodeMapping
 from app.services.embedding_service import generate_embedding
+from app.services.search_enhancements import enhance_search_results, log_score_distribution
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +20,8 @@ async def semantic_search(
     code_system: Optional[str] = None,
     version_year: Optional[int] = None,
     limit: int = 10,
-    min_similarity: float = 0.0
+    min_similarity: float = 0.0,
+    enhance_scores: bool = True
 ) -> List[tuple[ProcedureCode, float]]:
     """
     Perform semantic search using vector similarity on procedure codes.
@@ -31,6 +33,7 @@ async def semantic_search(
         version_year: Optional filter by version year (e.g., 2024, 2025)
         limit: Maximum number of results
         min_similarity: Minimum similarity threshold (0-1)
+        enhance_scores: Whether to apply score enhancement (exact match boosting, calibration)
 
     Returns:
         List of (ProcedureCode, similarity_score) tuples sorted by similarity
@@ -60,16 +63,49 @@ async def semantic_search(
         if version_year is not None:
             query = query.filter(ProcedureCode.version_year == version_year)
 
-        # Filter by minimum similarity
-        if min_similarity > 0:
+        # Filter by minimum similarity (only apply if not enhancing, as enhancement changes scores)
+        if min_similarity > 0 and not enhance_scores:
             query = query.filter(
                 (1 - ProcedureCode.embedding.cosine_distance(query_embedding)) >= min_similarity
             )
 
-        # Order by similarity (highest first) and limit results
-        results = query.order_by(text('similarity DESC')).limit(limit).all()
+        # Order by similarity (highest first) and fetch more results for enhancement
+        fetch_limit = limit * 3 if enhance_scores else limit
+        results = query.order_by(text('similarity DESC')).limit(fetch_limit).all()
 
-        return [(code, float(similarity)) for code, similarity in results]
+        raw_results = [(code, float(similarity)) for code, similarity in results]
+
+        # Log raw score distribution for debugging
+        if raw_results:
+            log_score_distribution(raw_results, "Raw semantic search")
+
+        # Apply score enhancements
+        if enhance_scores and raw_results:
+            enhanced_results = enhance_search_results(
+                raw_results,
+                query_text,
+                code_field='code',
+                description_fields=['paraphrased_desc', 'short_desc', 'long_desc'],
+                apply_calibration=True,
+                apply_boosting=True,
+                calibration_params={
+                    'min_score': 0.5,   # Scores below 50% get compressed toward 0
+                    'max_score': 0.95,  # Assume max realistic similarity is 95%
+                    'power': 0.6        # Slightly spread out high scores
+                }
+            )
+
+            # Log enhanced score distribution
+            log_score_distribution(enhanced_results, "Enhanced semantic search")
+
+            # Apply min_similarity filter after enhancement if specified
+            if min_similarity > 0:
+                enhanced_results = [(code, score) for code, score in enhanced_results if score >= min_similarity]
+
+            # Return top results after enhancement
+            return enhanced_results[:limit]
+
+        return raw_results
 
     except Exception as e:
         logger.error(f"Semantic search error: {e}")
@@ -143,7 +179,8 @@ async def hybrid_search(
     code_system: Optional[str] = None,
     version_year: Optional[int] = None,
     semantic_weight: float = 0.7,
-    limit: int = 10
+    limit: int = 10,
+    enhance_scores: bool = True
 ) -> List[tuple[ProcedureCode, float]]:
     """
     Perform hybrid search combining semantic and keyword search.
@@ -155,6 +192,7 @@ async def hybrid_search(
         version_year: Optional filter by version year
         semantic_weight: Weight for semantic results (0-1), keyword weight is (1 - semantic_weight)
         limit: Maximum number of results
+        enhance_scores: Whether to apply score enhancement
 
     Returns:
         List of (ProcedureCode, combined_score) tuples
@@ -164,7 +202,9 @@ async def hybrid_search(
         results = await hybrid_search(db, "knee arthroscopy", semantic_weight=0.7)
     """
     # Get both semantic and keyword results (fetch more to ensure good coverage)
-    semantic_results = await semantic_search(db, query_text, code_system, version_year, limit * 2)
+    semantic_results = await semantic_search(
+        db, query_text, code_system, version_year, limit * 2, enhance_scores=enhance_scores
+    )
     keyword_results = await keyword_search(db, query_text, code_system, version_year, limit * 2)
 
     # Combine results with weighted scores
@@ -389,7 +429,8 @@ async def suggest_codes_from_text(
     clinical_text: str,
     code_system: Optional[str] = None,
     limit: int = 5,
-    min_similarity: float = 0.6
+    min_similarity: float = 0.6,
+    enhance_scores: bool = True
 ) -> List[tuple[ProcedureCode, float]]:
     """
     Suggest procedure codes based on clinical documentation text.
@@ -403,6 +444,7 @@ async def suggest_codes_from_text(
         code_system: Optional filter by code system (CPT, HCPCS)
         limit: Maximum number of suggestions
         min_similarity: Minimum similarity threshold (default 0.6 for suggestions)
+        enhance_scores: Whether to apply score enhancement
 
     Returns:
         List of (ProcedureCode, similarity_score) tuples
@@ -418,5 +460,6 @@ async def suggest_codes_from_text(
         clinical_text,
         code_system=code_system,
         limit=limit,
-        min_similarity=min_similarity
+        min_similarity=min_similarity,
+        enhance_scores=enhance_scores
     )
