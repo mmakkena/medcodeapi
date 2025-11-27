@@ -245,6 +245,111 @@ export default function DocsPage() {
             </div>
           </div>
         </div>
+
+        {/* Fee Schedule Endpoints */}
+        <div className="mb-10">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Medicare Fee Schedule</h3>
+          <p className="text-sm text-gray-600 mb-4">
+            Access CMS Medicare Physician Fee Schedule (MPFS) data with RVU-based pricing and geographic adjustments.
+          </p>
+
+          {/* Price Lookup */}
+          <div className="mb-6 p-4 border-l-4 border-emerald-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">Price Lookup</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Get Medicare reimbursement price for a CPT/HCPCS code at a specific location</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block mb-2">GET /api/v1/fee-schedule/price?code=99213&zip=10001&year=2025&setting=non_facility</code>
+            <div className="text-xs text-gray-600 mt-2">
+              <strong>Returns:</strong> Price, RVU breakdown (Work, PE, MP), GPCI values, national vs local pricing
+            </div>
+          </div>
+
+          {/* Code Search */}
+          <div className="mb-6 p-4 border-l-4 border-emerald-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">Code Search</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Search fee schedule by code or description with RVU details</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block mb-2">GET /api/v1/fee-schedule/search?query=office%20visit&year=2025&limit=20</code>
+            <div className="text-xs text-gray-600 mt-2">
+              <strong>Parameters:</strong> query, year, limit, offset
+            </div>
+          </div>
+
+          {/* Locality Lookup */}
+          <div className="mb-6 p-4 border-l-4 border-emerald-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">Locality Lookup</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Get CMS locality and GPCI values for a ZIP code</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block mb-2">GET /api/v1/fee-schedule/locality?zip=90210&year=2025</code>
+            <div className="text-xs text-gray-600 mt-2">
+              <strong>Returns:</strong> Locality name, Work GPCI, PE GPCI, MP GPCI
+            </div>
+          </div>
+
+          {/* List Localities */}
+          <div className="mb-6 p-4 border-l-4 border-emerald-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">List Localities</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">List all CMS localities with GPCI values, optionally filter by state</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block">GET /api/v1/fee-schedule/localities?year=2025&state=CA</code>
+          </div>
+
+          {/* Conversion Factor */}
+          <div className="mb-6 p-4 border-l-4 border-emerald-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">Conversion Factor</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Get the Medicare conversion factor for a given year</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block">GET /api/v1/fee-schedule/conversion-factor?year=2025</code>
+          </div>
+
+          {/* Contract Analyzer */}
+          <div className="mb-6 p-4 border-l-4 border-amber-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded">POST</span>
+              <h4 className="font-semibold">Contract Analyzer</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Analyze contracted rates against Medicare baseline to identify underpaid codes</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block mb-2">POST /api/v1/fee-schedule/analyze</code>
+            <div className="text-xs text-gray-600 mt-2">
+              <strong>Body:</strong> {`{ codes: [{code, rate, volume}], zip_code, year, setting }`}
+              <br/>
+              <strong>Returns:</strong> Variance analysis, red flags (codes &gt;10% below Medicare), revenue impact
+            </div>
+          </div>
+
+          {/* CSV Upload */}
+          <div className="mb-6 p-4 border-l-4 border-amber-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded">POST</span>
+              <h4 className="font-semibold">Contract Analyzer (CSV Upload)</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Upload a CSV file for bulk contract analysis</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block mb-2">POST /api/v1/fee-schedule/analyze/upload?zip_code=10001&year=2025</code>
+            <div className="text-xs text-gray-600 mt-2">
+              <strong>CSV Columns:</strong> code, rate, volume (optional), description (optional)
+            </div>
+          </div>
+
+          {/* Available Years */}
+          <div className="mb-6 p-4 border-l-4 border-emerald-500 bg-gray-50">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">GET</span>
+              <h4 className="font-semibold">Available Years</h4>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">Get list of years with available fee schedule data</p>
+            <code className="text-xs bg-gray-800 text-gray-100 px-2 py-1 rounded block">GET /api/v1/fee-schedule/years</code>
+          </div>
+        </div>
       </div>
 
       {/* Rate Limits */}
