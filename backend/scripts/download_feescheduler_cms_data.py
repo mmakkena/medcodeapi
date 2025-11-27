@@ -393,15 +393,20 @@ def convert_rvu_to_standard_csv(source_path: Path, dest_path: Path) -> bool:
     """
     Convert CMS RVU file to standardized CSV format.
 
-    CMS RVU files are typically tab or fixed-width delimited.
-    This normalizes them to comma-delimited CSV with standard headers.
+    CMS RVU files have multiple title/header rows:
+    - Rows 1-4: Title, copyright, release date
+    - Rows 5-8: Multi-line column descriptions
+    - Row 9: Actual column headers (HCPCS, MOD, DESCRIPTION, etc.)
+    - Row 10+: Data
+
+    This normalizes them to comma-delimited CSV with headers on row 1.
     """
     logger.info(f"Converting RVU file: {source_path.name}")
 
     try:
         # Detect delimiter
         with open(source_path, 'r', encoding='utf-8-sig') as f:
-            sample = f.read(4096)
+            sample = f.read(8192)
 
         if '\t' in sample:
             delimiter = '\t'
@@ -412,30 +417,84 @@ def convert_rvu_to_standard_csv(source_path: Path, dest_path: Path) -> bool:
 
         logger.info(f"  Detected delimiter: {repr(delimiter)}")
 
-        # Read and convert
-        rows = []
+        # Read all rows
+        all_rows = []
         with open(source_path, 'r', encoding='utf-8-sig') as f:
             reader = csv.reader(f, delimiter=delimiter)
             for row in reader:
-                # Clean up whitespace
                 cleaned = [cell.strip() for cell in row]
-                if any(cleaned):  # Skip empty rows
-                    rows.append(cleaned)
+                all_rows.append(cleaned)
 
-        if not rows:
+        if not all_rows:
             logger.error("  No data found in file")
             return False
+
+        # Find the header row - it should contain "HCPCS" in first column
+        header_row_idx = 0
+        for idx, row in enumerate(all_rows[:20]):  # Check first 20 rows
+            # Header row typically has HCPCS in first column
+            if row and row[0].upper() == 'HCPCS':
+                header_row_idx = idx
+                logger.info(f"  Found header row at line {idx + 1}")
+                break
+
+        # CMS uses multi-row headers (rows 6-10 in 2025 file)
+        # The row with "HCPCS" has partial column names
+        # We'll use standardized column names based on known CMS structure
+        # Column positions (0-indexed):
+        #  0: HCPCS, 1: MOD, 2: DESCRIPTION, 3: STATUS CODE, 4: NOT USED FOR MEDICARE
+        #  5: WORK RVU, 6: NON-FAC PE RVU, 7: NA INDICATOR, 8: FACILITY PE RVU, 9: NA INDICATOR
+        # 10: MP RVU, 11: NON-FACILITY TOTAL, 12: FACILITY TOTAL, 13: PCTC IND, 14: GLOB DAYS
+        # 15: PRE OP, 16: INTRA OP, 17: POST OP, 18: MULT PROC, 19: BILAT SURG
+        # 20: ASST SURG, 21: CO-SURG, 22: TEAM SURG, 23: ENDO BASE, 24: CONV FACTOR
+        # 25: DIAGNOSTIC PROCEDURES, 26: CALCULATION FLAG, 27: FAMILY INDICATOR
+        # 28: NON-FAC PE OPPS, 29: FAC PE OPPS, 30: MP OPPS
+        standard_headers = [
+            'HCPCS', 'MOD', 'DESCRIPTION', 'STATUS CODE', 'NOT USED FOR MEDICARE',
+            'WORK RVU', 'NON-FAC PE RVU', 'NON-FAC NA IND', 'FACILITY PE RVU', 'FAC NA IND',
+            'MP RVU', 'NON-FACILITY TOTAL', 'FACILITY TOTAL', 'PCTC IND', 'GLOB DAYS',
+            'PRE OP', 'INTRA OP', 'POST OP', 'MULT PROC', 'BILAT SURG',
+            'ASST SURG', 'CO-SURG', 'TEAM SURG', 'ENDO BASE', 'CONV FACTOR',
+            'DIAGNOSTIC PROC', 'CALC FLAG', 'FAMILY IND',
+            'NON-FAC PE OPPS', 'FAC PE OPPS', 'MP OPPS'
+        ]
+
+        # Use standard headers or fall back to original if structure differs
+        original_header = all_rows[header_row_idx]
+        if len(original_header) == len(standard_headers):
+            header = standard_headers
+            logger.info(f"  Using standardized column names ({len(header)} columns)")
+        else:
+            header = original_header
+            logger.info(f"  Using original column names ({len(header)} columns)")
+
+        data_rows = all_rows[header_row_idx + 1:]
+
+        # Filter out any remaining non-data rows (empty or partial)
+        valid_rows = []
+        for row in data_rows:
+            # Valid data row should have HCPCS code in first column (alphanumeric)
+            if row and row[0] and len(row[0]) >= 4:
+                # Pad row to match header length if needed
+                while len(row) < len(header):
+                    row.append('')
+                valid_rows.append(row[:len(header)])  # Trim to header length
+
+        logger.info(f"  Found {len(valid_rows)} data rows")
 
         # Write standardized CSV
         with open(dest_path, 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
-            writer.writerows(rows)
+            writer.writerow(header)
+            writer.writerows(valid_rows)
 
-        logger.info(f"  Converted {len(rows)} rows to {dest_path}")
+        logger.info(f"  Converted {len(valid_rows)} rows to {dest_path}")
         return True
 
     except Exception as e:
         logger.error(f"  Error converting RVU file: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
 
