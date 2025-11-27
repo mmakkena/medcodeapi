@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { LayoutDashboard, Key, FileText, CreditCard, LogOut, Sparkles, Mail, Shield } from 'lucide-react';
+import { LayoutDashboard, Key, FileText, CreditCard, LogOut, Sparkles, Mail, Shield, DollarSign } from 'lucide-react';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { user, loading, logout } = useAuth();
@@ -61,6 +61,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </NavLink>
             <NavLink href="/dashboard/playground" icon={<Sparkles className="w-5 h-5" />}>
               MedCode Playground
+            </NavLink>
+            <NavLink href="/dashboard/fee-schedule" icon={<DollarSign className="w-5 h-5" />}>
+              Fee Schedule Analyzer
             </NavLink>
             <NavLink href="/dashboard/docs" icon={<FileText className="w-5 h-5" />}>
               Documentation

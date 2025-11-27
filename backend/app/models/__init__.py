@@ -22,6 +22,11 @@ from app.models.procedure_code_facet import ProcedureCodeFacet
 # Cross-system mappings
 from app.models.code_mapping import CodeMapping
 
+# CMS Fee Schedule models
+from app.models.cms_locality import CMSLocality, ZIPToLocality
+from app.models.mpfs_rate import MPFSRate, ConversionFactor
+from app.models.user_fee_schedule import SavedCodeList, UserFeeScheduleUpload, UserFeeScheduleLineItem
+
 __all__ = [
     "User",
     "APIKey",
@@ -41,4 +46,12 @@ __all__ = [
     "ProcedureCodeFacet",
     # Cross-system mappings
     "CodeMapping",
+    # CMS Fee Schedule models
+    "CMSLocality",
+    "ZIPToLocality",
+    "MPFSRate",
+    "ConversionFactor",
+    "SavedCodeList",
+    "UserFeeScheduleUpload",
+    "UserFeeScheduleLineItem",
 ]
