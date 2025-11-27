@@ -23,6 +23,16 @@
     - [Faceted Search](#get-apiv1procedurefaceted-search)
     - [Get Code Details](#get-apiv1procedurecode)
     - [Suggest Codes](#post-apiv1proceduresuggest)
+  - [Fee Schedule (Medicare)](#fee-schedule-endpoints)
+    - [Price Lookup](#get-apiv1fee-scheduleprice)
+    - [Code Search](#get-apiv1fee-schedulesearch)
+    - [Locality Lookup](#get-apiv1fee-schedulelocality)
+    - [List Localities](#get-apiv1fee-schedulelocalities)
+    - [Available Years](#get-apiv1fee-scheduleyears)
+    - [Conversion Factor](#get-apiv1fee-scheduleconversion-factor)
+    - [Contract Analyzer](#post-apiv1fee-scheduleanalyze)
+    - [Contract Analyzer (CSV)](#post-apiv1fee-scheduleanalyzeupload)
+    - [Saved Code Lists](#fee-schedule-saved-lists)
   - [Legacy Code Suggestions](#code-suggestion-endpoint)
   - [API Key Management](#api-key-management-endpoints)
   - [Usage Tracking](#usage-tracking-endpoints)
@@ -954,6 +964,605 @@ curl -X GET "https://api.nuvii.ai/api/v1/icd10/faceted-search?body_system=Cardio
 
 ---
 
+### Fee Schedule Endpoints
+
+The Fee Schedule API provides access to CMS Medicare Physician Fee Schedule (MPFS) data, including RVU-based price calculations, geographic adjustments (GPCI), and contract analysis tools.
+
+**Key Concepts**:
+- **RVU (Relative Value Units)**: Work RVU, Practice Expense (PE) RVU, and Malpractice (MP) RVU
+- **GPCI (Geographic Practice Cost Indices)**: Location-based cost adjustments
+- **Conversion Factor**: Annual dollar multiplier that converts RVUs to payment amounts
+
+**Price Formula**:
+```
+Price = [(Work RVU × Work GPCI) + (PE RVU × PE GPCI) + (MP RVU × MP GPCI)] × Conversion Factor
+```
+
+---
+
+#### GET /api/v1/fee-schedule/price
+
+Get the Medicare reimbursement price for a CPT/HCPCS code at a specific location.
+
+**Authentication**: API Key (required)
+**Query Parameters**:
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `code` | string | Yes | - | CPT or HCPCS code (e.g., "99213", "J0585") |
+| `zip` | string | Yes | - | 5-digit ZIP code for geographic pricing |
+| `year` | integer | No | 2025 | Fee schedule year |
+| `setting` | string | No | non_facility | "facility" or "non_facility" |
+| `modifier` | string | No | null | Modifier code (TC, 26, etc.) |
+
+**Example Request**:
+
+```bash
+curl -X GET "https://api.nuvii.ai/api/v1/fee-schedule/price?code=99213&zip=10001&year=2025&setting=non_facility" \
+  -H "Authorization: Bearer your_api_key_here"
+```
+
+**Response** (200 OK):
+
+```json
+{
+  "hcpcs_code": "99213",
+  "modifier": null,
+  "description": "Office/outpatient visit, est patient, 20-29 min",
+  "setting": "non_facility",
+  "price": 78.74,
+  "national_price": 86.69,
+  "work_rvu": 1.3,
+  "pe_rvu": 1.46,
+  "mp_rvu": 0.1,
+  "total_rvu": 2.86,
+  "conversion_factor": 32.7442,
+  "locality": {
+    "zip_code": "10001",
+    "locality_code": "01",
+    "locality_name": "Manhattan, NY",
+    "mac_code": "05101",
+    "state": "NY",
+    "work_gpci": 1.0587,
+    "pe_gpci": 1.2183,
+    "mp_gpci": 0.7771,
+    "year": 2025
+  },
+  "global_days": "XXX",
+  "status_code": "A",
+  "year": 2025
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `price` | float | Medicare price adjusted for the specific location |
+| `national_price` | float | National average price (GPCI=1.0) |
+| `work_rvu` | float | Work Relative Value Units |
+| `pe_rvu` | float | Practice Expense RVU (varies by setting) |
+| `mp_rvu` | float | Malpractice RVU |
+| `total_rvu` | float | Sum of all RVUs |
+| `conversion_factor` | float | Annual conversion factor |
+| `locality` | object | Geographic locality with GPCI values |
+
+**Error Responses**:
+- `401`: Missing or invalid API key
+- `404`: Code not found in fee schedule
+- `429`: Rate limit exceeded
+
+---
+
+#### GET /api/v1/fee-schedule/search
+
+Search the fee schedule by CPT/HCPCS code or description.
+
+**Authentication**: API Key (required)
+**Query Parameters**:
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `query` | string | Yes | - | Search by code (e.g., "99213") or description (e.g., "office visit") |
+| `year` | integer | No | 2025 | Fee schedule year |
+| `limit` | integer | No | 20 | Maximum results (1-100) |
+| `offset` | integer | No | 0 | Results offset for pagination |
+
+**Example Request**:
+
+```bash
+curl -X GET "https://api.nuvii.ai/api/v1/fee-schedule/search?query=office%20visit&year=2025&limit=5" \
+  -H "Authorization: Bearer your_api_key_here"
+```
+
+**Response** (200 OK):
+
+```json
+{
+  "query": "office visit",
+  "year": 2025,
+  "count": 5,
+  "results": [
+    {
+      "hcpcs_code": "99211",
+      "modifier": null,
+      "description": "Office/outpatient visit, est patient, minimal",
+      "work_rvu": 0.18,
+      "non_facility_pe_rvu": 0.67,
+      "facility_pe_rvu": 0.18,
+      "mp_rvu": 0.01,
+      "non_facility_total": 0.86,
+      "facility_total": 0.37,
+      "global_days": "XXX",
+      "year": 2025
+    },
+    {
+      "hcpcs_code": "99212",
+      "description": "Office/outpatient visit, est patient, 10-19 min",
+      "work_rvu": 0.7,
+      "non_facility_pe_rvu": 1.02,
+      "facility_pe_rvu": 0.46,
+      "mp_rvu": 0.06,
+      "non_facility_total": 1.78,
+      "facility_total": 1.22,
+      "global_days": "XXX",
+      "year": 2025
+    }
+  ]
+}
+```
+
+**Search Behavior**:
+1. First tries exact code match (e.g., "99213" finds that specific code)
+2. Then tries code prefix match (e.g., "992" finds all 992xx codes)
+3. If no code matches, performs keyword search on descriptions
+
+---
+
+#### GET /api/v1/fee-schedule/locality
+
+Get CMS locality and GPCI values for a ZIP code.
+
+**Authentication**: API Key (required)
+**Query Parameters**:
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `zip` | string | Yes | - | 5-digit ZIP code |
+| `year` | integer | No | 2025 | Fee schedule year |
+
+**Example Request**:
+
+```bash
+curl -X GET "https://api.nuvii.ai/api/v1/fee-schedule/locality?zip=90210&year=2025" \
+  -H "Authorization: Bearer your_api_key_here"
+```
+
+**Response** (200 OK):
+
+```json
+{
+  "zip_code": "90210",
+  "locality_code": "18",
+  "locality_name": "Los Angeles, CA (Suburban)",
+  "mac_code": "01182",
+  "state": "CA",
+  "work_gpci": 1.0372,
+  "pe_gpci": 1.1942,
+  "mp_gpci": 0.8746,
+  "year": 2025
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `locality_code` | string | CMS locality identifier |
+| `locality_name` | string | Human-readable locality name |
+| `mac_code` | string | Medicare Administrative Contractor code |
+| `work_gpci` | float | Work GPCI adjustment factor |
+| `pe_gpci` | float | Practice Expense GPCI adjustment factor |
+| `mp_gpci` | float | Malpractice GPCI adjustment factor |
+
+**Error Responses**:
+- `404`: No locality found for ZIP code
+
+---
+
+#### GET /api/v1/fee-schedule/localities
+
+List all CMS localities with GPCI values.
+
+**Authentication**: API Key (required)
+**Query Parameters**:
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `year` | integer | No | 2025 | Fee schedule year |
+| `state` | string | No | null | Filter by 2-letter state code (e.g., "CA", "NY") |
+
+**Example Request**:
+
+```bash
+curl -X GET "https://api.nuvii.ai/api/v1/fee-schedule/localities?year=2025&state=CA" \
+  -H "Authorization: Bearer your_api_key_here"
+```
+
+**Response** (200 OK):
+
+```json
+{
+  "year": 2025,
+  "state": "CA",
+  "count": 9,
+  "localities": [
+    {
+      "locality_code": "05",
+      "locality_name": "San Francisco, CA",
+      "state": "CA",
+      "work_gpci": 1.0587,
+      "pe_gpci": 1.4551,
+      "mp_gpci": 0.5521,
+      "year": 2025
+    },
+    {
+      "locality_code": "18",
+      "locality_name": "Los Angeles, CA (Suburban)",
+      "state": "CA",
+      "work_gpci": 1.0372,
+      "pe_gpci": 1.1942,
+      "mp_gpci": 0.8746,
+      "year": 2025
+    }
+  ]
+}
+```
+
+---
+
+#### GET /api/v1/fee-schedule/years
+
+Get list of years with available fee schedule data.
+
+**Authentication**: API Key (required)
+
+**Example Request**:
+
+```bash
+curl -X GET "https://api.nuvii.ai/api/v1/fee-schedule/years" \
+  -H "Authorization: Bearer your_api_key_here"
+```
+
+**Response** (200 OK):
+
+```json
+{
+  "years": [2020, 2021, 2022, 2023, 2024, 2025]
+}
+```
+
+---
+
+#### GET /api/v1/fee-schedule/conversion-factor
+
+Get the Medicare conversion factor for a given year.
+
+**Authentication**: API Key (required)
+**Query Parameters**:
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `year` | integer | No | 2025 | Fee schedule year |
+
+**Example Request**:
+
+```bash
+curl -X GET "https://api.nuvii.ai/api/v1/fee-schedule/conversion-factor?year=2025" \
+  -H "Authorization: Bearer your_api_key_here"
+```
+
+**Response** (200 OK):
+
+```json
+{
+  "year": 2025,
+  "conversion_factor": 32.7442,
+  "anesthesia_conversion_factor": 21.1523
+}
+```
+
+**Historical Conversion Factors**:
+| Year | Conversion Factor |
+|------|------------------|
+| 2025 | $32.7442 |
+| 2024 | $32.7442 |
+| 2023 | $33.0607 |
+| 2022 | $34.6062 |
+
+---
+
+#### POST /api/v1/fee-schedule/analyze
+
+Analyze a fee schedule against Medicare baseline to identify underpaid codes.
+
+**Authentication**: API Key (required)
+**Request Body**:
+
+```json
+{
+  "codes": [
+    {"code": "99213", "rate": 75.00, "volume": 500, "description": "Office visit level 3"},
+    {"code": "99214", "rate": 105.00, "volume": 200},
+    {"code": "99215", "rate": 145.00, "volume": 50}
+  ],
+  "zip_code": "10001",
+  "year": 2025,
+  "setting": "non_facility"
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `codes` | array | Yes | List of codes with contracted rates |
+| `codes[].code` | string | Yes | CPT or HCPCS code |
+| `codes[].rate` | float | Yes | Contracted rate |
+| `codes[].volume` | integer | No | Annual volume for revenue impact calculation |
+| `codes[].description` | string | No | Code description |
+| `zip_code` | string | Yes | ZIP code for location-based Medicare pricing |
+| `year` | integer | No | CMS year to compare against (default: 2025) |
+| `setting` | string | No | "facility" or "non_facility" (default) |
+
+**Example Request**:
+
+```bash
+curl -X POST "https://api.nuvii.ai/api/v1/fee-schedule/analyze" \
+  -H "Authorization: Bearer your_api_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "codes": [
+      {"code": "99213", "rate": 75.00, "volume": 500},
+      {"code": "99214", "rate": 105.00, "volume": 200}
+    ],
+    "zip_code": "10001",
+    "year": 2025,
+    "setting": "non_facility"
+  }'
+```
+
+**Response** (200 OK):
+
+```json
+{
+  "total_codes": 2,
+  "codes_matched": 2,
+  "codes_unmatched": 0,
+  "codes_below_medicare": 1,
+  "codes_above_medicare": 1,
+  "codes_equal": 0,
+  "total_variance": -270.00,
+  "total_revenue_impact": -1870.00,
+  "line_items": [
+    {
+      "code": "99213",
+      "description": "Office/outpatient visit, est patient, 20-29 min",
+      "contracted_rate": 75.00,
+      "medicare_rate": 78.74,
+      "variance": -3.74,
+      "variance_pct": -4.75,
+      "is_below_medicare": true,
+      "volume": 500,
+      "revenue_impact": -1870.00
+    },
+    {
+      "code": "99214",
+      "description": "Office/outpatient visit, est patient, 30-39 min",
+      "contracted_rate": 105.00,
+      "medicare_rate": 102.50,
+      "variance": 2.50,
+      "variance_pct": 2.44,
+      "is_below_medicare": false,
+      "volume": 200,
+      "revenue_impact": 500.00
+    }
+  ],
+  "red_flags": [
+    {
+      "code": "99213",
+      "description": "Office/outpatient visit, est patient, 20-29 min",
+      "contracted_rate": 75.00,
+      "medicare_rate": 78.74,
+      "variance": -3.74,
+      "variance_pct": -4.75
+    }
+  ]
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `codes_below_medicare` | int | Count of codes paid less than Medicare |
+| `codes_above_medicare` | int | Count of codes paid more than Medicare |
+| `total_variance` | float | Sum of all variances (contracted - Medicare) |
+| `total_revenue_impact` | float | Total revenue impact based on volumes |
+| `red_flags` | array | Codes more than 10% below Medicare rates |
+
+**Use Cases**:
+- Contract negotiation: Identify underpaid codes before payer negotiations
+- Revenue analysis: Quantify impact of below-Medicare reimbursement
+- Compliance: Ensure contracted rates meet minimum thresholds
+
+---
+
+#### POST /api/v1/fee-schedule/analyze/upload
+
+Upload a CSV file for contract analysis against Medicare rates.
+
+**Authentication**: API Key (required)
+**Content-Type**: multipart/form-data
+
+**Query Parameters**:
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `zip_code` | string | Yes | - | ZIP code for location-based pricing |
+| `year` | integer | No | 2025 | CMS year to compare against |
+| `setting` | string | No | non_facility | "facility" or "non_facility" |
+
+**CSV Format**:
+
+```csv
+code,rate,volume,description
+99213,75.00,500,Office visit level 3
+99214,105.00,200,Office visit level 4
+99215,145.00,50,Office visit level 5
+```
+
+**Required Columns** (case-insensitive, alternate names supported):
+- `code` (or `CPT`, `HCPCS`): CPT/HCPCS code
+- `rate` (or `price`, `contracted_rate`): Contracted rate
+
+**Optional Columns**:
+- `volume` (or `annual_volume`): Annual volume for revenue impact
+- `description`: Code description
+
+**Example Request**:
+
+```bash
+curl -X POST "https://api.nuvii.ai/api/v1/fee-schedule/analyze/upload?zip_code=10001&year=2025&setting=non_facility" \
+  -H "Authorization: Bearer your_api_key_here" \
+  -F "file=@fee_schedule.csv"
+```
+
+**Response**: Same as `/api/v1/fee-schedule/analyze`
+
+**Error Responses**:
+- `400`: No valid codes found in CSV file
+- `401`: Missing or invalid API key
+
+---
+
+### Fee Schedule Saved Lists
+
+Manage saved code lists for quick access to frequently used codes. Requires JWT authentication.
+
+#### GET /api/v1/fee-schedule/lists
+
+Get all saved code lists for the current user.
+
+**Authentication**: JWT Bearer Token (required)
+
+**Example Request**:
+
+```bash
+curl -X GET "https://api.nuvii.ai/api/v1/fee-schedule/lists" \
+  -H "Authorization: Bearer your_jwt_token"
+```
+
+**Response** (200 OK):
+
+```json
+{
+  "count": 2,
+  "lists": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "Primary Care E/M Codes",
+      "description": "Frequently billed office visit codes",
+      "codes": [
+        {"code": "99213", "notes": "Level 3 established"},
+        {"code": "99214", "notes": "Level 4 established"}
+      ],
+      "created_at": "2025-01-15T10:30:00Z",
+      "updated_at": "2025-01-20T14:00:00Z"
+    }
+  ]
+}
+```
+
+---
+
+#### POST /api/v1/fee-schedule/lists
+
+Create a new saved code list.
+
+**Authentication**: JWT Bearer Token (required)
+**Request Body**:
+
+```json
+{
+  "name": "Cardiology Procedures",
+  "description": "Common cardiology CPT codes",
+  "codes": [
+    {"code": "93000", "notes": "ECG with interpretation"},
+    {"code": "93306", "notes": "Echo with Doppler"}
+  ]
+}
+```
+
+**Response** (201 Created):
+
+```json
+{
+  "id": "123e4567-e89b-12d3-a456-426614174001",
+  "name": "Cardiology Procedures",
+  "description": "Common cardiology CPT codes",
+  "codes": [
+    {"code": "93000", "notes": "ECG with interpretation"},
+    {"code": "93306", "notes": "Echo with Doppler"}
+  ],
+  "created_at": "2025-01-20T15:00:00Z",
+  "updated_at": "2025-01-20T15:00:00Z"
+}
+```
+
+---
+
+#### GET /api/v1/fee-schedule/lists/{list_id}
+
+Get a specific saved code list.
+
+**Authentication**: JWT Bearer Token (required)
+
+**Response**: Same as single item in list response
+
+**Error Responses**:
+- `404`: List not found
+
+---
+
+#### PUT /api/v1/fee-schedule/lists/{list_id}
+
+Update a saved code list.
+
+**Authentication**: JWT Bearer Token (required)
+**Request Body**:
+
+```json
+{
+  "name": "Updated List Name",
+  "codes": [
+    {"code": "99213", "notes": "Updated notes"}
+  ]
+}
+```
+
+All fields are optional - only include fields you want to update.
+
+---
+
+#### DELETE /api/v1/fee-schedule/lists/{list_id}
+
+Delete a saved code list.
+
+**Authentication**: JWT Bearer Token (required)
+
+**Response** (200 OK):
+
+```json
+{
+  "message": "List deleted successfully"
+}
+```
+
+---
+
 ### Code Suggestion Endpoint
 
 #### POST /api/v1/suggest
@@ -1557,7 +2166,16 @@ For questions, issues, or feature requests:
 
 ## Changelog
 
-### v1.0.0 (Current)
+### v1.1.0 (Current)
+- **NEW**: Medicare Fee Schedule API
+  - Price lookup with RVU-based calculations
+  - Geographic adjustments (GPCI) by ZIP code
+  - Code search with RVU details
+  - Contract Analyzer for comparing rates against Medicare
+  - CSV upload for bulk contract analysis
+  - Saved code lists for user management
+
+### v1.0.0
 - JWT and API key authentication
 - ICD-10 code search
 - CPT code search
