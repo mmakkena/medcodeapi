@@ -68,7 +68,7 @@ TASK_ARN=$(aws ecs run-task \
     --overrides "{
         \"containerOverrides\": [{
             \"name\": \"nuvii-batch\",
-            \"command\": [\"sh\", \"-c\", \"python scripts/download_feescheduler_cms_data.py --year $YEAR && python scripts/load_fee_schedule_data.py --year $YEAR --gpci-file data/fee_schedule/$YEAR/gpci_$YEAR.csv --zip-file data/fee_schedule/$YEAR/zip_locality_$YEAR.csv && echo FEE_SCHEDULE_LOAD_COMPLETE\"]
+            \"command\": [\"sh\", \"-c\", \"if [ ! -f data/fee_schedule/$YEAR/gpci_$YEAR.csv ]; then echo 'CSV files not found, downloading...' && python scripts/download_feescheduler_cms_data.py --year $YEAR; fi && python scripts/load_fee_schedule_data.py --year $YEAR --gpci-file data/fee_schedule/$YEAR/gpci_$YEAR.csv --zip-file data/fee_schedule/$YEAR/zip_locality_$YEAR.csv && echo FEE_SCHEDULE_LOAD_COMPLETE\"]
         }]
     }" \
     --query 'tasks[0].taskArn' \
