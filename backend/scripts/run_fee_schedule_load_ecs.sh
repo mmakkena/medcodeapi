@@ -28,6 +28,7 @@ SECURITY_GROUPS="sg-080fcd566f9302e10"
 
 # Default year
 YEAR=2025
+LOAD_RVU=false
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -36,9 +37,15 @@ while [[ $# -gt 0 ]]; do
             YEAR="$2"
             shift 2
             ;;
+        --load-rvu)
+            LOAD_RVU=true
+            shift
+            ;;
         *)
             echo "Unknown option: $1"
-            echo "Usage: $0 [--year YEAR]"
+            echo "Usage: $0 [--year YEAR] [--load-rvu]"
+            echo "  --year YEAR    Fee schedule year (default: 2025)"
+            echo "  --load-rvu     Also load full RVU data (18,875 codes)"
             exit 1
             ;;
     esac
@@ -48,15 +55,24 @@ echo -e "${GREEN}=== CMS Fee Schedule Data Load via ECS ===${NC}"
 echo "Year: $YEAR"
 echo "Cluster: $CLUSTER"
 echo "Task Definition: $TASK_DEFINITION"
+echo "Load RVU: $LOAD_RVU"
 echo ""
 
-# Step 1: Run download and load task
-echo -e "${YELLOW}Starting fee schedule data load task...${NC}"
-echo "This will:"
-echo "  1. Download CMS RVU package (~4MB)"
-echo "  2. Download ZIP locality file (~5MB)"
-echo "  3. Load GPCI data (~110 localities)"
-echo "  4. Load ZIP locality mappings (~43,000 ZIP codes)"
+# Build the load command based on options
+if [ "$LOAD_RVU" = true ]; then
+    LOAD_CMD="python scripts/load_fee_schedule_data.py --year $YEAR --gpci-file data/fee_schedule/$YEAR/gpci_$YEAR.csv --zip-file data/fee_schedule/$YEAR/zip_locality_$YEAR.csv --mpfs-file data/fee_schedule/$YEAR/mpfs_rvu_$YEAR.csv"
+    echo -e "${YELLOW}Starting fee schedule data load task (with full RVU)...${NC}"
+    echo "This will load:"
+    echo "  - GPCI data (~110 localities)"
+    echo "  - ZIP locality mappings (~43,000 ZIP codes)"
+    echo "  - MPFS RVU data (~18,875 codes)"
+else
+    LOAD_CMD="python scripts/load_fee_schedule_data.py --year $YEAR --gpci-file data/fee_schedule/$YEAR/gpci_$YEAR.csv --zip-file data/fee_schedule/$YEAR/zip_locality_$YEAR.csv"
+    echo -e "${YELLOW}Starting fee schedule data load task...${NC}"
+    echo "This will load:"
+    echo "  - GPCI data (~110 localities)"
+    echo "  - ZIP locality mappings (~43,000 ZIP codes)"
+fi
 echo ""
 
 TASK_ARN=$(aws ecs run-task \
@@ -68,7 +84,7 @@ TASK_ARN=$(aws ecs run-task \
     --overrides "{
         \"containerOverrides\": [{
             \"name\": \"nuvii-batch\",
-            \"command\": [\"sh\", \"-c\", \"if [ ! -f data/fee_schedule/$YEAR/gpci_$YEAR.csv ]; then echo 'CSV files not found, downloading...' && python scripts/download_feescheduler_cms_data.py --year $YEAR; fi && python scripts/load_fee_schedule_data.py --year $YEAR --gpci-file data/fee_schedule/$YEAR/gpci_$YEAR.csv --zip-file data/fee_schedule/$YEAR/zip_locality_$YEAR.csv && echo FEE_SCHEDULE_LOAD_COMPLETE\"]
+            \"command\": [\"sh\", \"-c\", \"if [ ! -f data/fee_schedule/$YEAR/gpci_$YEAR.csv ]; then echo 'CSV files not found, downloading...' && python scripts/download_feescheduler_cms_data.py --year $YEAR; fi && $LOAD_CMD && echo FEE_SCHEDULE_LOAD_COMPLETE\"]
         }]
     }" \
     --query 'tasks[0].taskArn' \
