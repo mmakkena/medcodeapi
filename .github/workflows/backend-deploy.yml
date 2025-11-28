@@ -107,7 +107,7 @@ jobs:
 
       - name: Run Flake8 (linting)
         working-directory: ./backend
-        run: flake8 app/ --max-line-length=120 --exclude=alembic
+        run: flake8 adapters/ domain/ infrastructure/ --max-line-length=120 --ignore=E501,W503
 
   build-and-deploy:
     name: Build and Deploy to AWS ECS

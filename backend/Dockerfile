@@ -23,5 +23,10 @@ COPY . .
 # Expose port
 EXPOSE 8000
 
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python -c "import httpx; httpx.get('http://localhost:8000/health')" || exit 1
+
 # Run migrations and start server
-CMD ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"]
+# Updated path: adapters.api.main:app (refactored from app.main:app)
+CMD ["sh", "-c", "alembic upgrade head && uvicorn adapters.api.main:app --host 0.0.0.0 --port 8000"]

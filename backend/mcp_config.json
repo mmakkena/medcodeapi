@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "nuvii-cdi-agent": {
+      "command": "python",
+      "args": ["-m", "adapters.mcp.server"],
+      "cwd": "/Users/murali.local/nuvii-cdi-agent/backend",
+      "env": {
+        "PYTHONPATH": "/Users/murali.local/nuvii-cdi-agent/backend",
+        "DATABASE_URL": "${DATABASE_URL}",
+        "ENVIRONMENT": "development"
+      }
+    }
+  }
+}

@@ -160,3 +160,260 @@ export const savedListsAPI = {
 
   deleteList: (id: string) => api.delete(`/api/v1/fee-schedule/lists/${id}`),
 };
+
+// =============================================================================
+// CDI Analysis API (requires API key)
+// =============================================================================
+export interface NoteAnalysisRequest {
+  clinical_note: string;
+  include_suggestions?: boolean;
+  include_gaps?: boolean;
+  include_entities?: boolean;
+}
+
+export interface CDIQueryRequest {
+  clinical_note: string;
+  gap_type?: 'specificity' | 'acuity' | 'comorbidity' | 'medical_necessity';
+  query_style?: 'open_ended' | 'yes_no' | 'documentation_based';
+}
+
+export const cdiAPI = {
+  // Analyze clinical note for documentation gaps
+  analyzeNote: (request: NoteAnalysisRequest, apiKey: string) =>
+    axios.post(`${API_URL}/api/v1/cdi/analyze`, request, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  // Detect documentation gaps
+  detectGaps: (clinicalNote: string, apiKey: string) =>
+    axios.post(
+      `${API_URL}/api/v1/cdi/gaps`,
+      { clinical_note: clinicalNote },
+      { headers: { Authorization: `Bearer ${apiKey}` } }
+    ),
+
+  // Extract clinical entities
+  extractEntities: (clinicalNote: string, apiKey: string) =>
+    axios.post(
+      `${API_URL}/api/v1/cdi/entities`,
+      { clinical_note: clinicalNote },
+      { headers: { Authorization: `Bearer ${apiKey}` } }
+    ),
+
+  // Generate CDI query for physicians
+  generateQuery: (request: CDIQueryRequest, apiKey: string) =>
+    axios.post(`${API_URL}/api/v1/cdi/generate-query`, request, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  // Get user's CDI query history (requires JWT)
+  getQueryHistory: (limit = 50) =>
+    api.get(`/api/v1/cdi/query-history?limit=${limit}`),
+
+  // Search CDI guidelines
+  searchGuidelines: (query: string, apiKey: string, limit = 10) =>
+    axios.get(`${API_URL}/api/v1/cdi/guidelines`, {
+      params: { query, limit },
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  // Get guidelines for a specific condition
+  getGuidelinesByCondition: (condition: string, apiKey: string) =>
+    axios.get(`${API_URL}/api/v1/cdi/guidelines/${encodeURIComponent(condition)}`, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+};
+
+// =============================================================================
+// Revenue Optimization API (requires API key)
+// =============================================================================
+export interface RevenueAnalysisRequest {
+  clinical_note: string;
+  setting?: 'inpatient' | 'outpatient' | 'ed' | 'observation';
+  patient_type?: 'new' | 'established' | 'initial' | 'subsequent';
+  include_em_coding?: boolean;
+  include_hcc?: boolean;
+  include_drg?: boolean;
+}
+
+export interface InvestigationRequest {
+  clinical_note: string;
+  condition?: string;
+  severity_level?: string;
+}
+
+export const revenueAPI = {
+  // Full revenue analysis
+  analyze: (request: RevenueAnalysisRequest, apiKey: string) =>
+    axios.post(`${API_URL}/api/v1/revenue/analyze`, request, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  // E/M coding analysis only
+  analyzeEMCoding: (
+    clinicalNote: string,
+    setting: string,
+    patientType: string,
+    apiKey: string
+  ) =>
+    axios.post(
+      `${API_URL}/api/v1/revenue/em-coding`,
+      {
+        clinical_note: clinicalNote,
+        setting,
+        patient_type: patientType,
+      },
+      { headers: { Authorization: `Bearer ${apiKey}` } }
+    ),
+
+  // HCC risk adjustment analysis
+  analyzeHCC: (diagnoses: string[], modelVersion: string, apiKey: string) =>
+    axios.post(
+      `${API_URL}/api/v1/revenue/hcc`,
+      { diagnoses, model_version: modelVersion },
+      { headers: { Authorization: `Bearer ${apiKey}` } }
+    ),
+
+  // DRG optimization analysis
+  analyzeDRG: (
+    principalDiagnosis: string,
+    secondaryDiagnoses: string[],
+    procedures: string[],
+    apiKey: string
+  ) =>
+    axios.post(
+      `${API_URL}/api/v1/revenue/drg`,
+      {
+        principal_diagnosis: principalDiagnosis,
+        secondary_diagnoses: secondaryDiagnoses,
+        procedures,
+      },
+      { headers: { Authorization: `Bearer ${apiKey}` } }
+    ),
+
+  // Get recommended investigations
+  recommendInvestigations: (request: InvestigationRequest, apiKey: string) =>
+    axios.post(`${API_URL}/api/v1/revenue/investigations`, request, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  // Get investigation protocols for a condition
+  getInvestigationProtocols: (condition: string, apiKey: string, severityLevel?: string) =>
+    axios.get(`${API_URL}/api/v1/revenue/investigation-protocols/${encodeURIComponent(condition)}`, {
+      params: { severity_level: severityLevel },
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+};
+
+// =============================================================================
+// Quality Measures API (requires API key)
+// =============================================================================
+export interface HEDISRequest {
+  clinical_note: string;
+  patient_age: number;
+  patient_gender: 'male' | 'female';
+  icd10_codes?: string[];
+  generate_queries?: boolean;
+}
+
+export const qualityAPI = {
+  // Full HEDIS evaluation
+  evaluateHEDIS: (request: HEDISRequest, apiKey: string) =>
+    axios.post(`${API_URL}/api/v1/quality/hedis`, request, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  // List available HEDIS measures
+  getHEDISMeasures: (apiKey: string) =>
+    axios.get(`${API_URL}/api/v1/quality/hedis/measures`, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  // Get HEDIS evaluation history (requires JWT)
+  getHEDISHistory: (limit = 50) =>
+    api.get(`/api/v1/quality/hedis/history?limit=${limit}`),
+
+  // Comprehensive quality analysis
+  analyzeComprehensive: (
+    clinicalNote: string,
+    patientAge: number,
+    patientGender: string,
+    apiKey: string
+  ) =>
+    axios.post(
+      `${API_URL}/api/v1/quality/comprehensive`,
+      {
+        clinical_note: clinicalNote,
+        patient_age: patientAge,
+        patient_gender: patientGender,
+      },
+      { headers: { Authorization: `Bearer ${apiKey}` } }
+    ),
+};
+
+// =============================================================================
+// Enhanced Code Search API (requires API key)
+// =============================================================================
+export const codesAPI = {
+  // ICD-10 Search
+  searchICD10: (query: string, apiKey: string, limit = 10) =>
+    axios.get(`${API_URL}/api/v1/codes/icd10/search`, {
+      params: { query, limit },
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  searchICD10Semantic: (query: string, apiKey: string, limit = 10) =>
+    axios.get(`${API_URL}/api/v1/codes/icd10/semantic`, {
+      params: { query, limit },
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  searchICD10Hybrid: (query: string, apiKey: string, semanticWeight = 0.7, limit = 10) =>
+    axios.get(`${API_URL}/api/v1/codes/icd10/hybrid`, {
+      params: { query, semantic_weight: semanticWeight, limit },
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  getICD10ByCode: (code: string, apiKey: string) =>
+    axios.get(`${API_URL}/api/v1/codes/icd10/${code}`, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  searchICD10Faceted: (params: Record<string, string | number | boolean>, apiKey: string) =>
+    axios.get(`${API_URL}/api/v1/codes/icd10/faceted`, {
+      params,
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  // CPT/HCPCS Procedure Search
+  searchProcedure: (query: string, apiKey: string, limit = 10) =>
+    axios.get(`${API_URL}/api/v1/codes/procedure/search`, {
+      params: { query, limit },
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  searchProcedureSemantic: (query: string, apiKey: string, limit = 10) =>
+    axios.get(`${API_URL}/api/v1/codes/procedure/semantic`, {
+      params: { query, limit },
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  searchProcedureHybrid: (query: string, apiKey: string, semanticWeight = 0.7, limit = 10) =>
+    axios.get(`${API_URL}/api/v1/codes/procedure/hybrid`, {
+      params: { query, semantic_weight: semanticWeight, limit },
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  getProcedureByCode: (code: string, apiKey: string) =>
+    axios.get(`${API_URL}/api/v1/codes/procedure/${code}`, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    }),
+
+  // Code Suggestions from Clinical Text
+  suggestCodes: (text: string, apiKey: string, codeTypes = ['icd10', 'cpt']) =>
+    axios.post(
+      `${API_URL}/api/v1/codes/suggest`,
+      { text, code_types: codeTypes },
+      { headers: { Authorization: `Bearer ${apiKey}` } }
+    ),
+};
